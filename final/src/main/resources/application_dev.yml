@@ -1,0 +1,24 @@
+server:
+  port: 7000
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/finaldb
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 123
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+  output:
+    ansi:
+      enabled: always
+logging:
+  level:
+    '[org.springframework.web]': DEBUG
+    '[site.metacoding.final]': DEBUG

@@ -21,9 +21,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.config.enums.Role;
+import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.LoginDto;
 
-@Sql("classpath:sql/dml.sql")
+// @Sql("classpath:sql/dml.sql")
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -31,62 +32,56 @@ import site.metacoding.finals.dto.LoginDto;
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 public class JWTAuthFilterTest {
 
-    @Autowired
-    private ObjectMapper om;
-    @Autowired
-    private MockMvc mvc;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+        @Autowired
+        private ObjectMapper om;
+        @Autowired
+        private MockMvc mvc;
+        @Autowired
+        private BCryptPasswordEncoder bCryptPasswordEncoder;
+        @Autowired
+        private UserRepository userRepository;
 
-    @BeforeEach
-    public void settup() throws Exception {
-        // given
-        LoginDto loginDto = LoginDto.builder()
-                .username("test")
-                .password(bCryptPasswordEncoder.encode(("123")))
-                .role("USER")
-                .build();
+        @BeforeEach
+        public void settup() throws Exception {
+                // given
+                LoginDto loginDto = LoginDto.builder()
+                                .username("test")
+                                .password(bCryptPasswordEncoder.encode(("123")))
+                                .role("USER")
+                                .build();
 
-        String body = om.writeValueAsString(loginDto);
+                userRepository.save(loginDto.toEntity());
+        }
 
-        // when
-        ResultActions resultActions = mvc.perform(
-                MockMvcRequestBuilders.post("/join")
-                        .content(body)
-                        .contentType("application/json; charset=utf-8")
-                        .accept("application/json; charset=utf-8"));
+        @Test
+        public void 필터테스트() throws Exception {
+                // given
+                LoginDto loginDto = LoginDto.builder()
+                                .username("test")
+                                .password("123")
+                                .role("USER")
+                                .build();
 
-    }
+                String body = om.writeValueAsString(loginDto);
 
-    @Test
-    public void 필터테스트() throws Exception {
-        // given
-        LoginDto loginDto = LoginDto.builder()
-                .username("test")
-                .password("123")
-                .role("USER")
-                .build();
+                // when
+                ResultActions resultActions = mvc.perform(
+                                MockMvcRequestBuilders.post("/login")
+                                                .content(body)
+                                                .contentType("application/json; charset=utf-8")
+                                                .accept("application/json; charset=utf-8"));
 
-        String body = om.writeValueAsString(loginDto);
+                // then
+                resultActions.andExpect(MockMvcResultMatchers.status().is3xxRedirection()); // /로 이동하므로 302 가 나옴
 
-        // when
-        ResultActions resultActions = mvc.perform(
-                MockMvcRequestBuilders.post("/login")
-                        .content(body)
-                        .contentType("application/json; charset=utf-8")
-                        .accept("application/json; charset=utf-8"));
+        }
 
-        // then
-        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.code").value(200));
+        @Test
+        public void 메인테스트() throws Exception {
+                ResultActions resultActions = mvc.perform(
+                                MockMvcRequestBuilders.get("/")
+                                                .accept("application/json; charset=utf-8"));
 
-    }
-
-    @Test
-    public void 메인테스트() throws Exception {
-        ResultActions resultActions = mvc.perform(
-                MockMvcRequestBuilders.get("/")
-                        .accept("application/json; charset=utf-8"));
-
-        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.code").value(200));
-    }
+                resultActions.andExpect(MockMvcResultMatchers.status().isOk());
+        }
 }

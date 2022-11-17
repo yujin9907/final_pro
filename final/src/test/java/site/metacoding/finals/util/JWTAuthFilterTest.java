@@ -1,11 +1,13 @@
 package site.metacoding.finals.util;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
@@ -33,8 +35,29 @@ public class JWTAuthFilterTest {
     private ObjectMapper om;
     @Autowired
     private MockMvc mvc;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    // @WithMockUser(username = "user", password = "123", roles = "USER")
+    @BeforeEach
+    public void settup() throws Exception {
+        // given
+        LoginDto loginDto = LoginDto.builder()
+                .username("test")
+                .password(bCryptPasswordEncoder.encode(("123")))
+                .role("USER")
+                .build();
+
+        String body = om.writeValueAsString(loginDto);
+
+        // when
+        ResultActions resultActions = mvc.perform(
+                MockMvcRequestBuilders.post("/join")
+                        .content(body)
+                        .contentType("application/json; charset=utf-8")
+                        .accept("application/json; charset=utf-8"));
+
+    }
+
     @Test
     public void 필터테스트() throws Exception {
         // given

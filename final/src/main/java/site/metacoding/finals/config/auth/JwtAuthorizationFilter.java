@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 
-// @Profile("dev")
+@Profile("dev")
 @Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 

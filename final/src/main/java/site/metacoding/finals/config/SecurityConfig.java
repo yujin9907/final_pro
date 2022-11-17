@@ -40,7 +40,7 @@ public class SecurityConfig {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .formLogin().disable() // 사용하지 않음 -> 필터로 로그인 처리함
+                .formLogin().disable() // 로그인 관련 설정
                 .httpBasic().disable()
                 .apply(new MyCustomDsl())
                 .and()
@@ -50,7 +50,6 @@ public class SecurityConfig {
                 .antMatchers("/user/**").access("hasRole('USER')")
                 .antMatchers("/pro/**").access("hasRole('SHOP')")
                 .anyRequest().permitAll();
-        // login 관련 설정
 
         return http.build();
     }

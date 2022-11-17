@@ -37,22 +37,21 @@ public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter
 
         // 1. username,password 를 받아서
         try {
-            System.out.println(request.getInputStream().toString());
+            // System.out.println(request.getInputStream().toString());
             ObjectMapper om = new ObjectMapper();
             LoginDto loginDto = om.readValue(request.getInputStream(), LoginDto.class);
-            System.out.println(loginDto.getUsername());
+            // System.out.println(loginDto.getUsername());
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     loginDto.getUsername(), loginDto.getPassword());
 
-            System.out.println("저장됨??????????");
+            // System.out.println("저장됨??????????");
 
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
-            System.out.println("------------실행됨-------------------");
-
-            PrincipalUser testuser = (PrincipalUser) authentication.getPrincipal();
-            System.out.println(testuser.getUsername());
+            // System.out.println("------------실행됨-------------------");
+            // PrincipalUser testuser = (PrincipalUser) authentication.getPrincipal();
+            // System.out.println(testuser.getUsername());
 
             return authentication;
         } catch (Exception e) {

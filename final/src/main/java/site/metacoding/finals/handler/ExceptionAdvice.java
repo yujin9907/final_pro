@@ -11,8 +11,8 @@ import site.metacoding.finals.dto.ResponseDto;
 public class ExceptionAdvice {
 
     @ExceptionHandler(Exception.class)
-    public ResponseDto<?> globalException(int httpCode, Exception e) {
+    public ResponseDto<?> globalException(Exception e) {
         log.debug("디버그 : " + e);
-        return new ResponseDto<>(httpCode, e.getMessage(), null);
+        return new ResponseDto<>(-1, e.getMessage(), null);
     }
 }

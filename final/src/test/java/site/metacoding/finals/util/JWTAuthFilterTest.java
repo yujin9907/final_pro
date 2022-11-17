@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.dto.LoginDto;
 
-@Sql("classpath:dml.sql")
+@Sql("classpath:sql/dml.sql")
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -33,17 +33,15 @@ public class JWTAuthFilterTest {
     private ObjectMapper om;
     @Autowired
     private MockMvc mvc;
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     // @WithMockUser(username = "user", password = "123", roles = "USER")
     @Test
-    public void 유저정보보기테스트() throws Exception {
+    public void 필터테스트() throws Exception {
         // given
         LoginDto loginDto = LoginDto.builder()
                 .username("test")
                 .password("123")
-                .roles("USER")
+                .role("USER")
                 .build();
 
         String body = om.writeValueAsString(loginDto);
@@ -56,7 +54,16 @@ public class JWTAuthFilterTest {
                         .accept("application/json; charset=utf-8"));
 
         // then
-        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.code").value(true));
+        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.code").value(200));
 
+    }
+
+    @Test
+    public void 메인테스트() throws Exception {
+        ResultActions resultActions = mvc.perform(
+                MockMvcRequestBuilders.get("/")
+                        .accept("application/json; charset=utf-8"));
+
+        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.code").value(200));
     }
 }

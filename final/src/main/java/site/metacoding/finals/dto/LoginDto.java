@@ -4,14 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import site.metacoding.finals.config.enums.Role;
+import site.metacoding.finals.domain.user.User;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Setter
 @Getter
 public class LoginDto {
     private String username;
     private String password;
-    private String roles;
+    private String role;
+
+    public User toEntity() {
+        return User.builder()
+                .username(this.username)
+                .password(this.password)
+                .role(Role.USER)
+                .build();
+    }
 }

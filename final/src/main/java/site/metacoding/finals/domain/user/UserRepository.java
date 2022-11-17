@@ -7,4 +7,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // findBy규칙 : 문법
     public User findByUsername(String username);
+
 }

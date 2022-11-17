@@ -13,6 +13,7 @@ spring:
     console:
       enabled: true
   jpa:
+    open-in-view: true
     hibernate:
       ddl-auto: create
   output:
@@ -21,4 +22,4 @@ spring:
 logging:
   level:
     '[org.springframework.web]': DEBUG
-    '[com.example.side]': DEBUG
+    '[site.metacoding.finals]': DEBUG

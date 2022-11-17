@@ -36,4 +36,9 @@ public class TestController {
         return new ResponseDto<>(1, "ok", userRepository.save(user));
     }
 
+    @GetMapping("/api/user/test")
+    public void test() {
+        System.out.println("실행됨");
+    }
+
 }

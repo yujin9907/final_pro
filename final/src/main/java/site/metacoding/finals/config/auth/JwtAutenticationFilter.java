@@ -79,7 +79,7 @@ public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter
                 .sign(Algorithm.HMAC256("SPRING_SECURITY_FORM_PASSWORD_KEY"));
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
-        super.successfulAuthentication(request, response, chain, authResult);
+        // super.successfulAuthentication(request, response, chain, authResult);
         System.out.println("로그인 완료");
     }
 

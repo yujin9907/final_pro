@@ -48,7 +48,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         // JWT 토큰을 검증해서 정상적인 사용자인지 확인
         String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
 
-        String username = JWT.require(Algorithm.HMAC512("cos"))
+        String username = JWT.require(Algorithm.HMAC256("SPRING_SECURITY_FORM_PASSWORD_KEY"))
                 .build()
                 .verify(jwtToken)
                 .getClaim("username")

@@ -78,9 +78,14 @@ public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter
                 .withClaim("role", principalUser.getAuthorities().toString())
                 .sign(Algorithm.HMAC256("SPRING_SECURITY_FORM_PASSWORD_KEY"));
 
-        response.addHeader("Authorization", "Bearer " + jwtToken);
         // super.successfulAuthentication(request, response, chain, authResult);
+        response.addHeader("Authorization", "Bearer " + jwtToken);
+        // 이년이 뭐하는
+        // 년이길래 필터를 막았는지. 애초에 막기는 함? 뭐하는 년인지 알앙보기
         System.out.println("로그인 완료");
+
+        chain.doFilter(request, response); // login user로 컨트룰러로 구현하든가, 아니면 여기서 응답 데이터 주기
+        // 이 체인을 연결하지 않고 그대로 해더값만 넘겨줘야 될 수도
     }
 
 }

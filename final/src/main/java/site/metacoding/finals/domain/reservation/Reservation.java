@@ -3,6 +3,9 @@ package site.metacoding.finals.domain.reservation;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -20,6 +23,8 @@ import site.metacoding.finals.domain.merchandise.Merchandise;
 @AllArgsConstructor
 @Entity
 public class Reservation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
     private Timestamp createAt;
     @ManyToOne

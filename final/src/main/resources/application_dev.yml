@@ -2,6 +2,9 @@ server:
   port: 7000
   servlet:
     context-path: /
+    encoding:
+      charset: utf-8
+      force: true
 
 spring:
   datasource:
@@ -16,6 +19,7 @@ spring:
     open-in-view: true
     hibernate:
       ddl-auto: create
+    show-sql: true
   output:
     ansi:
       enabled: always

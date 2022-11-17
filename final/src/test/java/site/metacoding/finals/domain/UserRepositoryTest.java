@@ -6,10 +6,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.ActiveProfiles;
 
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.config.enums.Role;
@@ -18,7 +17,8 @@ import site.metacoding.finals.domain.user.UserRepository;
 
 @Slf4j
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+// @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 public class UserRepositoryTest {
 
     @Autowired
@@ -36,7 +36,7 @@ public class UserRepositoryTest {
                 .role(Role.USER)
                 .build();
 
-        log.debug("디버그 : " + user.getUsername());
+        // log.debug("디버그 : " + user.getUsername());
 
         // when
         User userR = userRepository.save(user);

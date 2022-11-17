@@ -3,6 +3,9 @@ package site.metacoding.finals.domain.menu;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -18,6 +21,8 @@ import site.metacoding.finals.domain.shop.Shop;
 @AllArgsConstructor
 @Entity
 public class Menu {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long menuId;
     private String menuName;
     private Integer menuPrice;

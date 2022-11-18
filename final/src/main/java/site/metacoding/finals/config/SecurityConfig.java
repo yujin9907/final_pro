@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 // url 별 권한설정
                 .antMatchers("/auth/**").authenticated()
-                .antMatchers("/user/**").access("hasRole('USER')")
+                .antMatchers("/auth/user/**").access("hasRole('USER')")
                 .antMatchers("/pro/**").access("hasRole('SHOP')")
                 .anyRequest().permitAll();
 

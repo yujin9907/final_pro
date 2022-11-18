@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.auth0.jwt.JWT;
@@ -84,8 +83,11 @@ public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter
         // 년이길래 필터를 막았는지. 애초에 막기는 함? 뭐하는 년인지 알앙보기
         System.out.println("로그인 완료");
 
-        chain.doFilter(request, response); // login user로 컨트룰러로 구현하든가, 아니면 여기서 응답 데이터 주기
+        // chain.doFilter(request, response); // login user로 컨트룰러로 구현하든가, 아니면 여기서 응답 데이터
+        // 주기
         // 이 체인을 연결하지 않고 그대로 해더값만 넘겨줘야 될 수도
+        // 이렇게 하지 않고 여기서 응답을 구현해야 됨
+
     }
 
 }

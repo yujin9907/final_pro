@@ -45,6 +45,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
+        System.out.println("-------------여기까지 검증-------------");
+
         // JWT 토큰을 검증해서 정상적인 사용자인지 확인
         String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
 
@@ -64,11 +66,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null,
                     principalDetails.getAuthorities());
 
+            System.out.println(userEntity.getRole());
+            System.out.println(principalDetails.getPassword() + " " + principalDetails.getAuthorities());
+            System.out.println(authentication.getPrincipal() + " " + authentication.getAuthorities());
+            System.out.println("-------------여기까지 검증2-------------");
+
             // 강제로 Security 세션에 접근하여 Authentication 객체를 저장
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // 체인을 타게 한다.
-            chain.doFilter(request, response);
         }
+        // 체인을 타게 한다.
+        chain.doFilter(request, response);
+
     }
 }

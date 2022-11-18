@@ -22,4 +22,5 @@ spring:
       enabled: always
 logging:
   level:
+    '[org.springframework.web]': DEBUG
     '[site.metacoding.finals]': DEBUG

@@ -33,6 +33,7 @@ dependencies {
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	// 서드파티
 	implementation group: 'com.auth0', name: 'java-jwt', version: '3.10.3'
+	compile 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 }
 

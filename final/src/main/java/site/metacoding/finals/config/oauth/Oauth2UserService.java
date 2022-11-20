@@ -15,7 +15,7 @@ import site.metacoding.finals.domain.user.User;
 @Service
 public class Oauth2UserService extends DefaultOAuth2UserService {
 
-    private final User user;
+    // private final User user;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

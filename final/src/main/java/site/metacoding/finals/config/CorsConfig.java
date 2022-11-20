@@ -11,15 +11,15 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class CorsConfig {
 
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/auth/**", config); // ㅂㅅ 색기 니가 인증 필요하면 필터보내겠다고 프리픽스 걸었잖아...ㅋㅋ
-        return new CorsFilter(source);
-    }
+        @Bean
+        public CorsFilter corsFilter() {
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                CorsConfiguration config = new CorsConfiguration();
+                config.setAllowCredentials(true);
+                config.addAllowedOrigin("*");
+                config.addAllowedHeader("*");
+                config.addAllowedMethod("*");
+                source.registerCorsConfiguration("/auth/**", config); // 인증 필요 프리픽스
+                return new CorsFilter(source);
+        }
 }

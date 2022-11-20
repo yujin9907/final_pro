@@ -24,11 +24,11 @@ import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.LoginDto;
 
-// @Sql("classpath:sql/dml.sql")
+@Sql("classpath:sql/dml.sql")
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 public class JWTAuthFilterTest {
 
@@ -41,17 +41,16 @@ public class JWTAuthFilterTest {
         @Autowired
         private UserRepository userRepository;
 
-        @BeforeEach
-        public void settup() throws Exception {
-                // given
-                LoginDto loginDto = LoginDto.builder()
-                                .username("test")
-                                .password(bCryptPasswordEncoder.encode(("123")))
-                                .role("USER")
-                                .build();
+        // @BeforeEach
+        // public void settup() throws Exception {
+        // // given
+        // LoginDto loginDto = LoginDto.builder()
+        // .username("test")
+        // .password(bCryptPasswordEncoder.encode(("123")))
+        // .build();
 
-                userRepository.save(loginDto.toEntity());
-        }
+        // userRepository.save(loginDto.toEntity());
+        // }
 
         @Test
         public void 필터테스트() throws Exception {
@@ -59,7 +58,6 @@ public class JWTAuthFilterTest {
                 LoginDto loginDto = LoginDto.builder()
                                 .username("test")
                                 .password("123")
-                                .role("USER")
                                 .build();
 
                 String body = om.writeValueAsString(loginDto);
@@ -72,7 +70,7 @@ public class JWTAuthFilterTest {
                                                 .accept("application/json; charset=utf-8"));
 
                 // then
-                resultActions.andExpect(MockMvcResultMatchers.status().is3xxRedirection()); // /로 이동하므로 302 가 나옴
+                resultActions.andExpect(MockMvcResultMatchers.status().isOk()); // /로 이동하므로 302 가 나옴
 
         }
 

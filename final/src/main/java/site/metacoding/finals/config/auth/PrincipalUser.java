@@ -2,19 +2,24 @@ package site.metacoding.finals.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.finals.domain.user.User;
 
+@AllArgsConstructor
 @RequiredArgsConstructor
-public class PrincipalUser implements UserDetails {
+public class PrincipalUser implements UserDetails, OAuth2User {
 
-    private final User user;
+    private User user;
+    private Map<String, Object> oauthUser;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -56,6 +61,19 @@ public class PrincipalUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        // TODO Auto-generated method stub
+        return oauthUser;
+    }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        String sub = oauthUser.get("sub").toString();
+        return sub;
     }
 
 }

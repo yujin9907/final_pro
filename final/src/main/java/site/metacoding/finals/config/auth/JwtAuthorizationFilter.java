@@ -54,7 +54,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         if (username != null) {
             User userEntity = userRepository.findByUsername(username);
 
-            PrincipalUser principalDetails = new PrincipalUser(userEntity);
+            PrincipalUser principalDetails = new PrincipalUser(userEntity, null);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null,
                     principalDetails.getAuthorities());
@@ -64,5 +64,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
         chain.doFilter(request, response);
 
+        // https://velog.io/@max9106/OAuth
     }
 }

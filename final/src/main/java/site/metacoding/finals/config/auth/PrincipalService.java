@@ -21,7 +21,7 @@ public class PrincipalService implements UserDetailsService {
         User userPS = userRepository.findByUsername(username);
 
         if (userPS != null) {
-            return new PrincipalUser(userPS);
+            return new PrincipalUser(userPS, null);
         }
         return null;
     }

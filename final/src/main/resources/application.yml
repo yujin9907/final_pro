@@ -2,5 +2,5 @@ spring:
   profiles:
     active:
     - dev
-    # include:
-    # - oauth
+    include:
+    - oauth

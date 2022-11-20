@@ -41,4 +41,8 @@ public class User {
     @CreationTimestamp
     private Timestamp createAt;
 
+    // oauth2
+    private String provider;
+    private String providerId;
+
 }

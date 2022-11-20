@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import site.metacoding.finals.config.auth.JwtAutenticationFilter;
 import site.metacoding.finals.config.auth.JwtAuthorizationFilter;
-import site.metacoding.finals.config.oauth.Oauth2UserService;
+import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 
 @Configuration
@@ -28,12 +28,13 @@ public class SecurityConfig {
 
     // @Autowired
     // private JwtSuccessHandler jwtSuccessHandler;
-    @Autowired
-    private Oauth2UserService oauth2UserService;
+    // @Autowired
+    // private Oauth2UserService oauth2UserService;
     @Autowired
     private CorsConfig corsConfig;
     @Autowired
     private UserRepository userRepository;
+
     // JWT 기반 로그인 시큐리티 설정, 주석은 폼 로그인 기반
 
     @Bean
@@ -55,9 +56,9 @@ public class SecurityConfig {
                 .anyRequest().permitAll();
         http.logout()
                 .logoutSuccessUrl("/");
-        http.oauth2Login()
-                .userInfoEndpoint()
-                .userService(oauth2UserService);
+        // http.oauth2Login()
+        // .userInfoEndpoint();
+        // .userService(new Oauth2UserService(user));
 
         return http.build();
     }

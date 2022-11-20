@@ -17,13 +17,11 @@ import site.metacoding.finals.domain.user.User;
 public class LoginDto {
     private String username;
     private String password;
-    private String role;
 
     public User toEntity() {
         return User.builder()
                 .username(this.username)
                 .password(this.password)
-                .role(Role.USER)
                 .build();
     }
 }

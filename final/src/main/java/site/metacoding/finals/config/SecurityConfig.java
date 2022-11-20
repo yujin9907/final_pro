@@ -38,7 +38,6 @@ public class SecurityConfig {
     // JWT 기반 로그인 시큐리티 설정, 주석은 폼 로그인 기반
 
     @Bean
-    // @Order(SecurityProperties.BASIC_AUTH_ORDER)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -56,9 +55,6 @@ public class SecurityConfig {
                 .anyRequest().permitAll();
         http.logout()
                 .logoutSuccessUrl("/");
-        // http.oauth2Login()
-        // .userInfoEndpoint();
-        // .userService(new Oauth2UserService(user));
 
         return http.build();
     }

@@ -32,22 +32,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         this.userRepository = userRepository;
     }
 
-    // 인증이나 권한이 필요한 주소요청이 있을 경우 해당 필터를 타게 된다.
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         String jwtHeader = request.getHeader("Authorization");
 
-        // Header가 있는지 확인
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
             chain.doFilter(request, response);
             return;
         }
 
-        System.out.println("-------------여기까지 검증-------------");
-
-        // JWT 토큰을 검증해서 정상적인 사용자인지 확인
         String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
 
         String username = JWT.require(Algorithm.HMAC256("SPRING_SECURITY_FORM_PASSWORD_KEY"))
@@ -56,26 +51,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 .getClaim("username")
                 .asString();
 
-        // 정상적으로 들어옴
         if (username != null) {
             User userEntity = userRepository.findByUsername(username);
 
             PrincipalUser principalDetails = new PrincipalUser(userEntity);
 
-            // JWT 토큰 서명을 통해서 서명이 정상이면 Authentication 객체를 만들어 준다.
             Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null,
                     principalDetails.getAuthorities());
 
-            System.out.println(userEntity.getRole());
-            System.out.println(principalDetails.getPassword() + " " + principalDetails.getAuthorities());
-            System.out.println(authentication.getPrincipal() + " " + authentication.getAuthorities());
-            System.out.println("-------------여기까지 검증2-------------");
-
-            // 강제로 Security 세션에 접근하여 Authentication 객체를 저장
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         }
-        // 체인을 타게 한다.
         chain.doFilter(request, response);
 
     }

@@ -2,31 +2,40 @@ package site.metacoding.finals.domain.feature;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.shop.Shop;
 
+@EnableJpaAuditing
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@Table(name = "feature")
 @Entity
-public class Feature {
+public class Feature extends AutoTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long featuerId;
-    private String featureName;
-    private Timestamp createAt;
-    @ManyToOne
+    private Long id;
+    @Column(nullable = false, length = 10)
+    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private Shop shop;
 }

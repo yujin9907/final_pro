@@ -2,6 +2,13 @@
 - 도메인 작성 완료
 - 시큐리티 적용 완료
 - 테스트 단위/통합 세팅 완료
+
+# 테이블
+* 주의사항 (메인 기능을 먼저 구현함)
+- board 추후 생성
+- trade 추후 생성
+
+
 ```
 table user{
   user_id int [pk, increment]

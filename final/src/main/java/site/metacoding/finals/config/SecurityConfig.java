@@ -17,7 +17,7 @@ import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 
 @Configuration
-@EnableWebSecurity
+// @EnableWebSecurity
 // @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
@@ -39,7 +39,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin()

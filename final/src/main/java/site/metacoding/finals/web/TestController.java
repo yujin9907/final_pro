@@ -24,17 +24,17 @@ public class TestController {
 
     @GetMapping("/")
     public ResponseDto<?> main() {
-        return new ResponseDto<>(200, "OK", null);
+        return new ResponseDto<>(HttpStatus.OK, "OK", null);
     }
 
-    @PostMapping(value = "/join")
-    public ResponseDto<?> postMethodName(@RequestBody LoginDto loginDto) {
+    // @PostMapping(value = "/join")
+    // public ResponseDto<?> postMethodName(@RequestBody LoginDto loginDto) {
 
-        User user = loginDto.toEntity();
-        user.setPassword(bCryptPasswordEncoder.encode(loginDto.getPassword()));
+    // User user = loginDto.toEntity();
+    // user.setPassword(bCryptPasswordEncoder.encode(loginDto.getPassword()));
 
-        return new ResponseDto<>(1, "ok", userRepository.save(user));
-    }
+    // return new ResponseDto<>(1, "ok", userRepository.save(user));
+    // }
 
     @GetMapping("/auth/user/test")
     public void test() {

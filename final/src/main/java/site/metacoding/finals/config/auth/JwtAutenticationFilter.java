@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import site.metacoding.finals.dto.LoginDto;
+import site.metacoding.finals.dto.user.LoginDto;
 
 @RequiredArgsConstructor
 public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter {

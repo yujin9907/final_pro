@@ -17,6 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.merchandise.Merchandise;
@@ -24,8 +25,8 @@ import site.metacoding.finals.domain.shop.Shop;
 
 @Entity
 @Builder
+@Getter
 @AllArgsConstructor
-@EnableJpaAuditing
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "table_type")
 public class TableType extends AutoTime {

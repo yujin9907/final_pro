@@ -1,5 +1,5 @@
 package site.metacoding.finals.web;
 
-public class UserApiController {
+public class MenuApiController {
 
 }

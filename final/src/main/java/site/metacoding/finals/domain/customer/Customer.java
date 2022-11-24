@@ -23,7 +23,6 @@ import lombok.NoArgsConstructor;
 import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.user.User;
 
-@EnableJpaAuditing
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

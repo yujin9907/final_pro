@@ -1,4 +1,4 @@
-package site.metacoding.finals.dto;
+package site.metacoding.finals.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

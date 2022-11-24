@@ -25,7 +25,6 @@ import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.merchandise.Merchandise;
 
-@EnableJpaAuditing
 @Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.user.UserRepository;
-import site.metacoding.finals.dto.LoginDto;
+import site.metacoding.finals.dto.user.LoginDto;
 
 @Sql("classpath:sql/dml.sql")
 @Slf4j

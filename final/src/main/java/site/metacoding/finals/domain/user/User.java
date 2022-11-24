@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.AutoTime;
 
-@EnableJpaAuditing
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

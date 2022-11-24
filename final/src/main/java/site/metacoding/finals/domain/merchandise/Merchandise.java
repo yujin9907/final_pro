@@ -27,7 +27,6 @@ import site.metacoding.finals.config.enums.Saled;
 import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.shop.Shop;
 
-@EnableJpaAuditing
 @Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
-import site.metacoding.finals.dto.LoginDto;
 import site.metacoding.finals.dto.ResponseDto;
+import site.metacoding.finals.dto.user.LoginDto;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 

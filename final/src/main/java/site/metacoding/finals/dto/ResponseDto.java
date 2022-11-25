@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class ResponseDto<T> {
-    private HttpStatus code; // http 상태코드
+    private HttpStatus httpStatus; // http 상태코드
     private String msg;
     private T data;
 }

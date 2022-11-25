@@ -39,6 +39,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // 위의 두 줄 시큐리티에 안걸리게 하는 코드
+        http.headers().frameOptions().disable();
+        http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin()

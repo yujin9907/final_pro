@@ -44,6 +44,7 @@ public class Shop extends AutoTime {
     private String category;
     @Column(nullable = false, length = 30)
     private String address;
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String information;
     @Column(nullable = false, length = 10)
     private String opentime;

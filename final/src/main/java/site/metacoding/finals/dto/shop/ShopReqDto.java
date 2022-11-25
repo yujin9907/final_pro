@@ -12,7 +12,7 @@ public class ShopReqDto {
         private String shopName;
         private String regestrationNumber;
         private String phoneNumber;
-        private String Category;
+        private String category;
         private String address;
         private String information;
         private String opentime;
@@ -23,7 +23,12 @@ public class ShopReqDto {
             return Shop.builder()
                     .shopName(shopName)
                     .regestrationNumber(regestrationNumber)
-                    .phoneNumber(phoneNumber).ca
+                    .phoneNumber(phoneNumber)
+                    .category(category)
+                    .address(address)
+                    .information(information)
+                    .opentime(opentime)
+                    .closetime(closetime)
                     .build();
         }
     }

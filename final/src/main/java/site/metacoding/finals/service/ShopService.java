@@ -5,6 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRespository;
+import site.metacoding.finals.dto.shop.ShopReqDto.ShopSaveReqDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopSaveRespDto;
 
 @RequiredArgsConstructor
 public class ShopService {

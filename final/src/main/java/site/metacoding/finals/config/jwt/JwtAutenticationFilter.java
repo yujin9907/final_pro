@@ -1,7 +1,6 @@
-package site.metacoding.finals.config.auth;
+package site.metacoding.finals.config.jwt;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -9,29 +8,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import site.metacoding.finals.dto.user.LoginDto;
+import site.metacoding.finals.config.auth.PrincipalUser;
+import site.metacoding.finals.dto.LoginDto;
+import site.metacoding.finals.handler.LoginHandler;
 
-@RequiredArgsConstructor
+@Slf4j
 public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
 
+    public JwtAutenticationFilter(AuthenticationManager authenticationManager, LoginHandler loginHandler) {
+        super(authenticationManager);
+        this.authenticationManager = authenticationManager;
+        super.setAuthenticationFailureHandler(loginHandler);
+        super.setAuthenticationSuccessHandler(loginHandler);
+    }
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
-
-        System.out.println("진입");
 
         try {
             ObjectMapper om = new ObjectMapper();
@@ -44,10 +48,9 @@ public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter
 
             return authentication;
         } catch (Exception e) {
-            e.getMessage();
+            throw new InternalAuthenticationServiceException(e.getMessage());
         }
 
-        return null;
     }
 
     @Override
@@ -55,19 +58,21 @@ public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter
             HttpServletResponse response, FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
 
-        System.out.println("인증완료");
-
         PrincipalUser principalUser = (PrincipalUser) authResult.getPrincipal();
-        String jwtToken = JWT.create()
-                .withSubject("auth")
-                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60)))
-                .withClaim("username", principalUser.getUsername())
-                .withClaim("role", principalUser.getAuthorities().toString())
-                .sign(Algorithm.HMAC256("SPRING_SECURITY_FORM_PASSWORD_KEY"));
+
+        String jwtToken = JwtProcess.create(principalUser);
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
-        System.out.println("로그인 완료");
 
+        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
+
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException failed) throws IOException, ServletException {
+        log.debug("디버그 : unsuccessfulAuthentication 요청됨");
+        this.getFailureHandler().onAuthenticationFailure(request, response, failed);
     }
 
 }

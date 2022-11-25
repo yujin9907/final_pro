@@ -1,12 +1,10 @@
-package site.metacoding.finals.dto.user;
+package site.metacoding.finals.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.user.User;
 
 @NoArgsConstructor

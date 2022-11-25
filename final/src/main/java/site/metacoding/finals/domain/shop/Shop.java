@@ -36,10 +36,12 @@ public class Shop extends AutoTime {
     private Long id;
     @Column(nullable = false, length = 20, unique = true)
     private String shopName;
+    @Column(nullable = false, length = 30, unique = true)
+    private String regestrationNumber;
     @Column(nullable = false, length = 10, unique = true)
     private String phoneNumber;
     @Column(length = 50)
-    private String Category;
+    private String category;
     @Column(nullable = false, length = 30)
     private String address;
     private String information;

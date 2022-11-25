@@ -22,8 +22,9 @@ table user{
 table customer{
   customer_id int [pk, increment]
   user_id int
-  customer_name varchar
-  customer_age varchar
+  name varchar
+  address varchar
+  phone varchar
   created_at timestamp
 }
 
@@ -31,19 +32,14 @@ table shop{
   shop_id int [pk, increment]
   user_id int
   shop_name varchar
-  shop_phone varchar
   category varchar
   address varchar
-  open_time timestamp
-  close_time timestamp
-  created_at timestamp
-}
-
-table marchandise{
-  marchandise_id int [pk, increment]
-  shop_id int
-  marchandise_price int
-  max_people int
+  information varchar
+  telephone varchar
+  image varchar
+  open_time varchar
+  close_time varchar
+  per_hour int
   created_at timestamp
 }
 
@@ -52,6 +48,8 @@ table menu{
   shop_id int
   menu_name varchar
   menu_price int
+  image varchar
+  is_recommanded boolean
   created_at timestamp
 }
 
@@ -75,26 +73,12 @@ table subscribe{
 table reservation{
   reservation_id int [pk, increment]
   customer_id int
-  marchandise_id int
-  created_at timestamp
-}
-
-table recipt{
-  recipt_id int [pk, increment]
-  reservation_id int
-  marchandise_price int
+  table_id int
+  reservation_date timestamp
   reservation_time timestamp
   created_at timestamp
 }
 
-table recipt_menu{
-  recipt_menu_id int [pk, increment]
-  recipt_id int 
-  recipt_menu_name varchar
-  recipt_menu_price int
-  recipt_menu_qty int
-  created_at timestamp
-}
 
 table review{
   review_id int [pk, increment]
@@ -103,6 +87,31 @@ table review{
   review_score int
   content varchar
   image varchar
+  created_at timestamp
+}
+
+table board{
+  board_id int [pk, increment]
+  title varchar
+  content varchar
+  reservation_id int
+  customer_id int
+  created_at timestamp
+}
+
+table trade{
+  trade_id int [pk, increment]
+  reservation_id int
+  buyer_id int
+  seller_id int
+  price int
+  created_at timestamp
+}
+
+table table{
+  table_id int [pk, increment]
+  shop_id int
+  max_people int    
   created_at timestamp
 }
 ```

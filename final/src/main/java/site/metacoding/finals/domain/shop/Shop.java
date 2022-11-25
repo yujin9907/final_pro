@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.web.jsf.FacesContextUtils;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -49,6 +50,11 @@ public class Shop extends AutoTime {
     private String closetime;
     @Column(length = 100)
     private String image;
+
+    @Column(nullable = false)
+    private int perPrice;
+    @Column(nullable = false)
+    private int perHour;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

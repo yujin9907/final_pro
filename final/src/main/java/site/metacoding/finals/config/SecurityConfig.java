@@ -33,9 +33,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         http.headers().frameOptions().disable();
-        http.csrf().disable();
+        http.csrf().disable(); // 포스트맨 임시
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import site.metacoding.finals.dto.LoginDto;
 import site.metacoding.finals.dto.ResponseDto;
+import site.metacoding.finals.dto.user.UserReqDto.LoginDto;
 
 @Slf4j
 @Component

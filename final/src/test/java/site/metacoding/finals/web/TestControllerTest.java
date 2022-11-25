@@ -1,5 +1,8 @@
 package site.metacoding.finals.web;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,8 +18,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import site.metacoding.finals.dto.test.jsonObjectMapping;
+import site.metacoding.finals.dto.test.jsonObjectMapping.InnerClass;
 
 @Sql("classpath:sql/dml.sql")
 @Slf4j
@@ -30,6 +38,34 @@ public class TestControllerTest {
     private ObjectMapper om;
     @Autowired
     private MockMvc mvc;
+
+    @Test
+    public void 제이슨파싱테스트() throws Exception {
+        // g
+        String jsonData = "{\"id\":1,\"name\":\"첫번째\",\"innerClass\":{\"id\":2,\"name\":\"두번째\"}}";
+
+        // InnerClass innerClass = new InnerClass();
+        // innerClass.setId(2);
+        // innerClass.setName("두번째");
+
+        // jsonObjectMapping jObjectMapping = new jsonObjectMapping();
+        // jObjectMapping.setId(1);
+        // jObjectMapping.setName("첫번째");
+        // jObjectMapping.setInnerClass(innerClass);
+
+        // String omjson = om.writeValueAsString(jObjectMapping);
+
+        // when
+        ResultActions resultActions = mvc.perform(post("/json/test")
+                .content(jsonData)
+                .contentType("application/json; charset=utf-8")
+                .accept("application/json; charset=utf-8"));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.debug(responseBody);
+
+        resultActions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
     @WithMockUser("USER")
     @Test

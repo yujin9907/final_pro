@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.config.auth.PrincipalUser;
-import site.metacoding.finals.dto.LoginDto;
+import site.metacoding.finals.dto.user.UserReqDto.LoginDto;
 import site.metacoding.finals.handler.LoginHandler;
 
 @Slf4j

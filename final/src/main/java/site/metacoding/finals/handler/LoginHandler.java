@@ -1,6 +1,7 @@
 package site.metacoding.finals.handler;
 
 import java.io.IOException;
+import java.security.Principal;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
+import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.dto.ResponseDto;
 import site.metacoding.finals.dto.user.UserReqDto.LoginDto;
 
@@ -31,7 +33,7 @@ public class LoginHandler implements AuthenticationSuccessHandler, Authenticatio
 
         ObjectMapper om = new ObjectMapper();
 
-        LoginDto principal = (LoginDto) authentication.getPrincipal();
+        PrincipalUser principal = (PrincipalUser) authentication.getPrincipal();
         ResponseDto<?> responseDto = new ResponseDto<>(HttpStatus.OK, "로그인 성공", principal);
         String responseBody = om.writeValueAsString(responseDto);
 

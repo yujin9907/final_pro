@@ -31,7 +31,7 @@ public class User extends AutoTime {
     private Long id;
     @Column(nullable = false, unique = true, length = 30)
     private String username;
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 60)
     private String password;
     @Column(name = "role")
     @Enumerated(EnumType.STRING)

@@ -22,7 +22,6 @@ public abstract class AutoTime {
     private LocalDateTime updatedAt;
 
     @CreatedDate
-    @CreatedBy
     @Column(nullable = false)
     private LocalDateTime createdAt;
 

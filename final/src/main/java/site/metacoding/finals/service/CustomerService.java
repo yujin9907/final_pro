@@ -1,5 +1,6 @@
 package site.metacoding.finals.service;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +18,13 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     public CustomerJoinRespDto joinCustomer(CustomerJoinReqDto customerJoinReqDto) {
+        String password = bCryptPasswordEncoder.encode(customerJoinReqDto.getPassword());
+        customerJoinReqDto.setPassword(password);
+
         Customer customer = customerRepository.save(customerJoinReqDto.toCustomerEntity());
         User user = userRepository.save(customerJoinReqDto.toUserEntity());
 

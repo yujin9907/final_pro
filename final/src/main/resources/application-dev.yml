@@ -23,7 +23,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
   output:
     ansi:

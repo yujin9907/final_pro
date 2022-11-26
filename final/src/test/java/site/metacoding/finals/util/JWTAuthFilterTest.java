@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.user.UserRepository;
-import site.metacoding.finals.dto.user.LoginDto;
+import site.metacoding.finals.dto.user.UserReqDto.LoginDto;
 
 @Sql("classpath:sql/dml.sql")
 @Slf4j
@@ -55,10 +55,11 @@ public class JWTAuthFilterTest {
         @Test
         public void 필터테스트() throws Exception {
                 // given
-                LoginDto loginDto = LoginDto.builder()
-                                .username("test")
-                                .password("123")
-                                .build();
+                String password = bCryptPasswordEncoder.encode("123");
+
+                LoginDto loginDto = new LoginDto();
+                loginDto.setUsername("test");
+                loginDto.setPassword(password);
 
                 String body = om.writeValueAsString(loginDto);
 
@@ -70,8 +71,7 @@ public class JWTAuthFilterTest {
                                                 .accept("application/json; charset=utf-8"));
 
                 // then
-                resultActions.andExpect(MockMvcResultMatchers.status().isOk()); // /로 이동하므로 302 가 나옴
-
+                resultActions.andExpect(MockMvcResultMatchers.status().isOk());
         }
 
         @Test

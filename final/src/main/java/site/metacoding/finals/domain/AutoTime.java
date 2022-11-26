@@ -19,11 +19,10 @@ import lombok.Getter;
 public abstract class AutoTime {
 
     @LastModifiedDate
-    @Column(nullable = false)
-    protected LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
     @CreatedDate
     @Column(nullable = false)
-    protected LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
 }

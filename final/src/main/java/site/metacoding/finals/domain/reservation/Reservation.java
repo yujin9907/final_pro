@@ -23,7 +23,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.customer.Customer;
-import site.metacoding.finals.domain.merchandise.Merchandise;
+import site.metacoding.finals.domain.shop_table.ShopTable;
 
 @Builder
 @Getter
@@ -35,16 +35,14 @@ public class Reservation extends AutoTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private int reservationPrice;
     @Column(nullable = false, length = 10)
     private String reservationTime;
+    @Column(nullable = false, length = 10)
+    private String reservationDate;
     // @Converter
-    private Boolean isDeleted;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "merchandise_id")
-    private Merchandise merchandise;
+    @ManyToOne
+    private ShopTable shopTable;
 }

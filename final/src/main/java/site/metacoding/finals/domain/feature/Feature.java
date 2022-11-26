@@ -1,7 +1,5 @@
 package site.metacoding.finals.domain.feature;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

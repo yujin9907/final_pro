@@ -1,8 +1,13 @@
 package site.metacoding.finals.dto.customer;
 
+import java.util.List;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.finals.domain.customer.Customer;
+import site.metacoding.finals.domain.reservation.Reservation;
+import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
 
 public class CustomerRespDto {
@@ -23,6 +28,15 @@ public class CustomerRespDto {
             this.address = customer.getAddress();
             this.user = user;
         }
+
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class CustomerMyPageReservationRespDto {
+        private List<Shop> shop;
+        private List<Reservation> reservation;
 
     }
 

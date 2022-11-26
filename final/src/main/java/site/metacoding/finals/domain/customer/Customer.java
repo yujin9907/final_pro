@@ -23,7 +23,7 @@ import site.metacoding.finals.domain.user.User;
 @EnableJpaAuditing
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "customer")
 @Getter
@@ -37,7 +37,6 @@ public class Customer extends AutoTime {
     private String phoneNumber;
     @Column(length = 30)
     private String address;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

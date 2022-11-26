@@ -40,7 +40,7 @@ public class TestControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void 제이슨파싱테스트() throws Exception {
+    public void 오브젝트메퍼파싱테스트() throws Exception {
         // g
         String jsonData = "{\"id\":1,\"name\":\"첫번째\",\"innerClass\":{\"id\":2,\"name\":\"두번째\"}}";
 

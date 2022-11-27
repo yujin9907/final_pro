@@ -1,5 +1,12 @@
 package site.metacoding.finals.dto.reservation;
 
-public class ReservationReqDto {
+import lombok.Getter;
+import lombok.Setter;
 
+public class ReservationReqDto {
+    @Getter
+    @Setter
+    public static class ReservationDateReqDto {
+        private Long shopId;
+    }
 }

@@ -51,6 +51,9 @@ public class Shop extends AutoTime {
     @Column(nullable = false)
     private int perHour;
 
+    // 추가한 컬럼 : 예약 언제까지 열어놀건지
+    private int setReservationDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore

@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface ShopRespository extends JpaRepository<Shop, Long> {
 
+        List<Shop> findByCategory(String category);
+
         @Query(value = "select shop.* from shop"
                         + " right join (select st.shop_id, r2.* from shop_table st"
                         + " right join (select r.* from reservation r where customer_id= ?1) r2"

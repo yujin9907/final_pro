@@ -35,7 +35,7 @@ public class Shop extends AutoTime {
     @Column(nullable = false, length = 12, unique = true)
     private String phoneNumber;
     @Column(length = 50)
-    private String Category;
+    private String category;
     @Column(nullable = false, length = 30)
     private String address;
     private String information;

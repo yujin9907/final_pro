@@ -41,4 +41,14 @@ public class ShopRepositoryTest {
         assertEquals(shop.get(0).getId(), 1);
     }
 
+    @Test
+    public void findByCategoryTest() {
+        String name = "한식";
+
+        List<Shop> shop = shopRespository.findByCategory(name);
+        log.debug("디버그 : " + shop.get(0));
+
+        assertEquals(shop.get(0).getCategory(), name);
+    }
+
 }

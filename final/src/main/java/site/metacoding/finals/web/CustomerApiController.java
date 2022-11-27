@@ -46,20 +46,20 @@ public class CustomerApiController {
     }
 
     @GetMapping("/customer/mypage/reservation/{id}")
-    public ResponseEntity<?> myPageCustomerReservationApi(@PathVariable Long id) {
+    public ResponseEntity<?> CustomerMypageReservationApi(@PathVariable Long id) {
         CustomerMyPageReservationRespDto dto = customerService.myPageReservation(id);
         log.debug("디버그 : " + dto.getShop());
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "마이페이지 예약 목록", dto), HttpStatus.OK);
     }
 
     @GetMapping("/customer/mypage/subscribe/{id}")
-    public ResponseEntity<?> myPageCustomerSubscribeApi(@PathVariable Long id) {
+    public ResponseEntity<?> CustomerMypageSubscribeApi(@PathVariable Long id) {
         CustomerMyPageSubscribeRespDto dto = customerService.myPageSubscribe(id);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "마이페이지 구독 목록", dto), HttpStatus.OK);
     }
 
     @GetMapping("/customer/mypage/review/{id}")
-    public ResponseEntity<?> myPageCustomerReviewApi(@PathVariable Long id) {
+    public ResponseEntity<?> CustomerMypageReviewApi(@PathVariable Long id) {
         CustomerMyPageReviewRespDto dto = customerService.myPageReview(id);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "마이페이지 리뷰 목록", dto), HttpStatus.OK);
     }

@@ -6,7 +6,8 @@ import lombok.Setter;
 public class ReservationReqDto {
     @Getter
     @Setter
-    public static class ReservationDateReqDto {
+    public static class ReservationSelectReqDto {
         private Long shopId;
+        private int maxPeople;
     }
 }

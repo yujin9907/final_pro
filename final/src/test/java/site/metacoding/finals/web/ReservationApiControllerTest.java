@@ -30,7 +30,7 @@ public class ReservationApiControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void 커스터머회원가입() throws Exception {
+    public void 데이트목록조회테스트() throws Exception {
         // g
         ReservationDateReqDto reqDto = new ReservationDateReqDto();
         reqDto.setShopId(1L);

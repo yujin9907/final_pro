@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRespository;
-import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationDateReqDto;
+import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationSelectReqDto;
 import site.metacoding.finals.dto.reservation.ReservationRespDto.ReservationDateRespDto;
 
 @Slf4j
@@ -22,7 +22,7 @@ public class ReservationService {
 
     private final ShopRespository shopRespository;
 
-    public ReservationDateRespDto dateList(ReservationDateReqDto dto) {
+    public ReservationDateRespDto dateList(ReservationSelectReqDto dto) {
         log.debug("디버그 : " + " 서비스 진입");
 
         Shop shopPS = shopRespository.findById(dto.getShopId())
@@ -34,13 +34,16 @@ public class ReservationService {
         String todays = DateTimeFormatter.ofPattern("dd").format(LocalDate.now());
         int today = Integer.parseInt(todays);
         int initHour = shopPS.getPerHour();
+        int endHour = shopPS.getSetReservationDate();
 
-        for (int i = today; i < shopPS.getSetReservationDate(); initHour++) {
+        for (int i = today; i < endHour; i += initHour) {
             log.debug("디버그 : " + i);
             ableDate.add(i);
         }
 
-        log.debug("디버그 : " + ableDate.get(0));
+        log.debug("디버그 : " + today);
+        log.debug("디버그 : " + initHour);
+        log.debug("디버그 : " + endHour);
 
         return new ReservationDateRespDto(ableDate);
 

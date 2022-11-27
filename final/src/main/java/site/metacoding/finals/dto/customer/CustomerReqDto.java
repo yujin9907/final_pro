@@ -5,7 +5,6 @@ import lombok.Setter;
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.user.User;
-import site.metacoding.finals.dto.user.UserReqDto.JoinReqDto;
 
 public class CustomerReqDto {
 
@@ -37,11 +36,10 @@ public class CustomerReqDto {
 
     @Getter
     @Setter
-    public static class test {
+    public static class CustomerUpdateReqDto {
         private String name;
-        private String phoneNumber;
         private String address;
-        private JoinReqDto joinReqDto;
+        private String phoneNumber;
     }
 
 }

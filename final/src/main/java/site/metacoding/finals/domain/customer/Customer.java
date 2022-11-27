@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.user.User;
+import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
 
 @EnableJpaAuditing
 @Builder
@@ -39,5 +42,17 @@ public class Customer extends AutoTime {
     private String address;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
+
+    public Customer toEntity(CustomerUpdateReqDto dto) {
+        return Customer.builder()
+                .id(this.id)
+                .name(dto.getName())
+                .address(dto.getAddress())
+                .phoneNumber(dto.getPhoneNumber())
+                .user(this.user)
+                .build();
+    }
+
 }

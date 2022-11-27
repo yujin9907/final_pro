@@ -1,7 +1,6 @@
 package site.metacoding.finals.web;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +17,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import site.metacoding.finals.dto.test.jsonObjectMapping;
-import site.metacoding.finals.dto.test.jsonObjectMapping.InnerClass;
 
 @Sql("classpath:sql/dml.sql")
 @Slf4j

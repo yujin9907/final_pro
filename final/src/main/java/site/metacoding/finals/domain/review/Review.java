@@ -1,7 +1,5 @@
 package site.metacoding.finals.domain.review;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,14 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.dynamic.TypeResolutionStrategy.Lazy;
 import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.shop.Shop;

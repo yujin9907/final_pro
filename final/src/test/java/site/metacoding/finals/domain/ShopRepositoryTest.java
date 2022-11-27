@@ -27,7 +27,16 @@ public class ShopRepositoryTest {
     public void findByResevationCustomerIdTest() {
         Long customerId = 1L;
 
-        List<Shop> shop = shopRespository.findByResevationCustomerId(customerId);
+        List<Shop> shop = shopRespository.findResevationByCustomerId(customerId);
+
+        assertEquals(shop.get(0).getId(), 1);
+    }
+
+    @Test
+    public void findSubscribeByCustomerIdTest() {
+        Long customerId = 1L;
+
+        List<Shop> shop = shopRespository.findSubscribeByCustomerId(customerId);
 
         assertEquals(shop.get(0).getId(), 1);
     }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.dto.ResponseDto;
 import site.metacoding.finals.dto.review.ReviewReqDto.ReviewSaveReqDto;
 import site.metacoding.finals.dto.review.ReviewRespDto.ReviewSaveRespDto;

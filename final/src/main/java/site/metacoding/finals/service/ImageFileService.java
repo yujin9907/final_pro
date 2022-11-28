@@ -31,10 +31,16 @@ public class ImageFileService {
     }
 
     // 실제 로직
-    public ImageFile storeFile(List<MultipartFile> multipartFiles) throws IOException {
+    public ImageFile storeFile(List<MultipartFile> multipartFiles) {
         if (multipartFiles.isEmpty()) {
             return null;
         }
+        File folder = new File(fileDir);
+        if (!folder.exists())
+            folder.mkdirs();
+
+        System.err.println("디버그 : 서비스 진입");
+        System.out.println("디버그 : " + fileDir);
 
         String originalFilename = "";
         String storeFilename = "";
@@ -42,7 +48,11 @@ public class ImageFileService {
             originalFilename = multipartFile.getOriginalFilename();
             storeFilename = getUUID() + getExtension(originalFilename);
 
-            multipartFile.transferTo(new File(fileDir, storeFilename));
+            try {
+                multipartFile.transferTo(new File(fileDir, storeFilename));
+            } catch (IOException e) {
+                new RuntimeException("파일 저장 에러");
+            }
         }
 
         // File image = new File(fileDir, storeFilename);

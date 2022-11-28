@@ -35,4 +35,17 @@ public class ReservationRepositoryTest {
         assertEquals(reservation.get(0).getId(), 1);
     }
 
+    @Test
+    public void 인원수날짜에따른테이블목록테스트() {
+        int maxPeople = 4;
+        String date = "20221126";
+
+        List<Reservation> reservation = reservationRepository.findByDataMaxPeople(maxPeople, date);
+
+        log.debug("디버그 : " + reservation.size());
+
+        // then
+        assertEquals(reservation.get(0).getId(), 1);
+    }
+
 }

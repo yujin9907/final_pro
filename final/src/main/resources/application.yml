@@ -4,4 +4,6 @@ spring:
     - dev
     # include:
     # - oauth
+
+filedir: "C://temp/image/"
  

@@ -11,13 +11,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerJoinReqDto;
+import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
 
 @Sql("classpath:sql/dml.sql")
 @Slf4j
@@ -55,6 +56,81 @@ public class CustomerApiControllerTest {
         // then
         resultActions.andExpect(MockMvcResultMatchers.status().isOk());
 
+    }
+
+    @Test
+    public void 회원정보업데이트() throws Exception {
+        Long id = 1L;
+        CustomerUpdateReqDto dto = new CustomerUpdateReqDto();
+        dto.setName("업데이트됨");
+        dto.setAddress("업데이트주소");
+        dto.setPhoneNumber("01011112222");
+        String data = om.writeValueAsString(dto);
+
+        //
+        ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.put("/customer/" + id)
+                .content(data)
+                .contentType("application/json; charset=utf-8")
+                .accept("application/json; charset=utf-8"));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.debug("디버그 :" + responseBody);
+
+        //
+        resultActions.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+
+    }
+
+    @Test
+    public void 마이페이지예약목록() throws Exception {
+        // 지연로딩할 때 터짐 근데 조인 컬럼 필요 없어서 jsonignore 달아서 처리함
+        //
+        Long id = 1L;
+
+        //
+        ResultActions resultActions = mvc.perform(
+                MockMvcRequestBuilders.get("/customer/mypage/reservation/" + id)
+                        .accept("application/json; charset=utf-8"));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.debug(responseBody);
+
+        //
+        resultActions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void 마이페이지구독목록() throws Exception {
+        //
+        Long id = 1L;
+
+        //
+        ResultActions resultActions = mvc.perform(
+                MockMvcRequestBuilders.get("/customer/mypage/subscribe/" + id)
+                        .accept("application/json; charset=utf-8"));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.debug(responseBody);
+
+        //
+        resultActions.andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void 마이페이지리뷰목록() throws Exception {
+        //
+        Long id = 1L;
+
+        //
+        ResultActions resultActions = mvc.perform(
+                MockMvcRequestBuilders.get("/customer/mypage/review/" + id)
+                        .accept("application/json; charset=utf-8"));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.debug(responseBody);
+
+        //
+        resultActions.andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }

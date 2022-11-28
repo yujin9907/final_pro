@@ -5,7 +5,17 @@ import lombok.Setter;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
 
+@Setter
+@Getter
 public class ShopReqDto {
+
+    @Getter
+    @Setter
+    public static class ShopFilterReqDto {
+        private int date;
+        private int person;
+        private int time;
+    }
 
     @Setter
     @Getter
@@ -26,7 +36,6 @@ public class ShopReqDto {
         public Shop toEntity() {
             return Shop.builder()
                     .shopName(shopName)
-                    .regestrationNumber(regestrationNumber)
                     .phoneNumber(phoneNumber)
                     .category(category)
                     .address(address)
@@ -39,4 +48,5 @@ public class ShopReqDto {
                     .build();
         }
     }
+
 }

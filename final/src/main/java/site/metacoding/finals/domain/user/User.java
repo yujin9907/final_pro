@@ -21,7 +21,7 @@ import site.metacoding.finals.domain.AutoTime;
 
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Getter
 @Table(name = "users") // 해당 엔티티를 매핑할 때 지정할 테이블 명, h2 사용시 user 예약어 주의

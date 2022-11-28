@@ -2,6 +2,7 @@ package site.metacoding.finals.dto.shop;
 
 import lombok.Getter;
 import lombok.Setter;
+import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.shop.Shop;
 
 public class ShopRespDto {
@@ -23,7 +24,6 @@ public class ShopRespDto {
         public ShopSaveRespDto(Shop shop) {
             this.id = shop.getId();
             this.shopName = shop.getShopName();
-            this.regestrationNumber = shop.getRegestrationNumber();
             this.phoneNumber = shop.getPhoneNumber();
             this.category = shop.getCategory();
             this.address = shop.getAddress();
@@ -36,4 +36,17 @@ public class ShopRespDto {
         }
     }
 
+    @Getter
+    @Setter
+    public static class ShopDetailRespDto {
+        private Shop shop;
+        private Feature feature;
+
+        // 예약 가능 시간 정보
+        public ShopDetailRespDto(Shop shop, Feature feature) {
+            this.shop = shop;
+            this.feature = feature;
+        }
+
+    }
 }

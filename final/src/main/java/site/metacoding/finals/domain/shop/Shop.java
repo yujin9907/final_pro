@@ -1,7 +1,5 @@
 package site.metacoding.finals.domain.shop;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,10 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.web.jsf.FacesContextUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,7 +22,7 @@ import site.metacoding.finals.domain.user.User;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Table(name = "shop")
 @Entity
@@ -37,9 +32,7 @@ public class Shop extends AutoTime {
     private Long id;
     @Column(nullable = false, length = 20, unique = true)
     private String shopName;
-    @Column(nullable = false, length = 30, unique = true)
-    private String regestrationNumber;
-    @Column(nullable = false, length = 10, unique = true)
+    @Column(nullable = false, length = 12, unique = true)
     private String phoneNumber;
     @Column(length = 50)
     private String category;
@@ -61,5 +54,6 @@ public class Shop extends AutoTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 }

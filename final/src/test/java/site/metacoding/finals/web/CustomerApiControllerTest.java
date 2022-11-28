@@ -54,7 +54,7 @@ public class CustomerApiControllerTest {
         log.debug(responseBody);
 
         // then
-        resultActions.andExpect(MockMvcResultMatchers.status().isOk());
+        resultActions.andExpect(MockMvcResultMatchers.status().isCreated());
 
     }
 

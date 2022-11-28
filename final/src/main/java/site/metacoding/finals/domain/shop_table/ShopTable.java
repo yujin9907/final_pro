@@ -27,7 +27,7 @@ import site.metacoding.finals.domain.shop.Shop;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "table_type")
+@Table(name = "shop_table")
 public class ShopTable extends AutoTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

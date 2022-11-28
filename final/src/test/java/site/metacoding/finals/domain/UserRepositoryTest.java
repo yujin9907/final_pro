@@ -64,10 +64,10 @@ public class UserRepositoryTest {
         String username = "ssar";
 
         // when
-        User userPS = userRepository.findByUsername(username);
+        Optional<User> userPS = userRepository.findByUsername(username);
 
         // then
-        assertEquals(1, userPS.getId());
+        assertEquals(1, userPS.get().getId());
     }
 
 }

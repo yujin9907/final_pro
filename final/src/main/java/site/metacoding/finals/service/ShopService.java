@@ -1,5 +1,6 @@
 package site.metacoding.finals.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import site.metacoding.finals.dto.shop.ShopReqDto.ShopSaveReqDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopSaveRespDto;
 
 @RequiredArgsConstructor
+@Service
 public class ShopService {
     private final ShopRespository shopRepository;
 

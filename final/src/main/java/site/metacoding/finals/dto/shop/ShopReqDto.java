@@ -3,6 +3,7 @@ package site.metacoding.finals.dto.shop;
 import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.finals.domain.shop.Shop;
+import site.metacoding.finals.domain.user.User;
 
 public class ShopReqDto {
 
@@ -18,6 +19,9 @@ public class ShopReqDto {
         private String opentime;
         private String closetime;
         private String image;
+        private int perPrice;
+        private int perHour;
+        private User user;
 
         public Shop toEntity() {
             return Shop.builder()
@@ -29,6 +33,9 @@ public class ShopReqDto {
                     .information(information)
                     .opentime(opentime)
                     .closetime(closetime)
+                    .image(image)
+                    .perPrice(perPrice)
+                    .perHour(perHour)
                     .build();
         }
     }

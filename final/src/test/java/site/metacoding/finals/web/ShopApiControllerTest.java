@@ -40,18 +40,30 @@ public class ShopApiControllerTest {
 
         // given
         ShopSaveReqDto shopSaveReqDto = new ShopSaveReqDto();
-        shopSaveReqDto.setShopName(null);
+        shopSaveReqDto.setShopName("메타코딩가게");
+        shopSaveReqDto.setRegestrationNumber("1234567");
+        shopSaveReqDto.setPhoneNumber("0516272658");
+        shopSaveReqDto.setCategory("한식");
+        shopSaveReqDto.setInformation("부산 서면");
+        shopSaveReqDto.setOpentime("9");
+        shopSaveReqDto.setClosetime("18");
+        shopSaveReqDto.setImage("이미지없음");
 
-        String body = om.writeValueAsString(shopSaveReqDto);
+        String sdata = om.writeValueAsString(shopSaveReqDto);
 
         // when
         ResultActions resultActions = mvc
-                .perform(MockMvcRequestBuilders.post("/shop/save").content(body)
-                        .contentType(APPLICATION_JSON).accept(APPLICATION_JSON)
-                        .session(session));
+                .perform(MockMvcRequestBuilders
+                        .post("/shop/infomation")
+                        .content(sdata)
+                        .contentType(APPLICATION_JSON)
+                        .accept(APPLICATION_JSON));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.debug("디버그" + responseBody);
 
         // then
-        resultActions.andExpect(MockMvcResultMatchers.status().isOk());
+        resultActions.andExpect(MockMvcResultMatchers.status().isCreated());
 
     }
 }

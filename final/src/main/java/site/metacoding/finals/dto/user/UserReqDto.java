@@ -29,4 +29,18 @@ public class UserReqDto {
                     .build();
         }
     }
+
+    @Getter
+    @Setter
+    public static class UserDto {
+        private Long id;
+        private String username;
+
+        public User toEntity() {
+            return User.builder()
+                    .id(this.id)
+                    .username(this.username)
+                    .build();
+        }
+    }
 }

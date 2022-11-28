@@ -1,3 +1,5 @@
+filedir: "file:///C:/temp/image/"
+
 server:
   port: 8000
   servlet:
@@ -28,3 +30,4 @@ spring:
   output:
     ansi:
       enabled: always
+

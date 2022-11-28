@@ -42,4 +42,8 @@ public class Review extends AutoTime {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
+    // 고려
+    // @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    // private List<ImageFile> imageFiles = new ArrayList<>();
+
 }

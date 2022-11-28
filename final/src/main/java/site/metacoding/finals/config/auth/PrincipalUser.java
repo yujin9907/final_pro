@@ -7,9 +7,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.finals.domain.user.User;
 
+@Getter
 @RequiredArgsConstructor
 public class PrincipalUser implements UserDetails {
 

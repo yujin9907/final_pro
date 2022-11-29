@@ -15,7 +15,7 @@ import site.metacoding.finals.domain.reservation.ReservationRepository;
 import site.metacoding.finals.domain.review.Review;
 import site.metacoding.finals.domain.review.ReviewRepository;
 import site.metacoding.finals.domain.shop.Shop;
-import site.metacoding.finals.domain.shop.ShopRespository;
+import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.customer.CustomerReqDto;
@@ -35,7 +35,7 @@ public class CustomerService {
     private final ReviewRepository reviewRepository;
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
-    private final ShopRespository shopRespository;
+    private final ShopRepository shopRespository;
     private final ReservationRepository reservationRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 

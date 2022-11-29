@@ -56,10 +56,11 @@ public class JWTAuthFilterTest {
         public void 필터테스트() throws Exception {
                 // given
                 String password = bCryptPasswordEncoder.encode("123");
+                log.debug("디버그 : " + password);
 
                 LoginDto loginDto = new LoginDto();
-                loginDto.setUsername("test");
-                loginDto.setPassword(password);
+                loginDto.setUsername("ssar");
+                loginDto.setPassword("123");
 
                 String body = om.writeValueAsString(loginDto);
 

@@ -1,5 +1,6 @@
 package site.metacoding.finals.domain.image_file;
 
-public class ImageFileRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+public interface ImageFileRepository extends JpaRepository<ImageFile, Long> {
 }

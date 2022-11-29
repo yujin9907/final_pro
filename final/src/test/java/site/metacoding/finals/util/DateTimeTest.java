@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.shop.Shop;
-import site.metacoding.finals.domain.shop.ShopRespository;
+import site.metacoding.finals.domain.shop.ShopRepository;
 
 @Slf4j
 public class DateTimeTest {

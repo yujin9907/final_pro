@@ -12,7 +12,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.shop.Shop;
-import site.metacoding.finals.domain.shop.ShopRespository;
+import site.metacoding.finals.domain.shop.ShopRepository;
 
 @Slf4j
 @Sql("classpath:sql/dml.sql")
@@ -21,7 +21,7 @@ import site.metacoding.finals.domain.shop.ShopRespository;
 public class ShopRepositoryTest {
 
     @Autowired
-    private ShopRespository shopRespository;
+    private ShopRepository shopRespository;
 
     @Test
     public void findByResevationCustomerIdTest() {

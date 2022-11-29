@@ -33,14 +33,16 @@ public class ReservationApiControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void 데이트목록조회테스트() throws Exception {
+    public void 테이블목록조회테스트() throws Exception {
         // g
         ReservationSelectReqDto reqDto = new ReservationSelectReqDto();
         reqDto.setShopId(1L);
+        reqDto.setDate("20221127");
+        reqDto.setMaxPeople(4);
         String body = om.writeValueAsString(reqDto);
 
         // when
-        ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.post("/reservation/date")
+        ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.post("/reservation/person")
                 .content(body)
                 .contentType("application/json; charset=utf-8")
                 .accept("application/json; charset=utf-8"));

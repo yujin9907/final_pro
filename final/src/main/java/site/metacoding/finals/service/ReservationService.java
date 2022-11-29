@@ -15,7 +15,7 @@ import site.metacoding.finals.domain.customer.CustomerRepository;
 import site.metacoding.finals.domain.reservation.Reservation;
 import site.metacoding.finals.domain.reservation.ReservationRepository;
 import site.metacoding.finals.domain.shop.Shop;
-import site.metacoding.finals.domain.shop.ShopRespository;
+import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.domain.shop_table.ShopTable;
 import site.metacoding.finals.domain.shop_table.ShopTableRepository;
 import site.metacoding.finals.domain.user.User;
@@ -33,7 +33,7 @@ public class ReservationService {
 
     private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
-    private final ShopRespository shopRespository;
+    private final ShopRepository shopRespository;
     private final ShopTableRepository shopTableRepository;
     private final UserRepository userRepository;
 

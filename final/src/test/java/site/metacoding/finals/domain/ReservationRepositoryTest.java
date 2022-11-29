@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -13,15 +14,21 @@ import org.springframework.test.context.jdbc.Sql;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.reservation.Reservation;
 import site.metacoding.finals.domain.reservation.ReservationRepository;
+import site.metacoding.finals.domain.shop.Shop;
+import site.metacoding.finals.dummy.DummyEntity;
 
 @Slf4j
-@Sql("classpath:sql/dml.sql")
 @DataJpaTest
 @ActiveProfiles("test")
-public class ReservationRepositoryTest {
+public class ReservationRepositoryTest extends DummyEntity {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @BeforeEach
+    public void setUp() {
+
+    }
 
     @Test
     public void 예약커스터머아이디조회() {

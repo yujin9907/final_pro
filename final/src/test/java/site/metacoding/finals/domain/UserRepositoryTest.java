@@ -14,13 +14,11 @@ import org.springframework.test.context.jdbc.Sql;
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
+import site.metacoding.finals.dummy.DummyEntity;
 
-@Sql("classpath:sql/dml.sql")
-// @Slf4j
 @DataJpaTest
-// @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-public class UserRepositoryTest {
+public class UserRepositoryTest extends DummyEntity {
 
     @Autowired
     private TestEntityManager tm;

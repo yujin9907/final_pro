@@ -37,8 +37,8 @@ public class ShopReqDto {
         private String address;
         private String category;
         private String information;
-        private String opentime;
-        private String closetime;
+        private String openTime;
+        private String closeTime;
         private int perPrice;
         private int perHour;
 
@@ -49,8 +49,8 @@ public class ShopReqDto {
                     .category(category)
                     .address(address)
                     .information(information)
-                    .opentime(opentime)
-                    .closetime(closetime)
+                    .openTime(openTime)
+                    .closeTime(closeTime)
                     .perPrice(perPrice)
                     .perHour(perHour)
                     .user(user)

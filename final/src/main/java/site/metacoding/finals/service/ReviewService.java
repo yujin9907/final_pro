@@ -54,6 +54,7 @@ public class ReviewService {
                         imageFileRepository.save(img);
                 }
 
-                return new ReviewSaveRespDto(review);
+                return new ReviewSaveRespDto(review, images);
+
         }
 }

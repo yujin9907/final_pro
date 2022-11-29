@@ -30,8 +30,8 @@ public class ShopRespDto {
         private String category;
         private String address;
         private String information;
-        private String opentime;
-        private String closetime;
+        private String openTime;
+        private String closeTime;
         private int perPrice;
         private int perHour;
         private List<ImageFile> imageFile;
@@ -44,8 +44,8 @@ public class ShopRespDto {
             this.category = shop.getCategory();
             this.address = shop.getAddress();
             this.information = shop.getInformation();
-            this.opentime = shop.getOpenTime();
-            this.closetime = shop.getCloseTime();
+            this.openTime = shop.getOpenTime();
+            this.closeTime = shop.getCloseTime();
             this.perPrice = shop.getPerPrice();
             this.perHour = shop.getPerHour();
             this.imageFile = imageFile;

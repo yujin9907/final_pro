@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.core.log.LogDelegateFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.auth0.jwt.JWT;
@@ -19,13 +20,15 @@ import site.metacoding.finals.domain.user.User;
 @Slf4j
 public class JwtProcess {
 
-    public static String create(UserDetails userDetails) {
+    public static String create(PrincipalUser principalUser) {
         String jwtToken = JWT.create()
                 .withSubject("auth")
                 .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60)))
-                .withClaim("username", userDetails.getUsername())
-                .withClaim("role", userDetails.getAuthorities().toString())
+                .withClaim("username", principalUser.getUsername())
+                .withClaim("role", principalUser.getUser().getRole().name())
                 .sign(Algorithm.HMAC256(JwtSecret.SECRET));
+
+        System.out.println("디버그" + principalUser.getUser().getRole().name());
         return jwtToken;
     }
 
@@ -43,7 +46,9 @@ public class JwtProcess {
 
         Long id = decodedJWT.getClaim("id").asLong();
         String username = decodedJWT.getClaim("username").asString();
+        System.out.println("디버그 : " + username);
         String role = decodedJWT.getClaim("role").asString();
+        System.out.println("디버그 : " + role);
         User user = User.builder().id(id).username(username).role(Role.valueOf(role)).build();
         PrincipalUser principalUser = new PrincipalUser(user);
         return principalUser;

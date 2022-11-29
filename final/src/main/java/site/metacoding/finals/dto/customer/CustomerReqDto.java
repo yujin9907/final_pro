@@ -17,11 +17,12 @@ public class CustomerReqDto {
         private String username;
         private String password;
 
-        public Customer toCustomerEntity() {
+        public Customer toCustomerEntity(User user) {
             return Customer.builder()
                     .name(this.name)
                     .phoneNumber(this.phoneNumber)
                     .address(this.address)
+                    .user(user)
                     .build();
         }
 

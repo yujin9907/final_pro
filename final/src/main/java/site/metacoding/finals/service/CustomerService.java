@@ -44,8 +44,8 @@ public class CustomerService {
         String password = bCryptPasswordEncoder.encode(customerJoinReqDto.getPassword());
         customerJoinReqDto.setPassword(password);
 
-        Customer customer = customerRepository.save(customerJoinReqDto.toCustomerEntity());
         User user = userRepository.save(customerJoinReqDto.toUserEntity());
+        Customer customer = customerRepository.save(customerJoinReqDto.toCustomerEntity(user));
 
         return new CustomerJoinRespDto(customer, user);
     }

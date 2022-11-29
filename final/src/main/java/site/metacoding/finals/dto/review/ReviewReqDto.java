@@ -18,11 +18,10 @@ public class ReviewReqDto {
         private String image;
         private Long shopId;
 
-        public Review toEntity(List<ImageFile> imageFile, Customer customer, Shop shop) {
+        public Review toEntity(Customer customer, Shop shop) {
             return Review.builder()
                     .content(this.content)
                     .score(this.score)
-                    .imageFile(imageFile)
                     .customer(customer)
                     .shop(shop)
                     .build();

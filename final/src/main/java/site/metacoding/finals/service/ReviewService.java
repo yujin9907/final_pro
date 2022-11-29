@@ -50,8 +50,8 @@ public class ReviewService {
             imageFileRepository.save(img);
         }
 
-        Review review = reviewRepository.save(dto.toEntity(images, customerPS, shopPS));
+        Review review = reviewRepository.save(dto.toEntity(customerPS, shopPS));
 
-        return new ReviewSaveRespDto(review);
+        return new ReviewSaveRespDto(review, images);
     }
 }

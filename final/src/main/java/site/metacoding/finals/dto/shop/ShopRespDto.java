@@ -1,8 +1,11 @@
 package site.metacoding.finals.dto.shop;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.finals.domain.feature.Feature;
+import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
 
@@ -20,7 +23,7 @@ public class ShopRespDto {
 
     @Setter
     @Getter
-    public static class ShopInformationRespDto {
+    public static class ShopInfoSaveRespDto {
         private Long id;
         private String shopName;
         private String phoneNumber;
@@ -29,12 +32,12 @@ public class ShopRespDto {
         private String information;
         private String opentime;
         private String closetime;
-        private String image;
         private int perPrice;
         private int perHour;
+        private List<ImageFile> imageFile;
         private User user;
 
-        public ShopInformationRespDto(Shop shop) {
+        public ShopInfoSaveRespDto(Shop shop, List<ImageFile> imageFile) {
             this.id = shop.getId();
             this.shopName = shop.getShopName();
             this.phoneNumber = shop.getPhoneNumber();
@@ -43,9 +46,9 @@ public class ShopRespDto {
             this.information = shop.getInformation();
             this.opentime = shop.getOpentime();
             this.closetime = shop.getClosetime();
-            this.image = shop.getImage();
             this.perPrice = shop.getPerPrice();
             this.perHour = shop.getPerHour();
+            this.imageFile = imageFile;
             this.user = shop.getUser();
         }
     }

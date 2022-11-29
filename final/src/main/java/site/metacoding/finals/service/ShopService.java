@@ -7,22 +7,26 @@ import javax.transaction.Transactional;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.feature.FeatureRepository;
+import site.metacoding.finals.domain.image_file.ImageFile;
+import site.metacoding.finals.domain.image_file.ImageFileRepository;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopFilterReqDto;
-import site.metacoding.finals.dto.shop.ShopReqDto.ShopInformationReqDto;
+import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopInformationRespDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopInfoSaveRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
+import site.metacoding.finals.handler.ImageFileHandler;
 
 @Slf4j
 @Service
@@ -32,6 +36,8 @@ public class ShopService {
     private final ShopRepository shopRepository;
     private final FeatureRepository featureRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ImageFileRepository imageFileRepository;
+    private final ImageFileHandler imageFileHandler;
 
     @Transactional
     public ShopJoinRespDto join(ShopJoinReqDto shopJoinReqDto) {
@@ -45,10 +51,18 @@ public class ShopService {
     }
 
     // @Transactional
-    public ShopInformationRespDto information(ShopInformationReqDto shopInformationReqDto, User user) {
-        Shop shopPS = shopRepository.save(shopInformationReqDto.toInformationEntity(user));
+    public ShopInfoSaveRespDto information(List<MultipartFile> multipartFiles,
+            ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
 
-        return new ShopInformationRespDto(shopPS);
+        Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
+
+        List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
+        for (ImageFile img : images) {
+            img.setShop(shopPS);
+            imageFileRepository.save(img);
+        }
+
+        return new ShopInfoSaveRespDto(shopPS, images);
     }
 
     // ==========================================

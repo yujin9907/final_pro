@@ -1,8 +1,11 @@
 package site.metacoding.finals.dto.shop;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.finals.config.enums.Role;
+import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
 
@@ -28,7 +31,7 @@ public class ShopReqDto {
 
     @Setter
     @Getter
-    public static class ShopInformationReqDto {
+    public static class ShopInfoSaveReqDto {
         private String shopName;
         private String phoneNumber;
         private String address;
@@ -36,11 +39,10 @@ public class ShopReqDto {
         private String information;
         private String opentime;
         private String closetime;
-        private String image;
         private int perPrice;
         private int perHour;
 
-        public Shop toInformationEntity(User user) {
+        public Shop toInfoSaveEntity(User user) {
             return Shop.builder()
                     .shopName(shopName)
                     .phoneNumber(phoneNumber)
@@ -49,7 +51,6 @@ public class ShopReqDto {
                     .information(information)
                     .opentime(opentime)
                     .closetime(closetime)
-                    .image(image)
                     .perPrice(perPrice)
                     .perHour(perHour)
                     .user(user)

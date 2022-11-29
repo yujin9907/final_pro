@@ -14,8 +14,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.dto.ResponseDto;
+import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopSaveReqDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopSaveRespDto;
 import site.metacoding.finals.service.ShopService;
 
@@ -26,11 +28,22 @@ public class ShopApiController {
 
     private final ShopService shopService;
 
-    @PostMapping("/shop/information")
-    public ResponseDto<?> save(@RequestBody ShopSaveReqDto shopSaveReqDto) {
-        ShopSaveRespDto shopSaveRespDto = shopService.save(shopSaveReqDto);
-        return new ResponseDto<>(HttpStatus.CREATED, "가게 정보 등록 완료", shopSaveRespDto);
+    // shop입장에서 이용하는 가게 기능
+
+    @PostMapping("/shop/join")
+    public ResponseEntity<?> joinShopApi(@RequestBody ShopJoinReqDto shopJoinReqDto) {
+        ShopJoinRespDto shopJoinRespDto = shopService.join(shopJoinReqDto);
+        return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "가게 회원가입 완료", shopJoinRespDto),
+                HttpStatus.CREATED);
     }
+
+    // @PostMapping("/shop/information")
+    // public ResponseDto<?> save(@RequestBody ShopSaveReqDto shopSaveReqDto) {
+    // ShopSaveRespDto shopSaveRespDto = shopService.save(shopSaveReqDto);
+    // return new ResponseDto<>(HttpStatus.CREATED, "가게 정보 등록 완료", shopSaveRespDto);
+    // }
+
+    // customer입장에서 보는 가게 기능
 
     @GetMapping("/shop/list")
     public ResponseEntity<?> shopList() {

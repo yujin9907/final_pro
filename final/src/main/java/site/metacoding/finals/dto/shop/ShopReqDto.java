@@ -2,6 +2,7 @@ package site.metacoding.finals.dto.shop;
 
 import lombok.Getter;
 import lombok.Setter;
+import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
 
@@ -9,31 +10,39 @@ import site.metacoding.finals.domain.user.User;
 @Getter
 public class ShopReqDto {
 
-    @Getter
+    // 회지DTO
     @Setter
-    public static class ShopFilterReqDto {
-        private int date;
-        private int person;
-        private int time;
+    @Getter
+    public static class ShopJoinReqDto {
+        private String username;
+        private String password;
+
+        public User toUserEntity() {
+            return User.builder()
+                    .username(this.username)
+                    .password(this.password)
+                    .role(Role.SHOP)
+                    .build();
+        }
     }
 
     @Setter
     @Getter
-    public static class ShopSaveReqDto {
+    public static class ShopInformationReqDto {
         private String shopName;
-        private String regestrationNumber;
         private String phoneNumber;
-        private String category;
         private String address;
+        private String category;
         private String information;
         private String opentime;
         private String closetime;
         private String image;
         private int perPrice;
         private int perHour;
-        private User user;
+        private String username;
+        private String password;
 
-        public Shop toEntity() {
+        public Shop toShopEntity(User user) {
             return Shop.builder()
                     .shopName(shopName)
                     .phoneNumber(phoneNumber)
@@ -45,8 +54,26 @@ public class ShopReqDto {
                     .image(image)
                     .perPrice(perPrice)
                     .perHour(perHour)
+                    .user(user)
                     .build();
         }
+
+        public User toUserEntity() {
+            return User.builder()
+                    .username(this.username)
+                    .password(this.password)
+                    .role(Role.SHOP)
+                    .build();
+        }
+    }
+
+    // 유진 Dto
+    @Getter
+    @Setter
+    public static class ShopFilterReqDto {
+        private int date;
+        private int person;
+        private int time;
     }
 
 }

@@ -21,6 +21,7 @@ import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.dto.ResponseDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopCategoryListRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopInfoSaveRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
@@ -59,13 +60,13 @@ public class ShopApiController {
     @GetMapping("/shop/list")
     public ResponseEntity<?> shopList() {
         List<Shop> shopList = shopService.List();
-        return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "전체 가게 리스트 조횐", shopList), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "전체 가게 리스트 조회", shopList), HttpStatus.OK);
     }
 
     // 리스폰스 dto 방식 얘만 다름
     @GetMapping("/shop/list/{categoryName}")
     public ResponseEntity<?> shopCategoryList(@PathVariable String categoryName) {
-        List<Shop> shopList = shopService.categoryList(categoryName);
+        List<ShopCategoryListRespDto> shopList = shopService.categoryList(categoryName);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "카테고리별 가게 리스트 조회", shopList), HttpStatus.OK);
     }
 

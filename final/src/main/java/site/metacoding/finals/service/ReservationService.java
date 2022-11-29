@@ -53,8 +53,8 @@ public class ReservationService {
         Shop shopPS = shopRespository.findById(dto.getShopId())
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 아이디입니다"));
 
-        int start = Integer.parseInt(shopPS.getOpentime());
-        int end = Integer.parseInt(shopPS.getClosetime());
+        int start = Integer.parseInt(shopPS.getOpenTime());
+        int end = Integer.parseInt(shopPS.getCloseTime());
 
         List<Integer> timeList = new ArrayList<>();
         for (int i = start; i < end; i += shopPS.getPerHour()) {

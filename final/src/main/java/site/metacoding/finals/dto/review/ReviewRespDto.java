@@ -22,14 +22,30 @@ public class ReviewRespDto {
         private Customer customer;
         private Shop shop;
 
-        public ReviewSaveRespDto(Review review, List<ImageFile> imageFile) {
+        public ReviewSaveRespDto(Review review) {
             this.id = review.getId();
             this.score = review.getScore();
             this.content = review.getContent();
-            this.imageFile = imageFile;
             this.customer = review.getCustomer();
             this.shop = review.getShop();
         }
+    }
 
+    @Setter
+    @Getter
+    public static class ShopListRespDto {
+        List<ShopDto> shops;
+        List<ImageFileDto> images;
+
+        public class ShopDto {
+            private String shopName;
+            private String information;
+            private String category;
+            private String address;
+        }
+
+        public class ImageFileDto {
+            private String storeFilename;
+        }
     }
 }

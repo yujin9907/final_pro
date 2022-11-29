@@ -44,8 +44,8 @@ public class ShopRespDto {
             this.category = shop.getCategory();
             this.address = shop.getAddress();
             this.information = shop.getInformation();
-            this.opentime = shop.getOpentime();
-            this.closetime = shop.getClosetime();
+            this.opentime = shop.getOpenTime();
+            this.closetime = shop.getCloseTime();
             this.perPrice = shop.getPerPrice();
             this.perHour = shop.getPerHour();
             this.imageFile = imageFile;
@@ -63,6 +63,23 @@ public class ShopRespDto {
         public ShopDetailRespDto(Shop shop, Feature feature) {
             this.shop = shop;
             this.feature = feature;
+        }
+
+    }
+
+    @Setter
+    @Getter
+    public static class ShopCategoryListRespDto {
+        private String shopName;
+        private String address;
+        private String openTime;
+        private String closeTime;
+
+        public ShopCategoryListRespDto(Shop shop) {
+            this.shopName = shop.getShopName();
+            this.address = shop.getAddress();
+            this.openTime = shop.getOpenTime();
+            this.closeTime = shop.getCloseTime();
         }
 
     }

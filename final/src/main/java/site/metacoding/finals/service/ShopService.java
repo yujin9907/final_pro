@@ -1,6 +1,7 @@
 package site.metacoding.finals.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -23,6 +24,7 @@ import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopFilterReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopCategoryListRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopInfoSaveRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
@@ -65,15 +67,16 @@ public class ShopService {
         return new ShopInfoSaveRespDto(shopPS, images);
     }
 
-    // ==========================================
-
     public List<Shop> List() {
         return shopRepository.findAll();
     }
 
-    public List<Shop> categoryList(String categoryName) {
+    public List<ShopCategoryListRespDto> categoryList(String categoryName) {
         List<Shop> shopList = shopRepository.findByCategory(categoryName);
-        return shopList;
+
+        return shopList.stream()
+                .map((dto) -> new ShopCategoryListRespDto(dto)).collect(Collectors.toList());
+
     }
 
     public List<Shop> filterList(ShopFilterReqDto dto) {

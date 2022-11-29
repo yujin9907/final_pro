@@ -46,9 +46,9 @@ public class Shop extends AutoTime {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String information;
     @Column(nullable = false, length = 10)
-    private String opentime;
+    private String openTime;
     @Column(nullable = false, length = 10)
-    private String closetime;
+    private String closeTime;
 
     @Column(nullable = false)
     private int perPrice;

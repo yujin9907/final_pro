@@ -24,15 +24,16 @@ import site.metacoding.finals.service.ReviewService;
 @RestController
 public class ReviewApiController {
 
-    private final ReviewService reviewService;
-    private final ImageFileHandler imageFileService;
+        private final ReviewService reviewService;
+        private final ImageFileHandler imageFileService;
 
-    @PostMapping(value = "/review", consumes = { MediaType.APPLICATION_JSON_VALUE,
-            MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<?> saveReview(@RequestPart("file") List<MultipartFile> file,
-            @RequestPart("reqDto") ReviewSaveReqDto reviewSaveReqDto,
-            @AuthenticationPrincipal UserDetails principalUser) {
-        ReviewSaveRespDto respDto = reviewService.save(file, reviewSaveReqDto, principalUser);
-        return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "리뷰 저장", respDto), HttpStatus.CREATED);
-    }
+        @PostMapping(value = "/review", consumes = { MediaType.APPLICATION_JSON_VALUE,
+                        MediaType.MULTIPART_FORM_DATA_VALUE })
+        public ResponseEntity<?> saveReview(@RequestPart("file") List<MultipartFile> file,
+                        @RequestPart("reqDto") ReviewSaveReqDto reviewSaveReqDto,
+                        @AuthenticationPrincipal PrincipalUser principalUser) {
+                ReviewSaveRespDto respDto = reviewService.save(file, reviewSaveReqDto, principalUser);
+                return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "리뷰 저장", respDto),
+                                HttpStatus.CREATED);
+        }
 }

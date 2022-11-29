@@ -5,5 +5,4 @@ spring:
     # include:
     # - oauth
 
-filedir: "C://temp/image/"
  

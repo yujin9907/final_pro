@@ -45,7 +45,7 @@ public class CustomerApiController {
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.ACCEPTED, "회원정보수정 완료", dto), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/customer/mypage/reservation/{id}")
+    @GetMapping("/auth/user/customer/mypage/reservation/{id}")
     public ResponseEntity<?> CustomerMypageReservationApi(@PathVariable Long id) {
         CustomerMyPageReservationRespDto dto = customerService.myPageReservation(id);
         log.debug("디버그 : " + dto.getShop());

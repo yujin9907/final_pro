@@ -11,10 +11,12 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.user.User;
 
+@Slf4j
 public class JwtProcess {
 
     public static String create(UserDetails userDetails) {
@@ -37,7 +39,7 @@ public class JwtProcess {
     }
 
     public static UserDetails verify(String token) {
-        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(JwtSecret.SECRET)).build().verify(token);
+        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC256(JwtSecret.SECRET)).build().verify(token);
 
         Long id = decodedJWT.getClaim("id").asLong();
         String username = decodedJWT.getClaim("username").asString();

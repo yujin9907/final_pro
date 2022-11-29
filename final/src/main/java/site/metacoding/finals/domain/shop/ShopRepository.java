@@ -8,8 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
-        List<Shop> findBySetReservationDate(String date);
-
         List<Shop> findByCategory(String category);
 
         @Query(value = "select shop.* from shop"

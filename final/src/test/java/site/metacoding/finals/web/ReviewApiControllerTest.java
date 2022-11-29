@@ -1,8 +1,8 @@
 package site.metacoding.finals.web;
 
 import java.nio.charset.StandardCharsets;
-
-import javax.mail.Multipart;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -36,7 +36,8 @@ public class ReviewApiControllerTest {
         private MockMvc mvc;
 
         @Test
-        @WithMockUser(username = "ssar", roles = "USER")
+        @WithUserDetails("ssar")
+        // @WithMockUser(username = "ssar", roles = "USER")
         public void 리뷰저장하기테스트() throws Exception {
                 // g
                 ReviewSaveReqDto reqDtodata = new ReviewSaveReqDto();
@@ -49,8 +50,11 @@ public class ReviewApiControllerTest {
                                 "application/json", body.getBytes(StandardCharsets.UTF_8));
 
                 String filePath = "c://skdjlsdfjk";
-                MockMultipartFile file = new MockMultipartFile("file", "filename", "form-data",
+                MockMultipartFile file = new MockMultipartFile("file", "filename.jpg", "form-data",
                                 filePath.getBytes(StandardCharsets.UTF_8));
+
+                List<MockMultipartFile> files = new ArrayList<>();
+                files.add(file);
 
                 // when
                 ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.multipart("/review")

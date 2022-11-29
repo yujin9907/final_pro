@@ -5,5 +5,5 @@ spring:
     # include:
     # - oauth
 
-filedir: "C://temp/image/"
+filedir: "C://temp/image"
  

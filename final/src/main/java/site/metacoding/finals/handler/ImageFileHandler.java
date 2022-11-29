@@ -37,30 +37,28 @@ public class ImageFileHandler {
         }
         File folder = new File(fileDir);
         if (!folder.exists())
-            folder.mkdirs();
+            folder.mkdir();
 
-        System.err.println("디버그 : 서비스 진입");
-        System.out.println("디버그 : " + fileDir);
+        System.err.println("디버그 : 이미지 핸들러 진입");
 
-        String originalFilename = "";
-        String storeFilename = "";
         List<ImageFile> images = new ArrayList<>();
-        for (MultipartFile multipartFile : multipartFiles) {
-            originalFilename = multipartFile.getOriginalFilename();
-            storeFilename = getUUID() + getExtension(originalFilename);
+
+        multipartFiles.forEach(multipartFile -> {
+            System.out.println("반복문 실행");
 
             try {
-                multipartFile.transferTo(new File(fileDir, storeFilename));
+                multipartFile
+                        .transferTo(new File(fileDir, getUUID() + getExtension(multipartFile.getOriginalFilename())));
             } catch (IOException e) {
                 new RuntimeException("파일 저장 에러");
             }
 
             images.add(ImageFile.builder()
-                    .originFilename(originalFilename)
-                    .storeFilename(storeFilename)
+                    .originFilename(multipartFile.getOriginalFilename())
+                    .storeFilename(getUUID() + getExtension(multipartFile.getOriginalFilename()))
                     .build());
-        }
-
+        });
+        System.out.println("이미지 저장 완료 ");
         // File image = new File(fileDir, storeFilename);
         // Files.copy(multipartFile.getInputStream(), image.toPath());
 

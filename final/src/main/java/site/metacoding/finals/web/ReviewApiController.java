@@ -30,9 +30,9 @@ public class ReviewApiController {
     @PostMapping(value = "/review", consumes = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<?> saveReview(@RequestPart("file") List<MultipartFile> file,
-            @RequestPart("reqDto") ReviewSaveReqDto reviewSaveReqDto,
-            @AuthenticationPrincipal UserDetails principalUser) {
-        ReviewSaveRespDto respDto = reviewService.save(file, reviewSaveReqDto, principalUser);
+            @RequestPart("reqDto") ReviewSaveReqDto reviewSaveReqDto) {
+        // @AuthenticationPrincipal PrincipalUser principalUser
+        ReviewSaveRespDto respDto = reviewService.save(file, reviewSaveReqDto);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "리뷰 저장", respDto), HttpStatus.CREATED);
     }
 }

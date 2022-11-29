@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationSaveReqDto;
 import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationSelectReqDto;
 

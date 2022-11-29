@@ -26,10 +26,27 @@ public class ReviewRespDto {
             this.id = review.getId();
             this.score = review.getScore();
             this.content = review.getContent();
-            this.imageFile = review.getImageFile();
             this.customer = review.getCustomer();
             this.shop = review.getShop();
         }
-
     }
+
+    @Setter
+    @Getter
+    public static class ShopListRespDto {
+        List<ShopDto> shops;
+        List<ImageFileDto> images;
+
+        public class ShopDto {
+            private String shopName;
+            private String information;
+            private String category;
+            private String address;
+        }
+
+        public class ImageFileDto {
+            private String storeFilename;
+        }
+    }
+
 }

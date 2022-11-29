@@ -2,6 +2,7 @@ package site.metacoding.finals.web;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,20 +18,40 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
+import site.metacoding.finals.domain.image_file.ImageFile;
+import site.metacoding.finals.domain.shop.Shop;
+import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerJoinReqDto;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
+import site.metacoding.finals.dummy.DummyEntity;
 
-@Sql("classpath:sql/dml.sql")
+// @Sql({ "classpath:dml.sql", "classpath:truncate.sql" })
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
-public class CustomerApiControllerTest {
+public class CustomerApiControllerTest extends DummyEntity {
 
     @Autowired
     private ObjectMapper om;
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private ShopRepository shopRepository;
+
+    @BeforeEach
+    public void setUp() {
+
+        Shop shop = newShop("가게1", "1", "한식");
+        Shop shop2 = newShop("가게2", "2", "일식");
+
+        shopRepository.save(shop);
+        shopRepository.save(shop2);
+
+        ImageFile imageFile = newShopImageFile(shop);
+        // imageFileRepository.save(imageFile);
+    }
 
     @Test
     public void 커스터머회원가입() throws Exception {

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.dto.review.ReviewReqDto.ReviewSaveReqDto;
 
-@Sql("classpath:sql/dml.sql")
+// @Sql({ "classpath:dml.sql", "classpath:truncate.sql" })
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc

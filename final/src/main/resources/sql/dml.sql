@@ -3,11 +3,17 @@
 insert into users(username, password, role, created_at) values ('ssar', '$2a$10$sPyqasyfpVYeHDVrtRcXKelXutSQobLuWzf32BXmQvnLTMbddkIwy', 'USER', now());
 insert into users(username, password, role, created_at) values ('cos', '$2a$10$sPyqasyfpVYeHDVrtRcXKelXutSQobLuWzf32BXmQvnLTMbddkIwy', 'SHOP', now());
 
-insert into shop(category, address, closetime, image, information, opentime, per_hour, per_price, phone_number, shop_name, user_id, created_at)
-values ('한식', '가게주소', '22', '이미지1', '소개', '10', '1', '10000', '01011113333', '가게', 2, now());
+insert into image_file(origin_filename, store_filename, created_at) values('testimage.jpg', 'randomname.jpg', now());
+insert into image_file(origin_filename, store_filename, review_id, created_at) values('testimage.jpg', 'randomname.jpg', 1L, now());
+
+
+insert into shop(category, address, closetime, information, opentime, per_hour, per_price, phone_number, shop_name, user_id, created_at, image_file_id)
+values ('한식', '가게주소', '22', '소개', '10', '1', '10000', '01011113333', '가게', 2, now(), 1);
 
 insert into customer(address, name, phone_number, user_id, created_at)
 values ('주소', '커스터머', '01099966462', 1, now());
+
+insert into review(score, content, shop_id, customer_id, created_at) values (5, 'test',1,1,now());
 
 insert into shop_table(max_people, shop_id, created_at)
 values (4, 1, now());

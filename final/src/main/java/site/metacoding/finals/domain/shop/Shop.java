@@ -40,11 +40,9 @@ public class Shop extends AutoTime {
     private String address;
     private String information;
     @Column(nullable = false, length = 10)
-    private String opentime;
+    private String openTime;
     @Column(nullable = false, length = 10)
-    private String closetime;
-    @Column(length = 100)
-    private String image;
+    private String closeTime;
 
     @Column(nullable = false)
     private int perPrice;

@@ -55,8 +55,6 @@ public class CustomerService {
         Customer customerPS = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("유저 정보 찾을 수 없음"));
 
-        log.debug("디버그 : " + customerPS.getUser());
-
         customerPS.toEntity(customerUpdateReqDto);
 
         customerRepository.save(customerPS);

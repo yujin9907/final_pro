@@ -1,15 +1,18 @@
 package site.metacoding.finals.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.feature.FeatureRepository;
+import site.metacoding.finals.domain.image_file.ImageFileRepository;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopFilterReqDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopCategoryListRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
 
 @Service
@@ -18,14 +21,18 @@ public class ShopService {
 
     private final ShopRepository shopRespository;
     private final FeatureRepository featureRepository;
+    private final ImageFileRepository imageFileRepository;
 
     public List<Shop> List() {
         return shopRespository.findAll();
     }
 
-    public List<Shop> categoryList(String categoryName) {
+    public List<ShopCategoryListRespDto> categoryList(String categoryName) {
         List<Shop> shopList = shopRespository.findByCategory(categoryName);
-        return shopList;
+
+        return shopList.stream()
+                .map((dto) -> new ShopCategoryListRespDto(dto)).collect(Collectors.toList());
+
     }
 
     public List<Shop> filterList(ShopFilterReqDto dto) {

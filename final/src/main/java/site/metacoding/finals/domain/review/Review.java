@@ -1,7 +1,9 @@
 package site.metacoding.finals.domain.review;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -37,7 +40,7 @@ public class Review extends AutoTime {
     private int score;
     private String content;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_file_id")
     private List<ImageFile> imageFile;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -47,8 +50,7 @@ public class Review extends AutoTime {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-    // 고려
-    // @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    // private List<ImageFile> imageFiles = new ArrayList<>();
+    @OneToMany(mappedBy = "review")
+    private List<ImageFile> imageFiles = new ArrayList<>();
 
 }

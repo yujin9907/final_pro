@@ -32,7 +32,6 @@ public class ReviewApiController {
     public ResponseEntity<?> saveReview(@RequestPart("file") List<MultipartFile> file,
             @RequestPart("reqDto") ReviewSaveReqDto reviewSaveReqDto,
             @AuthenticationPrincipal PrincipalUser principalUser) {
-
         ReviewSaveRespDto respDto = reviewService.save(file, reviewSaveReqDto, principalUser);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "리뷰 저장", respDto), HttpStatus.CREATED);
     }

@@ -24,3 +24,5 @@ logging:
   level:
     '[org.springframework.web]': DEBUG
     '[site.metacoding.finals]': DEBUG
+
+filedir: "C://temp/image"

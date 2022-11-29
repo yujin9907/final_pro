@@ -21,16 +21,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.config.enums.Role;
+import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.user.UserReqDto.LoginDto;
+import site.metacoding.finals.dummy.DummyEntity;
 
-@Sql("classpath:sql/dml.sql")
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-// @RequiredArgsConstructor
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
-public class JWTAuthFilterTest {
+public class JWTAuthFilterTest extends DummyEntity {
 
         @Autowired
         private ObjectMapper om;
@@ -41,22 +41,21 @@ public class JWTAuthFilterTest {
         @Autowired
         private UserRepository userRepository;
 
-        // @BeforeEach
-        // public void settup() throws Exception {
-        // // given
-        // LoginDto loginDto = LoginDto.builder()
-        // .username("test")
-        // .password(bCryptPasswordEncoder.encode(("123")))
-        // .build();
-
-        // userRepository.save(loginDto.toEntity());
-        // }
+        @BeforeEach
+        public void settup() throws Exception {
+        }
 
         @Test
         public void 필터테스트() throws Exception {
                 // given
                 String password = bCryptPasswordEncoder.encode("123");
-                log.debug("디버그 : " + password);
+
+                User user = User.builder()
+                                .username("ssar")
+                                .password(password)
+                                .role(Role.USER)
+                                .build();
+                userRepository.save(user);
 
                 LoginDto loginDto = new LoginDto();
                 loginDto.setUsername("ssar");

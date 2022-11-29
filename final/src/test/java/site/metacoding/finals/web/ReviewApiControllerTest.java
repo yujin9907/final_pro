@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.dto.review.ReviewReqDto.ReviewSaveReqDto;
 
-// @Sql({ "classpath:dml.sql", "classpath:truncate.sql" })
+@Sql("classpath:sql/dml.sql")
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc

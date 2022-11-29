@@ -2,7 +2,6 @@ package site.metacoding.finals.service;
 
 import java.util.List;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,15 +44,15 @@ public class ReviewService {
                 Shop shopPS = shopRespository.findById(dto.getShopId())
                                 .orElseThrow(() -> new RuntimeException("잘못된 가게입니다"));
 
-                Review review = reviewRepository.save(dto.toEntity(customerPS,
-                                shopPS));
-
                 List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
                 for (ImageFile img : images) {
-                        img.setReview(review);
                         imageFileRepository.save(img);
                 }
 
-                return new ReviewSaveRespDto(review);
+                System.out.println("저장완료");
+                Review review = reviewRepository.save(dto.toEntity(customerPS,
+                                shopPS));
+
+                return new ReviewSaveRespDto(review, images);
         }
 }

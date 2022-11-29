@@ -57,6 +57,6 @@ public class Shop extends AutoTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    // @JsonIgnore
+    @JsonIgnore
     private User user;
 }

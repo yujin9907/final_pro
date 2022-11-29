@@ -41,8 +41,8 @@ public class Customer extends AutoTime {
     @Column(length = 30)
     private String address;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id")
-    // @JsonIgnore
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     public Customer toEntity(CustomerUpdateReqDto dto) {

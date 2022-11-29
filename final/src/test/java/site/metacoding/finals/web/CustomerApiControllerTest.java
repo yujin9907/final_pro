@@ -25,7 +25,7 @@ import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerJoinReqDto;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
 import site.metacoding.finals.dummy.DummyEntity;
 
-// @Sql({ "classpath:dml.sql", "classpath:truncate.sql" })
+@Sql("classpath:sql/dml.sql")
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -36,22 +36,6 @@ public class CustomerApiControllerTest extends DummyEntity {
     private ObjectMapper om;
     @Autowired
     private MockMvc mvc;
-
-    @Autowired
-    private ShopRepository shopRepository;
-
-    @BeforeEach
-    public void setUp() {
-
-        Shop shop = newShop("가게1", "1", "한식");
-        Shop shop2 = newShop("가게2", "2", "일식");
-
-        shopRepository.save(shop);
-        shopRepository.save(shop2);
-
-        ImageFile imageFile = newShopImageFile(shop);
-        // imageFileRepository.save(imageFile);
-    }
 
     @Test
     public void 커스터머회원가입() throws Exception {

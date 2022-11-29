@@ -1,5 +1,7 @@
 package site.metacoding.finals.web;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,10 +18,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
+import site.metacoding.finals.domain.reservation.ReservationRepository;
+import site.metacoding.finals.domain.shop.Shop;
+import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationSaveReqDto;
 import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationSelectReqDto;
 
-@Sql({ "classpath:dml.sql", "classpath:truncate.sql" })
+@Sql("classpath:sql/dml.sql")
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -30,6 +35,9 @@ public class ReservationApiControllerTest {
     private ObjectMapper om;
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private ShopRepository shopRepository;
 
     @Test
     public void 테이블목록조회테스트() throws Exception {
@@ -57,11 +65,16 @@ public class ReservationApiControllerTest {
     @Test
     public void 타임리스트조회테스트() throws Exception {
         // g
+
         ReservationSelectReqDto reqDto = new ReservationSelectReqDto();
         reqDto.setShopId(1L);
-        reqDto.setDate("20221127");
+        reqDto.setDate("20221129");
         reqDto.setMaxPeople(4);
         String body = om.writeValueAsString(reqDto);
+
+        System.out.println("숍 아이디 디버그 : " + shopRepository.findById(1L));
+        List<Shop> shop = shopRepository.findAll();
+        shop.forEach((s) -> System.out.println("디버그 : " + s));
 
         // when
         ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.post("/reservation/time")

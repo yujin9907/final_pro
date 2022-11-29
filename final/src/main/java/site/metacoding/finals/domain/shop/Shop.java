@@ -1,5 +1,6 @@
 package site.metacoding.finals.domain.shop;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,7 +54,7 @@ public class Shop extends AutoTime {
     private int perHour;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @JoinColumn(name = "user_id") // referencedColumnName = "id"
+    // @JsonIgnore
     private User user;
 }

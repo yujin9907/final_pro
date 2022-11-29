@@ -39,10 +39,8 @@ public class ShopReqDto {
         private String image;
         private int perPrice;
         private int perHour;
-        private String username;
-        private String password;
 
-        public Shop toShopEntity(User user) {
+        public Shop toInformationEntity(User user) {
             return Shop.builder()
                     .shopName(shopName)
                     .phoneNumber(phoneNumber)
@@ -55,14 +53,6 @@ public class ShopReqDto {
                     .perPrice(perPrice)
                     .perHour(perHour)
                     .user(user)
-                    .build();
-        }
-
-        public User toUserEntity() {
-            return User.builder()
-                    .username(this.username)
-                    .password(this.password)
-                    .role(Role.SHOP)
                     .build();
         }
     }

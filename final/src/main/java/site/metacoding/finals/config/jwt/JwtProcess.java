@@ -24,6 +24,7 @@ public class JwtProcess {
         String jwtToken = JWT.create()
                 .withSubject("auth")
                 .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60)))
+                .withClaim("id", principalUser.getUser().getId())
                 .withClaim("username", principalUser.getUsername())
                 .withClaim("role", principalUser.getUser().getRole().name())
                 .sign(Algorithm.HMAC256(JwtSecret.SECRET));

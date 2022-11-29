@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.feature.FeatureRepository;
 import site.metacoding.finals.domain.shop.Shop;
@@ -15,10 +18,13 @@ import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopFilterReqDto;
+import site.metacoding.finals.dto.shop.ShopReqDto.ShopInformationReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopInformationRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ShopService {
@@ -39,16 +45,11 @@ public class ShopService {
     }
 
     // @Transactional
-    // public ShopInformationRespDto join(ShopInformationReqDto shopJoinReqDto) {
-    // String encPassword =
-    // bCryptPasswordEncoder.encode(shopJoinReqDto.getPassword());
-    // shopJoinReqDto.setPassword(encPassword);
+    public ShopInformationRespDto information(ShopInformationReqDto shopInformationReqDto, User user) {
+        Shop shopPS = shopRepository.save(shopInformationReqDto.toInformationEntity(user));
 
-    // User userPS = userRepository.save(shopJoinReqDto.toUserEntity());
-    // Shop shopPS = shopRepository.save(shopJoinReqDto.toShopEntity(userPS));
-
-    // return new ShopJoinRespDto(shopPS, userPS);
-    // }
+        return new ShopInformationRespDto(shopPS);
+    }
 
     // ==========================================
 

@@ -18,34 +18,37 @@ public class ShopRespDto {
         }
     }
 
-    // @Setter
-    // @Getter
-    // public static class ShopInformationRespDto {
-    // private Long id;
-    // private String shopName;
-    // private String phoneNumber;
-    // private String category;
-    // private String address;
-    // private String information;
-    // private String opentime;
-    // private String closetime;
-    // private String image;
-    // private int perPrice;
-    // private int perHour;
-    // private User user;
+    @Setter
+    @Getter
+    public static class ShopInformationRespDto {
+        private Long id;
+        private String shopName;
+        private String phoneNumber;
+        private String category;
+        private String address;
+        private String information;
+        private String opentime;
+        private String closetime;
+        private String image;
+        private int perPrice;
+        private int perHour;
+        private User user;
 
-    // public ShopJoinRespDto(User user) {
-    // this.id = shop.getId();
-    // this.shopName = shop.getShopName();
-    // this.phoneNumber = shop.getPhoneNumber();
-    // this.category = shop.getCategory();
-    // this.address = shop.getAddress();
-    // this.information = shop.getInformation();
-    // this.opentime = shop.getOpentime();
-    // this.closetime = shop.getClosetime();
-    // this.image = shop.getImage();
-    // }
-    // }
+        public ShopInformationRespDto(Shop shop) {
+            this.id = shop.getId();
+            this.shopName = shop.getShopName();
+            this.phoneNumber = shop.getPhoneNumber();
+            this.category = shop.getCategory();
+            this.address = shop.getAddress();
+            this.information = shop.getInformation();
+            this.opentime = shop.getOpentime();
+            this.closetime = shop.getClosetime();
+            this.image = shop.getImage();
+            this.perPrice = shop.getPerPrice();
+            this.perHour = shop.getPerHour();
+            this.user = shop.getUser();
+        }
+    }
 
     @Getter
     @Setter

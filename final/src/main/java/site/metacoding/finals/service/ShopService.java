@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.feature.FeatureRepository;
 import site.metacoding.finals.domain.shop.Shop;
-import site.metacoding.finals.domain.shop.ShopRespository;
+import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopFilterReqDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
 
@@ -16,7 +16,7 @@ import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
 @RequiredArgsConstructor
 public class ShopService {
 
-    private final ShopRespository shopRespository;
+    private final ShopRepository shopRespository;
     private final FeatureRepository featureRepository;
 
     public List<Shop> List() {

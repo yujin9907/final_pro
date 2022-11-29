@@ -17,7 +17,7 @@ import site.metacoding.finals.domain.image_file.ImageFileRepository;
 import site.metacoding.finals.domain.review.Review;
 import site.metacoding.finals.domain.review.ReviewRepository;
 import site.metacoding.finals.domain.shop.Shop;
-import site.metacoding.finals.domain.shop.ShopRespository;
+import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.dto.review.ReviewReqDto.ReviewSaveReqDto;
 import site.metacoding.finals.dto.review.ReviewRespDto.ReviewSaveRespDto;
 import site.metacoding.finals.handler.ImageFileHandler;
@@ -27,7 +27,7 @@ import site.metacoding.finals.handler.ImageFileHandler;
 @Service
 public class ReviewService {
 
-    private final ShopRespository shopRespository;
+    private final ShopRepository shopRespository;
     private final CustomerRepository customerRepository;
     private final ReviewRepository reviewRepository;
     private final ImageFileRepository imageFileRepository;

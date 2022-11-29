@@ -30,36 +30,36 @@ import site.metacoding.finals.dto.review.ReviewReqDto.ReviewSaveReqDto;
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 public class ReviewApiControllerTest {
 
-    @Autowired
-    private ObjectMapper om;
-    @Autowired
-    private MockMvc mvc;
+        @Autowired
+        private ObjectMapper om;
+        @Autowired
+        private MockMvc mvc;
 
-    @Test
-    @WithMockUser
-    public void 리뷰저장하기테스트() throws Exception {
-        // g
-        ReviewSaveReqDto reqDto = new ReviewSaveReqDto();
-        reqDto.setContent("테스트");
-        reqDto.setScore(5);
-        reqDto.setShopId(1L);
-        String body = om.writeValueAsString(reqDto);
+        @Test
+        @WithMockUser(username = "ssar", roles = "USER")
+        public void 리뷰저장하기테스트() throws Exception {
+                // g
+                ReviewSaveReqDto reqDtodata = new ReviewSaveReqDto();
+                reqDtodata.setContent("테스트");
+                reqDtodata.setScore(5);
+                reqDtodata.setShopId(1L);
+                String body = om.writeValueAsString(reqDtodata);
 
-        MockMultipartFile resumeSaveReqDtoFile = new MockMultipartFile("ResumeSaveReqDto", "ResumeSaveReqDto",
-                "application/json", body.getBytes(StandardCharsets.UTF_8));
+                MockMultipartFile reqDto = new MockMultipartFile("reqDto", "reqDto",
+                                "application/json", body.getBytes(StandardCharsets.UTF_8));
 
-        String filePath = "c:/skdjlsdfjk";
-        MockMultipartFile file = new MockMultipartFile("file", "filename", "form-data",
-                filePath.getBytes(StandardCharsets.UTF_8));
+                String filePath = "c://skdjlsdfjk";
+                MockMultipartFile file = new MockMultipartFile("file", "filename", "form-data",
+                                filePath.getBytes(StandardCharsets.UTF_8));
 
-        // when
-        ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.multipart("/s/resume/save")
-                .file(file)
-                .file(resumeSaveReqDtoFile));
-        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        log.debug(responseBody);
+                // when
+                ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.multipart("/review")
+                                .file(file)
+                                .file(reqDto));
+                String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+                log.debug(responseBody);
 
-        resultActions.andExpect(MockMvcResultMatchers.status().isCreated());
+                resultActions.andExpect(MockMvcResultMatchers.status().isCreated());
 
-    }
+        }
 }

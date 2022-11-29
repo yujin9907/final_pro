@@ -22,11 +22,11 @@ public class ReviewRespDto {
         private Customer customer;
         private Shop shop;
 
-        public ReviewSaveRespDto(Review review) {
+        public ReviewSaveRespDto(Review review, List<ImageFile> imageFile) {
             this.id = review.getId();
             this.score = review.getScore();
             this.content = review.getContent();
-            this.imageFile = review.getImageFile();
+            this.imageFile = imageFile;
             this.customer = review.getCustomer();
             this.shop = review.getShop();
         }

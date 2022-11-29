@@ -34,16 +34,16 @@ public class ReviewService {
     private final ImageFileHandler imageFileHandler;
 
     @Transactional
-    public ReviewSaveRespDto save(List<MultipartFile> multipartFiles, ReviewSaveReqDto dto) {
+    public ReviewSaveRespDto save(List<MultipartFile> multipartFiles, ReviewSaveReqDto dto,
+            PrincipalUser principalUser) {
         // log.debug("디버그 : " + principalUser.getUsername());
         // System.out.println("디버그 : " + principalUser.getUsername());
         // PrincipalUser principalUsers = (PrincipalUser) principalUser;
 
-        // Customer customerPS =
-        // customerRepository.findByUserId(principalUser.getUser().getId())
-        // .orElseThrow(() -> new RuntimeException("잘못된 유저입니다"));
-        // Shop shopPS = shopRespository.findById(dto.getShopId())
-        // .orElseThrow(() -> new RuntimeException("잘못된 가게입니다"));
+        Customer customerPS = customerRepository.findByUserId(principalUser.getUser().getId())
+                .orElseThrow(() -> new RuntimeException("잘못된 유저입니다"));
+        Shop shopPS = shopRespository.findById(dto.getShopId())
+                .orElseThrow(() -> new RuntimeException("잘못된 가게입니다"));
 
         List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
         for (ImageFile img : images) {
@@ -51,10 +51,9 @@ public class ReviewService {
         }
 
         System.out.println("저장완료");
-        // Review review = reviewRepository.save(dto.toEntity(images, customerPS,
-        // shopPS));
+        Review review = reviewRepository.save(dto.toEntity(images, customerPS,
+                shopPS));
 
-        // return new ReviewSaveRespDto(review);
-        return null;
+        return new ReviewSaveRespDto(review);
     }
 }

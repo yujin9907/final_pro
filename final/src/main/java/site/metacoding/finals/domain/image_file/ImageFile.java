@@ -32,12 +32,12 @@ public class ImageFile extends AutoTime {
     private String storeFilename;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id")
-    private Review review;
-
-    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private Shop shop;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_id")
+    private Review review;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
@@ -45,6 +45,10 @@ public class ImageFile extends AutoTime {
 
     public void setReview(Review review) {
         this.review = review;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 
 }

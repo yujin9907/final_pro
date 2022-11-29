@@ -1,9 +1,64 @@
 package site.metacoding.finals.dto.shop;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
+import site.metacoding.finals.config.enums.Role;
+import site.metacoding.finals.domain.image_file.ImageFile;
+import site.metacoding.finals.domain.shop.Shop;
+import site.metacoding.finals.domain.user.User;
 
+@Setter
+@Getter
 public class ShopReqDto {
+
+    // 회지DTO
+    @Setter
+    @Getter
+    public static class ShopJoinReqDto {
+        private String username;
+        private String password;
+
+        public User toUserEntity() {
+            return User.builder()
+                    .username(this.username)
+                    .password(this.password)
+                    .role(Role.SHOP)
+                    .build();
+        }
+    }
+
+    @Setter
+    @Getter
+    public static class ShopInfoSaveReqDto {
+        private String shopName;
+        private String phoneNumber;
+        private String address;
+        private String category;
+        private String information;
+        private String opentime;
+        private String closetime;
+        private int perPrice;
+        private int perHour;
+
+        public Shop toInfoSaveEntity(User user) {
+            return Shop.builder()
+                    .shopName(shopName)
+                    .phoneNumber(phoneNumber)
+                    .category(category)
+                    .address(address)
+                    .information(information)
+                    .openTime(opentime)
+                    .closeTime(closetime)
+                    .perPrice(perPrice)
+                    .perHour(perHour)
+                    .user(user)
+                    .build();
+        }
+    }
+
+    // 유진 Dto
     @Getter
     @Setter
     public static class ShopFilterReqDto {

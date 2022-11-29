@@ -48,5 +48,4 @@ public class ReviewRespDto {
             private String storeFilename;
         }
     }
-
 }

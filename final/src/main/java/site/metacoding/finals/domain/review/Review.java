@@ -39,10 +39,6 @@ public class Review extends AutoTime {
     @Column(nullable = false)
     private int score;
     private String content;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_file_id")
-    private List<ImageFile> imageFile;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;

@@ -1,7 +1,5 @@
 package site.metacoding.finals.dummy;
 
-import java.net.ProtocolException;
-
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.image_file.ImageFile;
@@ -11,7 +9,6 @@ import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop_table.ShopTable;
 import site.metacoding.finals.domain.subscribe.Subscribe;
 import site.metacoding.finals.domain.user.User;
-import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerJoinReqDto;
 
 public abstract class DummyEntity {
 

@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Null;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -62,7 +63,7 @@ public class Shop extends AutoTime {
     @JsonIgnore
     private User user;
 
-    @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
-    private ImageFile imageFile;
+    @OneToOne(mappedBy = "shop")
+    private ImageFile imageFile = new ImageFile(null, null, null, null, null, null);
     // null 방지 어케?
 }

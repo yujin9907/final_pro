@@ -56,7 +56,7 @@ public class CustomerApiController {
 
     @GetMapping("/customer/mypage/subscribe/{id}")
     public ResponseEntity<?> CustomerMypageSubscribeApi(@PathVariable Long id) {
-        CustomerMyPageSubscribeRespDto dto = customerService.myPageSubscribe(id);
+        List<CustomerMyPageSubscribeRespDto> dto = customerService.myPageSubscribe(id);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "마이페이지 구독 목록", dto), HttpStatus.OK);
     }
 

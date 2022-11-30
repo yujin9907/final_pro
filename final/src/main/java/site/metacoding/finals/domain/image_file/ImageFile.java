@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ import site.metacoding.finals.domain.shop.Shop;
 @AllArgsConstructor
 @Getter
 @Entity
+@Table(name = "imagefile")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ImageFile extends AutoTime {
     @Id

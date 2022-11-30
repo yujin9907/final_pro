@@ -16,4 +16,5 @@ public interface ReservationRepositoryRespDto {
     String getReservationDate();
 
     String getReservationTime();
+
 }

@@ -78,7 +78,8 @@ public class ShopRepositoryTest extends DummyEntity {
 
         Subscribe subscribe = newSubscribe(customer, shop2);
         subscribeRepository.save(subscribe);
-        // em.flush();
+        em.persist(imageFile);
+        em.persist(shop);
     }
 
     @AfterEach
@@ -111,16 +112,23 @@ public class ShopRepositoryTest extends DummyEntity {
 
     @Test
     public void findSubscribeByCustomerIdTest() {
+        em.flush();
+        em.clear();
+
+        log.debug("디버그 이미지 : " + imageFileRepository.findById(1L).get().getShop().getId());
+
         Long customerId = 1L;
+
+        Shop shopPC = em.find(Shop.class, 1L);
 
         List<Shop> shop = shopRepository.findSubscribeByCustomerId(customerId);
 
-        assertEquals(shop.get(0).getId(), 2);
+        System.out.println("디버그 : " + shopPC.getImageFile().getId());
     }
 
     @Test
     public void findByCategoryTest() {
-        log.debug("디버그 이미지 : " + imageFileRepository.findById(1L).get().getId());
+        log.debug("디버그 이미지 : " + imageFileRepository.findById(1L).get().getShop().getId());
 
         String name = "한식";
 

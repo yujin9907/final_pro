@@ -1,5 +1,6 @@
 package site.metacoding.finals.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -70,9 +71,11 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public CustomerMyPageSubscribeRespDto myPageSubscribe(Long id) {
+    public List<CustomerMyPageSubscribeRespDto> myPageSubscribe(Long id) {
         List<Shop> shopList = shopRespository.findSubscribeByCustomerId(id);
-        return new CustomerMyPageSubscribeRespDto(shopList);
+        List<CustomerMyPageSubscribeRespDto> respDto = new ArrayList<>();
+        shopList.forEach((s) -> respDto.add(new CustomerMyPageSubscribeRespDto(s)));
+        return respDto;
     }
 
     @Transactional(readOnly = true)

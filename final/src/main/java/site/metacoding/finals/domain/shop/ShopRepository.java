@@ -36,9 +36,9 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
                         "on shop.id=r3.shop_id", nativeQuery = true)
         List<ReservationRepositoryRespDto> findResevationByCustomerIdTEST(@Param("customerId") Long customerId);
 
-        @Query(value = "select shop.* from shop"
-                        + " right join (select * from subscribe where customer_id =1) s"
-                        + " on shop.id=s.shop_id", nativeQuery = true)
+        @Query("select s from Shop s  join fetch s.imageFile " +
+                        "right join Subscribe sb on sb.shop = s " +
+                        "right join Customer c on c = sb.customer ")
         List<Shop> findSubscribeByCustomerId(Long id);
 
 }

@@ -114,7 +114,24 @@ public class CustomerRespDto {
     @Setter
     @Getter
     public static class CustomerMyPageSubscribeRespDto {
-        private List<Shop> shop;
+        private Long shopId;
+        private String shopName;
+        private String Address;
+        private String Category;
+        private String StoreFilename;
+        // private String ReservationDate;
+        // private String ReservationTime;
+
+        public CustomerMyPageSubscribeRespDto(Shop shop) {
+            shopId = shop.getId();
+            shopName = shop.getShopName();
+            Address = shop.getAddress();
+            Category = shop.getCategory();
+            StoreFilename = shop.getImageFile().getStoreFilename();
+            // ReservationDate = reservationDate;
+            // ReservationTime = reservationTime;
+        }
+
     }
 
     @AllArgsConstructor

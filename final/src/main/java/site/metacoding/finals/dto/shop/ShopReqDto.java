@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.finals.config.enums.Role;
+import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
@@ -41,6 +42,7 @@ public class ShopReqDto {
         private String closeTime;
         private int perPrice;
         private int perHour;
+        private List<String> featureNameList;
 
         public Shop toInfoSaveEntity(User user) {
             return Shop.builder()
@@ -54,6 +56,13 @@ public class ShopReqDto {
                     .perPrice(perPrice)
                     .perHour(perHour)
                     .user(user)
+                    .build();
+        }
+
+        public Feature toFeatureEntity(String featureName, Shop shop) {
+            return Feature.builder()
+                    .name(featureName)
+                    .shop(shop)
                     .build();
         }
     }

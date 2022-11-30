@@ -1,5 +1,6 @@
 package site.metacoding.finals.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,19 +53,29 @@ public class ShopService {
         return new ShopJoinRespDto(userPS);
     }
 
-    // @Transactional
+    @Transactional
     public ShopInfoSaveRespDto information(List<MultipartFile> multipartFiles,
             ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
 
+        // shop information save
         Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
 
+        // feature save
+        log.debug("디버그 : 피처" + shopInfoSaveReqDto.getFeatureNameList().get(1));
+        List<Feature> featureList = new ArrayList<>();
+        for (String name : shopInfoSaveReqDto.getFeatureNameList()) {
+            Feature feature = featureRepository.save(shopInfoSaveReqDto.toFeatureEntity(name, shopPS));
+            featureList.add(feature);
+        }
+
+        // images save
         List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
         for (ImageFile img : images) {
             img.setShop(shopPS);
             imageFileRepository.save(img);
         }
 
-        return new ShopInfoSaveRespDto(shopPS, images);
+        return new ShopInfoSaveRespDto(shopPS, featureList, images);
     }
 
     public List<Shop> List() {

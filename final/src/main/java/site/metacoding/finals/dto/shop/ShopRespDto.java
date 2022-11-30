@@ -34,10 +34,11 @@ public class ShopRespDto {
         private String closeTime;
         private int perPrice;
         private int perHour;
+        private List<Feature> featureList;
         private List<ImageFile> imageFile;
         private User user;
 
-        public ShopInfoSaveRespDto(Shop shop, List<ImageFile> imageFile) {
+        public ShopInfoSaveRespDto(Shop shop, List<Feature> featureList, List<ImageFile> imageFile) {
             this.id = shop.getId();
             this.shopName = shop.getShopName();
             this.phoneNumber = shop.getPhoneNumber();
@@ -48,6 +49,7 @@ public class ShopRespDto {
             this.closeTime = shop.getCloseTime();
             this.perPrice = shop.getPerPrice();
             this.perHour = shop.getPerHour();
+            this.featureList = featureList;
             this.imageFile = imageFile;
             this.user = shop.getUser();
         }

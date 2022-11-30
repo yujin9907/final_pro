@@ -17,12 +17,21 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true # sql 로그 줄바꿈
   output:
     ansi:
       enabled: always
+
 logging:
   level:
+    org.hibernate.SQL: debug # 하이버네이트 ? 를 변수명으로
+    org.hibernate.type: trace
     '[org.springframework.web]': DEBUG
     '[site.metacoding.finals]': DEBUG
+
+
+
 
 filedir: "C://temp/image"

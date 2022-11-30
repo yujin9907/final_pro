@@ -22,7 +22,7 @@ import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.dummy.DummyEntity;
 
-@Sql({ "classpath:sql/dml.sql", "classpath:sql/truncate.sql" })
+@Sql({ "classpath:sql/dml.sql" })
 @Slf4j
 @ActiveProfiles("test")
 @AutoConfigureMockMvc

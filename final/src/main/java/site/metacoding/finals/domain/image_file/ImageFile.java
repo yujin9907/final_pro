@@ -31,7 +31,7 @@ public class ImageFile extends AutoTime {
     private String originFilename;
     private String storeFilename;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
@@ -39,7 +39,7 @@ public class ImageFile extends AutoTime {
     @JoinColumn(name = "review_id")
     private Review review;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
     private Menu menu;
 

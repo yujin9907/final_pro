@@ -13,6 +13,13 @@ public class ShopRespDto {
 
     @Setter
     @Getter
+    public static class ShopReservaitonListRespDto {
+        private Shop shop;
+        private ImageFile imageFile;
+    }
+
+    @Setter
+    @Getter
     public static class ShopJoinRespDto {
         private User user;
 

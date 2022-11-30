@@ -1,6 +1,8 @@
 package site.metacoding.finals.dto.customer;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import site.metacoding.finals.domain.customer.Customer;
+import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.reservation.Reservation;
 import site.metacoding.finals.domain.review.Review;
 import site.metacoding.finals.domain.shop.Shop;
@@ -57,11 +60,54 @@ public class CustomerRespDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     public static class CustomerMyPageReservationRespDto {
-        private List<Shop> shop;
-        private List<Reservation> reservation;
+        private String reservationTime;
+        private String resrevationDate;
+        private Shop shop;
 
+        public CustomerMyPageReservationRespDto(Reservation reservation, Shop shop) {
+            this.reservationTime = reservation.getReservationTime();
+            this.resrevationDate = reservation.getReservationDate();
+            this.shop = shop;
+        }
+
+        public CustomerMyPageReservationRespDto(List<Reservation> reservation, Shop shop) {
+            reservation.stream().map((r) -> new CustomerMyPageReservationRespDto(r, shop)).collect(Collectors.toList());
+        }
+
+        // public class ReservationDto {
+        // private String reservationTime;
+        // private String resrevationDate;
+
+        // public ReservationDto(Reservation reservation) {
+        // this.reservationTime = reservation.getReservationTime();
+        // this.resrevationDate = reservation.getReservationDate();
+        // }
+
+        // } // public class ReservationDto {
+        // private String reservationTime;
+        // private String resrevationDate;
+
+        // public ReservationDto(Reservation reservation) {
+        // this.reservationTime = reservation.getReservationTime();
+        // this.resrevationDate = reservation.getReservationDate();
+        // }
+
+        // }
+
+        public class ShopDto {
+            private String shopName;
+            private String category;
+            private String address;
+            private ImageFile imageFile;
+
+            public ShopDto(Shop shop) {
+                shopName = shop.getShopName();
+                category = shop.getCategory();
+                address = shop.getAddress();
+                imageFile = shop.getImageFile();
+            }
+        }
     }
 
     @AllArgsConstructor

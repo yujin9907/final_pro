@@ -17,44 +17,36 @@ import org.springframework.test.context.jdbc.Sql;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.customer.CustomerRepository;
-import site.metacoding.finals.domain.image_file.ImageFile;
-import site.metacoding.finals.domain.image_file.ImageFileRepository;
 import site.metacoding.finals.domain.reservation.Reservation;
 import site.metacoding.finals.domain.reservation.ReservationRepository;
+import site.metacoding.finals.domain.review.Review;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.domain.shop_table.ShopTable;
 import site.metacoding.finals.domain.shop_table.ShopTableRepository;
-import site.metacoding.finals.domain.subscribe.Subscribe;
-import site.metacoding.finals.domain.subscribe.SubscribeRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopReservaitonListRespDto;
+import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerJoinReqDto;
 import site.metacoding.finals.dummy.DummyEntity;
-import site.metacoding.finals.repositoryDto.customer.ReservationRepositoryRespDto;
 
 @Slf4j
 @DataJpaTest
 @ActiveProfiles("test")
-public class ShopRepositoryTest extends DummyEntity {
+public class CustomerRepositoryTest extends DummyEntity {
 
     @Autowired
     private EntityManager em;
 
     @Autowired
-    private ShopRepository shopRepository;
-    @Autowired
-    private ImageFileRepository imageFileRepository;
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private ShopTableRepository shopTableRepository;
     @Autowired
     private ReservationRepository reservationRepository;
     @Autowired
-    private SubscribeRepository subscribeRepository;
+    private CustomerRepository customerRepository;
+    @Autowired
+    private ShopRepository shopRepository;
+    @Autowired
+    private ShopTableRepository shopTableRepository;
 
     @BeforeEach
     public void setUp() {
@@ -63,22 +55,12 @@ public class ShopRepositoryTest extends DummyEntity {
         Customer customer = newCustomer(user);
         customerRepository.save(customer);
 
-        Shop shop = newShop("가게1", "1", "한식");
-        Shop shop2 = newShop("가게2", "2", "일식");
+        Shop shop = newShop("가게", "010", "양식");
         shopRepository.save(shop);
-        shopRepository.save(shop2);
-
         ShopTable shopTable = newShopTable(shop);
         shopTableRepository.save(shopTable);
         Reservation reservation = newReservation(customer, shopTable);
         reservationRepository.save(reservation);
-
-        ImageFile imageFile = newShopImageFile(shop);
-        imageFileRepository.save(imageFile);
-
-        Subscribe subscribe = newSubscribe(customer, shop2);
-        subscribeRepository.save(subscribe);
-        // em.flush();
     }
 
     @AfterEach
@@ -91,42 +73,14 @@ public class ShopRepositoryTest extends DummyEntity {
 
     }
 
-    @Test
-    public void findByResevationCustomerIdttTest() {
-        Long customerId = 1L;
+    // @Test
+    // public void findByResrvationIdTest() {
 
-        List<ReservationRepositoryRespDto> dtos = shopRepository.findResevationByCustomerIdTEST(customerId);
+    // Customer customer = customerRepository.findByReservationId(1L)
+    // .orElseThrow(() -> new RuntimeException());
 
-        System.out.println("디버그 제피큐엘 :" + dtos.get(0).getAddress());
-    }
+    // customer.getReservation();
 
-    @Test
-    public void findByResevationCustomerIdTest() {
-        Long customerId = 1L;
-
-        List<ReservationRepositoryRespDto> shop = shopRepository.findResevationByCustomerId(customerId);
-
-        System.out.println("디버그 : " + shop.get(0).getStoreFilename());
-    }
-
-    @Test
-    public void findSubscribeByCustomerIdTest() {
-        Long customerId = 1L;
-
-        List<Shop> shop = shopRepository.findSubscribeByCustomerId(customerId);
-
-        assertEquals(shop.get(0).getId(), 2);
-    }
-
-    @Test
-    public void findByCategoryTest() {
-        log.debug("디버그 이미지 : " + imageFileRepository.findById(1L).get().getId());
-
-        String name = "한식";
-
-        List<Shop> shop = shopRepository.findByCategory(name);
-
-        assertEquals(shop.get(0).getCategory(), name);
-    }
+    // }
 
 }

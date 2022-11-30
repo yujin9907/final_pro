@@ -1,5 +1,6 @@
 package site.metacoding.finals.domain.shop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -59,4 +61,8 @@ public class Shop extends AutoTime {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
+    private ImageFile imageFile;
+    // null 방지 어케?
 }

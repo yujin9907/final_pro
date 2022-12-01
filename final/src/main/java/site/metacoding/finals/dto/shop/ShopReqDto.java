@@ -6,12 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.feature.Feature;
-import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
 
-@Setter
-@Getter
 public class ShopReqDto {
 
     // 회지DTO

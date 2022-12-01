@@ -61,7 +61,6 @@ public class ShopService {
         Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
 
         // feature save
-        log.debug("디버그 : 피처" + shopInfoSaveReqDto.getFeatureNameList().get(1));
         List<Feature> featureList = new ArrayList<>();
         for (String name : shopInfoSaveReqDto.getFeatureNameList()) {
             Feature feature = featureRepository.save(shopInfoSaveReqDto.toFeatureEntity(name, shopPS));

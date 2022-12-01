@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.dto.ResponseDto;
-import site.metacoding.finals.dto.shop_table.ShopTableReqDto.ShopTableSaveReqDto;
+import site.metacoding.finals.dto.shop_table.ShopTableReqDto.ShopTableUpdateReqDto;
 import site.metacoding.finals.dto.shop_table.ShopTableRespDto.ShopTableSaveRespDto;
 import site.metacoding.finals.dto.shop_table.ShopTableRespDto.AllShopTableRespDto;
 import site.metacoding.finals.service.ShopTableService;
@@ -22,17 +22,18 @@ public class ShopTableApiController {
 
         private final ShopTableService shopTableService;
 
+        // 테이블 생성, 삭제 (수정기능)
         @PostMapping("/shop/table")
-        public ResponseEntity<?> reservationSave(@RequestBody ShopTableSaveReqDto shopTableSaveReqDto,
+        public ResponseEntity<?> tableUpdate(@RequestBody ShopTableUpdateReqDto shopTableUpdateReqDto,
                         @AuthenticationPrincipal PrincipalUser principalUser) {
-                ShopTableSaveRespDto shopTableSaveRespDto = shopTableService.save(shopTableSaveReqDto,
+                ShopTableSaveRespDto shopTableSaveRespDto = shopTableService.update(shopTableUpdateReqDto,
                                 principalUser.getUser().getId());
-                return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "테이블 생성 완료", shopTableSaveRespDto),
-                                HttpStatus.CREATED);
+                return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "테이블 수 변경 완료", shopTableSaveRespDto),
+                                HttpStatus.OK);
         }
 
         @GetMapping("/shop/table")
-        public ResponseEntity<?> reservationSave(@AuthenticationPrincipal PrincipalUser principalUser) {
+        public ResponseEntity<?> tableList(@AuthenticationPrincipal PrincipalUser principalUser) {
                 AllShopTableRespDto allShopTableRespDto = shopTableService
                                 .findAllByShopId(principalUser.getUser().getId());
                 return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "가게 테이블 전체보기 성공", allShopTableRespDto),

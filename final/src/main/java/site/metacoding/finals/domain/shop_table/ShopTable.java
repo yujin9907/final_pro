@@ -24,7 +24,7 @@ import site.metacoding.finals.domain.shop.Shop;
 @Builder
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "shop_table")
 public class ShopTable extends AutoTime {
     @Id
@@ -35,4 +35,12 @@ public class ShopTable extends AutoTime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private Shop shop;
+
+    @Column(nullable = false)
+    private Boolean isActive;
+
+    // ShopTable 삭제 메서드
+    public void deleteShopTable(Long id) {
+        isActive = false;
+    }
 }

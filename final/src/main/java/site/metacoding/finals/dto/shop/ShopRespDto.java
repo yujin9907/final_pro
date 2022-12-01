@@ -8,6 +8,7 @@ import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
+import site.metacoding.finals.handler.ImageFileHandler;
 
 public class ShopRespDto {
 
@@ -35,12 +36,11 @@ public class ShopRespDto {
         @Getter
         public class ImageFileDto {
             private long id;
-            private String originFilename;
-            private String storeFilename;
+            private String image;
 
             public ImageFileDto(ImageFile imageFile) {
                 this.id = imageFile.getId();
-                this.storeFilename = imageFile.getStoreFilename();
+                this.image = ImageFileHandler.encodingFile(imageFile.getStoreFilename());
             }
 
         }

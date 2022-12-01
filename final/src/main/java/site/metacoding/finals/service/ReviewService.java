@@ -65,13 +65,12 @@ public class ReviewService {
                 Shop shopPS = shopRespository.findById(dto.getShopId())
                                 .orElseThrow(() -> new RuntimeException("잘못된 가게입니다"));
 
-                List<ImageFile> images = imageFileHandler.storeFile(dto.getImage());
+                Review review = reviewRepository.save(dto.toEntity(customerPS, shopPS));
+
+                List<ImageFile> images = imageFileHandler.storeFile(dto.getImage(), review);
                 for (ImageFile img : images) {
                         imageFileRepository.save(img);
                 }
-
-                Review review = reviewRepository.save(dto.toEntity(customerPS,
-                                shopPS));
 
                 return new ReviewSaveRespDto(review, images);
         }

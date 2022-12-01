@@ -7,30 +7,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.feature.FeatureRepository;
-import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.image_file.ImageFileRepository;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
-import site.metacoding.finals.dto.shop.ShopReqDto.ShopFilterReqDto;
-import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopAllRespDto;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopCategoryListRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopInfoSaveRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopListRespDto;
 import site.metacoding.finals.handler.ImageFileHandler;
 
 @Slf4j
@@ -74,18 +66,18 @@ public class ShopService {
     // return new ShopInfoSaveRespDto(shopPS, images);
     // }
 
-    public List<ShopAllRespDto> List() {
+    public List<ShopListRespDto> List() {
         // em.clear();
 
         List<Shop> shopPS = shopRepository.findAllList();
-        return shopPS.stream().map((shop) -> new ShopAllRespDto(shop)).collect(Collectors.toList());
+        return shopPS.stream().map((shop) -> new ShopListRespDto(shop)).collect(Collectors.toList());
     }
 
-    public List<ShopCategoryListRespDto> categoryList(String categoryName) {
+    public List<ShopListRespDto> categoryList(String categoryName) {
         List<Shop> shopList = shopRepository.findByCategory(categoryName);
 
         return shopList.stream()
-                .map((dto) -> new ShopCategoryListRespDto(dto)).collect(Collectors.toList());
+                .map((dto) -> new ShopListRespDto(dto)).collect(Collectors.toList());
 
     }
 

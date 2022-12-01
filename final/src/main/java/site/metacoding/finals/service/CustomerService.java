@@ -2,6 +2,8 @@ package site.metacoding.finals.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -84,9 +86,8 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public CustomerMyPageReviewRespDto myPageReview(Long id) {
+    public List<CustomerMyPageReviewRespDto> myPageReview(Long id) {
         List<Review> reviewList = reviewRepository.findByCustomerId(id);
-        return new CustomerMyPageReviewRespDto(reviewList);
-
+        return reviewList.stream().map((r) -> new CustomerMyPageReviewRespDto(r)).collect(Collectors.toList());
     }
 }

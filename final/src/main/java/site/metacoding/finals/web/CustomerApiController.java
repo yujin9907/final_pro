@@ -62,7 +62,7 @@ public class CustomerApiController {
 
     @GetMapping("/customer/mypage/review/{id}")
     public ResponseEntity<?> CustomerMypageReviewApi(@PathVariable Long id) {
-        CustomerMyPageReviewRespDto dto = customerService.myPageReview(id);
+        List<CustomerMyPageReviewRespDto> dto = customerService.myPageReview(id);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "마이페이지 리뷰 목록", dto), HttpStatus.OK);
     }
 

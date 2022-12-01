@@ -58,22 +58,4 @@ public class ReviewRespDto {
             }
         }
     }
-
-    @Setter
-    @Getter
-    public static class ShopListRespDto {
-        List<ShopDto> shops;
-        List<ImageFileDto> images;
-
-        public class ShopDto {
-            private String shopName;
-            private String information;
-            private String category;
-            private String address;
-        }
-
-        public class ImageFileDto {
-            private String storeFilename;
-        }
-    }
 }

@@ -14,7 +14,7 @@ public class ShopRespDto {
 
     @Setter
     @Getter
-    public static class ShopAllRespDto {
+    public static class ShopListRespDto {
         private String shopName;
         private String address;
         private String category;
@@ -23,7 +23,7 @@ public class ShopRespDto {
         private String closeTime;
         private ImageFileDto imageFileDto;
 
-        public ShopAllRespDto(Shop shop) {
+        public ShopListRespDto(Shop shop) {
             this.shopName = shop.getShopName();
             this.address = shop.getAddress();
             this.category = shop.getCategory();
@@ -110,20 +110,4 @@ public class ShopRespDto {
 
     }
 
-    @Setter
-    @Getter
-    public static class ShopCategoryListRespDto {
-        private String shopName;
-        private String address;
-        private String openTime;
-        private String closeTime;
-
-        public ShopCategoryListRespDto(Shop shop) {
-            this.shopName = shop.getShopName();
-            this.address = shop.getAddress();
-            this.openTime = shop.getOpenTime();
-            this.closeTime = shop.getCloseTime();
-        }
-
-    }
 }

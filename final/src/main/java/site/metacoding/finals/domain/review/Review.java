@@ -50,7 +50,7 @@ public class Review extends AutoTime {
     @JsonIgnore
     private Shop shop;
 
-    @OneToMany(mappedBy = "review")
+    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
     private List<ImageFile> imageFiles = new ArrayList<>();
 
 }

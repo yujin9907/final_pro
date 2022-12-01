@@ -51,14 +51,14 @@ public class JWTAuthFilterTest extends DummyEntity {
                 String password = bCryptPasswordEncoder.encode("123");
 
                 User user = User.builder()
-                                .username("ssar")
+                                .username("fitertest")
                                 .password(password)
                                 .role(Role.USER)
                                 .build();
                 userRepository.save(user);
 
                 LoginDto loginDto = new LoginDto();
-                loginDto.setUsername("ssar");
+                loginDto.setUsername("fitertest");
                 loginDto.setPassword("123");
 
                 String body = om.writeValueAsString(loginDto);

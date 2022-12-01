@@ -35,9 +35,6 @@ public class ReviewService {
         @Transactional
         public ReviewSaveRespDto save(List<MultipartFile> multipartFiles, ReviewSaveReqDto dto,
                         PrincipalUser principalUser) {
-                // log.debug("디버그 : " + principalUser.getUsername());
-                // System.out.println("디버그 : " + principalUser.getUsername());
-                // PrincipalUser principalUsers = (PrincipalUser) principalUser;
 
                 Customer customerPS = customerRepository.findByUserId(principalUser.getUser().getId())
                                 .orElseThrow(() -> new RuntimeException("잘못된 유저입니다"));
@@ -49,7 +46,6 @@ public class ReviewService {
                         imageFileRepository.save(img);
                 }
 
-                System.out.println("저장완료");
                 Review review = reviewRepository.save(dto.toEntity(customerPS,
                                 shopPS));
 

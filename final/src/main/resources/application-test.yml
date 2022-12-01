@@ -26,9 +26,7 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: debug # 하이버네이트 ? 를 변수명으로
     org.hibernate.type: trace
-    '[org.springframework.web]': DEBUG
     '[site.metacoding.finals]': DEBUG
 
 

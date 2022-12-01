@@ -10,6 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,14 +39,18 @@ public class ImageFile extends AutoTime {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
+    @ColumnDefault("0") // 안먹음
+    // @JsonBackReference
     private Shop shop;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
+    @ColumnDefault("0")
     private Review review;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
+    @ColumnDefault("0")
     private Menu menu;
 
     public void setReview(Review review) {

@@ -38,18 +38,18 @@ public class ShopApiControllerTest extends DummyEntity {
     @Autowired
     private ImageFileRepository imageFileRepository;
 
-    @BeforeEach
-    public void setUp() {
+    // @BeforeEach
+    // public void setUp() {
 
-        Shop shop = newShop("가게1", "1", "한식");
-        Shop shop2 = newShop("가게2", "2", "일식");
+    // Shop shop = newShop("가게1", "1", "한식");
+    // Shop shop2 = newShop("가게2", "2", "일식");
 
-        shopRepository.save(shop);
-        shopRepository.save(shop2);
+    // shopRepository.save(shop);
+    // shopRepository.save(shop2);
 
-        ImageFile imageFile = newShopImageFile(shop);
-        imageFileRepository.save(imageFile);
-    }
+    // ImageFile imageFile = newShopImageFile(shop);
+    // imageFileRepository.save(imageFile);
+    // }
 
     @Test
     public void 가게전체목록테스트() throws Exception {

@@ -21,6 +21,7 @@ import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.dto.ResponseDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopAllRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopCategoryListRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopInfoSaveRespDto;
@@ -56,10 +57,10 @@ public class ShopApiController {
     }
 
     // customer입장에서 보는 가게 기능
-
+    // 네임, 주소, 전화번호, 오픈클로즈, 사진
     @GetMapping("/shop/list")
     public ResponseEntity<?> shopList() {
-        List<Shop> shopList = shopService.List();
+        List<ShopAllRespDto> shopList = shopService.List();
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "전체 가게 리스트 조회", shopList), HttpStatus.OK);
     }
 

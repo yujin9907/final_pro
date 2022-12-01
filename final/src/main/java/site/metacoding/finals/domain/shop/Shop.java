@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Null;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -63,7 +64,11 @@ public class Shop extends AutoTime {
     @JsonIgnore
     private User user;
 
-    @OneToOne(mappedBy = "shop")
+    // 페치 조인은 들고올 때 조인으로 한번에 들고 옴.
+    // 레이지를 사용하면 원래 필요할 때만 데이터를 조회함. => one to one 관계에선 레이지 적용 안 됨.
+    // 페치 적용 x => 무조건 셀렉시 연관 테이블 조회함, 한방 쿼리가 아닌 여러번 셀렉으로.
+    @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
+    // @JsonManagedReference
     private ImageFile imageFile = new ImageFile(null, null, null, null, null, null);
     // null 방지 어케?
 }

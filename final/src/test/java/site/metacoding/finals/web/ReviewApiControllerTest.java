@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
@@ -36,6 +35,7 @@ public class ReviewApiControllerTest {
         @Autowired
         private MockMvc mvc;
 
+        // 순환 참조
         @Test
         @WithUserDetails("ssar")
         // @WithMockUser(username = "ssar", roles = "USER")

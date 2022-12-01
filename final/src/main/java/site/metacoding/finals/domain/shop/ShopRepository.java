@@ -2,6 +2,9 @@ package site.metacoding.finals.domain.shop;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,15 +13,18 @@ import site.metacoding.finals.repositoryDto.customer.ReservationRepositoryRespDt
 
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
+        @Query("select s from Shop s")
+        List<Shop> findAllList();
+
         @Query("select s from Shop s join fetch s.imageFile where s.id = ?1")
         Shop findByShopId(@Param("id") Long id);
 
         @Query("select s from Shop s where s.category = :category")
         List<Shop> findByCategory(@Param("category") String category);
 
-        @Query(value = "select i.store_filename storeFilename, r4.shop_name shopName, r4.category category, r4.address address, "
-                        +
-                        "r4.reservation_time reservationTime, r4.reservation_date reservationDate from image_file i " +
+        @Query(value = "select i.store_filename as storeFilename, r4.shop_name as shopName, r4.category as category, " +
+                        "r4.reservation_time as reservationTime, r4.reservation_date as reservationDate " +
+                        "from imagefile i " +
                         "right join (select shop.id, shop.shop_name, shop.address, shop.category, r3.reservation_date, r3.reservation_time from shop "
                         +
                         "right join (select st.shop_id, r2.* from shop_table st " +
@@ -38,7 +44,8 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
 
         @Query("select s from Shop s  join fetch s.imageFile " +
                         "right join Subscribe sb on sb.shop = s " +
-                        "right join Customer c on c = sb.customer ")
+                        "right join Customer c on c = sb.customer " +
+                        "where c.id=?1")
         List<Shop> findSubscribeByCustomerId(Long id);
 
 }

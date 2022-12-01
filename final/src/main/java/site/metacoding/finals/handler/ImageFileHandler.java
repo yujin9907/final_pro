@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.image_file.ImageFile;
 
+@Slf4j
 @Component
 public class ImageFileHandler {
 
@@ -35,16 +37,15 @@ public class ImageFileHandler {
         if (multipartFiles.isEmpty()) {
             return null;
         }
+        log.debug("이미지 핸들러 진입");
+
         File folder = new File(fileDir);
         if (!folder.exists())
             folder.mkdir();
 
-        System.err.println("디버그 : 이미지 핸들러 진입");
-
         List<ImageFile> images = new ArrayList<>();
 
         multipartFiles.forEach(multipartFile -> {
-            System.out.println("반복문 실행");
 
             try {
                 multipartFile
@@ -58,11 +59,13 @@ public class ImageFileHandler {
                     .storeFilename(getUUID() + getExtension(multipartFile.getOriginalFilename()))
                     .build());
         });
-        System.out.println("이미지 저장 완료 ");
-        // File image = new File(fileDir, storeFilename);
-        // Files.copy(multipartFile.getInputStream(), image.toPath());
 
+        log.debug("이미지 저장 완료");
         return images;
+    }
+
+    public void toEncoding() {
+
     }
 
 }

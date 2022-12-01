@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.customer.Customer;
@@ -29,7 +28,6 @@ import site.metacoding.finals.domain.subscribe.Subscribe;
 import site.metacoding.finals.domain.subscribe.SubscribeRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopReservaitonListRespDto;
 import site.metacoding.finals.dummy.DummyEntity;
 import site.metacoding.finals.repositoryDto.customer.ReservationRepositoryRespDto;
 
@@ -76,10 +74,10 @@ public class ShopRepositoryTest extends DummyEntity {
         ImageFile imageFile = newShopImageFile(shop);
         imageFileRepository.save(imageFile);
 
-        Subscribe subscribe = newSubscribe(customer, shop2);
+        Subscribe subscribe = newSubscribe(customer, shop);
         subscribeRepository.save(subscribe);
-        em.persist(imageFile);
-        em.persist(shop);
+        // em.persist(imageFile);
+        // em.persist(shop);
     }
 
     @AfterEach
@@ -89,7 +87,21 @@ public class ShopRepositoryTest extends DummyEntity {
         em.createNativeQuery("ALTER TABLE users ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
         em.createNativeQuery("ALTER TABLE shop_table ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
         em.createNativeQuery("ALTER TABLE reservation ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE imagefile ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE subscribe ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
 
+    }
+
+    @Test
+    public void 한건테스트() {
+        em.clear();
+        // sout으로 테스트하면 안 됨. to string하기 때문에 get 실행
+        // shopRepository.findById(1L); // ManyToOne -> shop 셀렉트
+        // OneToOne -> shop 셀렉트 + Image 셀렉트 (OneToOne은 Lazy가 작동하지 않는다.)
+
+        List<Shop> shopsPS = shopRepository.findAllList();
+        System.out.println("===============================");
+        shopsPS.get(0).getImageFile().getId();
     }
 
     @Test
@@ -112,22 +124,25 @@ public class ShopRepositoryTest extends DummyEntity {
 
     @Test
     public void findSubscribeByCustomerIdTest() {
-        em.flush();
-        em.clear();
-
         log.debug("디버그 이미지 : " + imageFileRepository.findById(1L).get().getShop().getId());
 
+        // given
         Long customerId = 1L;
 
-        Shop shopPC = em.find(Shop.class, 1L);
-
+        // when
+        em.clear();
         List<Shop> shop = shopRepository.findSubscribeByCustomerId(customerId);
 
-        System.out.println("디버그 : " + shopPC.getImageFile().getId());
+        // then
+        log.debug("디버그 숍 안 이미지 : " + shop.get(0).getImageFile().getOriginFilename());
+        assertEquals(customerId, shop.get(0).getId());
+
     }
 
     @Test
     public void findByCategoryTest() {
+        em.clear();
+
         log.debug("디버그 이미지 : " + imageFileRepository.findById(1L).get().getShop().getId());
 
         String name = "한식";

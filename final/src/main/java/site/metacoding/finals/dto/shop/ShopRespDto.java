@@ -13,6 +13,43 @@ public class ShopRespDto {
 
     @Setter
     @Getter
+    public static class ShopAllRespDto {
+        private String shopName;
+        private String address;
+        private String category;
+        private String information;
+        private String openTime;
+        private String closeTime;
+        private ImageFileDto imageFileDto;
+
+        public ShopAllRespDto(Shop shop) {
+            this.shopName = shop.getShopName();
+            this.address = shop.getAddress();
+            this.category = shop.getCategory();
+            this.information = shop.getInformation();
+            this.openTime = shop.getOpenTime();
+            this.closeTime = shop.getCloseTime();
+            this.imageFileDto = new ImageFileDto(shop.getImageFile());
+        }
+
+        @Getter
+        public class ImageFileDto {
+            private long id;
+            private String originFilename;
+            private String storeFilename;
+
+            public ImageFileDto(ImageFile imageFile) {
+                this.id = imageFile.getId();
+                this.originFilename = imageFile.getOriginFilename();
+                this.storeFilename = imageFile.getStoreFilename();
+            }
+
+        }
+
+    }
+
+    @Setter
+    @Getter
     public static class ShopReservaitonListRespDto {
         private Shop shop;
         private ImageFile imageFile;

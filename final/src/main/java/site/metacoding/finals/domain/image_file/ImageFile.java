@@ -34,7 +34,6 @@ public class ImageFile extends AutoTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String originFilename;
     private String storeFilename;
 
     @OneToOne(fetch = FetchType.LAZY)

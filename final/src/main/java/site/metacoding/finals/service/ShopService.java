@@ -60,19 +60,19 @@ public class ShopService {
     }
 
     // @Transactional
-    public ShopInfoSaveRespDto information(List<MultipartFile> multipartFiles,
-            ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
+    // public ShopInfoSaveRespDto information(List<MultipartFile> multipartFiles,
+    // ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
 
-        Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
+    // Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
 
-        List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
-        for (ImageFile img : images) {
-            img.setShop(shopPS);
-            imageFileRepository.save(img);
-        }
+    // List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
+    // for (ImageFile img : images) {
+    // img.setShop(shopPS);
+    // imageFileRepository.save(img);
+    // }
 
-        return new ShopInfoSaveRespDto(shopPS, images);
-    }
+    // return new ShopInfoSaveRespDto(shopPS, images);
+    // }
 
     public List<ShopAllRespDto> List() {
         // em.clear();

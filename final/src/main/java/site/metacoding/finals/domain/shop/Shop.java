@@ -69,6 +69,6 @@ public class Shop extends AutoTime {
     // 페치 적용 x => 무조건 셀렉시 연관 테이블 조회함, 한방 쿼리가 아닌 여러번 셀렉으로.
     @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
     // @JsonManagedReference
-    private ImageFile imageFile = new ImageFile(null, null, null, null, null, null);
+    private ImageFile imageFile = new ImageFile(null, null, null, null, null);
     // null 방지 어케?
 }

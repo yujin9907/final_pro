@@ -48,12 +48,10 @@ public class ReviewRespDto {
             @Getter
             public class ImageFileDto {
                 private long id;
-                private String originFilename;
                 private String storeFilename;
 
                 public ImageFileDto(ImageFile imageFile) {
                     this.id = imageFile.getId();
-                    this.originFilename = imageFile.getOriginFilename();
                     this.storeFilename = imageFile.getStoreFilename();
                 }
 

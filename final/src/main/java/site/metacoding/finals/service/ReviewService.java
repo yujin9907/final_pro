@@ -17,7 +17,9 @@ import site.metacoding.finals.domain.review.Review;
 import site.metacoding.finals.domain.review.ReviewRepository;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
+import site.metacoding.finals.dto.review.ReviewReqDto;
 import site.metacoding.finals.dto.review.ReviewReqDto.ReviewSaveReqDto;
+import site.metacoding.finals.dto.review.ReviewReqDto.TestReviewReqDto;
 import site.metacoding.finals.dto.review.ReviewRespDto.ReviewSaveRespDto;
 import site.metacoding.finals.handler.ImageFileHandler;
 
@@ -32,8 +34,30 @@ public class ReviewService {
         private final ImageFileRepository imageFileRepository;
         private final ImageFileHandler imageFileHandler;
 
+        // @Transactional
+        // public ReviewSaveRespDto save(List<MultipartFile> multipartFiles,
+        // ReviewSaveReqDto dto,
+        // PrincipalUser principalUser) {
+
+        // Customer customerPS =
+        // customerRepository.findByUserId(principalUser.getUser().getId())
+        // .orElseThrow(() -> new RuntimeException("잘못된 유저입니다"));
+        // Shop shopPS = shopRespository.findById(dto.getShopId())
+        // .orElseThrow(() -> new RuntimeException("잘못된 가게입니다"));
+
+        // List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
+        // for (ImageFile img : images) {
+        // imageFileRepository.save(img);
+        // }
+
+        // Review review = reviewRepository.save(dto.toEntity(customerPS,
+        // shopPS));
+
+        // return new ReviewSaveRespDto(review, images);
+        // }
+
         @Transactional
-        public ReviewSaveRespDto save(List<MultipartFile> multipartFiles, ReviewSaveReqDto dto,
+        public ReviewSaveRespDto saveBase64(TestReviewReqDto dto,
                         PrincipalUser principalUser) {
 
                 Customer customerPS = customerRepository.findByUserId(principalUser.getUser().getId())
@@ -41,7 +65,7 @@ public class ReviewService {
                 Shop shopPS = shopRespository.findById(dto.getShopId())
                                 .orElseThrow(() -> new RuntimeException("잘못된 가게입니다"));
 
-                List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
+                List<ImageFile> images = imageFileHandler.storeFile(dto.getImage());
                 for (ImageFile img : images) {
                         imageFileRepository.save(img);
                 }

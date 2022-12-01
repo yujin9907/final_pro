@@ -76,7 +76,7 @@ public class CustomerService {
         List<Shop> shopList = shopRespository.findSubscribeByCustomerId(id);
 
         log.debug("디버그 : " + shopList.get(0).getShopName());
-        log.debug("디버그 : " + shopList.get(0).getImageFile().getOriginFilename());
+        log.debug("디버그 : " + shopList.get(0).getImageFile().getStoreFilename());
 
         List<CustomerMyPageSubscribeRespDto> respDto = new ArrayList<>();
         shopList.forEach((s) -> respDto.add(new CustomerMyPageSubscribeRespDto(s)));

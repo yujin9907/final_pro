@@ -134,7 +134,7 @@ public class ShopRepositoryTest extends DummyEntity {
         List<Shop> shop = shopRepository.findSubscribeByCustomerId(customerId);
 
         // then
-        log.debug("디버그 숍 안 이미지 : " + shop.get(0).getImageFile().getOriginFilename());
+        log.debug("디버그 숍 안 이미지 : " + shop.get(0).getImageFile().getStoreFilename());
         assertEquals(customerId, shop.get(0).getId());
 
     }

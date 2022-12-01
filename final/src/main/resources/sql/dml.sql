@@ -19,7 +19,7 @@ insert into users(username, password, role, created_at) values ('cos', '$2a$10$s
 insert into shop(category, address, close_time, information, open_time, per_hour, per_price, phone_number, shop_name, user_id, created_at)
 values ('한식', '가게주소', '22', '소개', '10', '1', '10000', '01011113333', '가게', 2, now());
 
-insert into imagefile(origin_filename, store_filename, shop_id, created_at) values('testimage.jpg', 'randomname.jpg', 1, now());
+insert into imagefile(store_filename, shop_id, created_at) values('randomname.jpg', 1, now());
 
 
 insert into customer(address, name, phone_number, user_id, created_at)

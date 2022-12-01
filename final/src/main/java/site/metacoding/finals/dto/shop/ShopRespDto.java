@@ -40,7 +40,6 @@ public class ShopRespDto {
 
             public ImageFileDto(ImageFile imageFile) {
                 this.id = imageFile.getId();
-                this.originFilename = imageFile.getOriginFilename();
                 this.storeFilename = imageFile.getStoreFilename();
             }
 

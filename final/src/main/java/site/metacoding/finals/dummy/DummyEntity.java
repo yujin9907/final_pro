@@ -39,7 +39,6 @@ public abstract class DummyEntity {
 
     protected ImageFile newReviewImageFile(Review review) {
         return ImageFile.builder()
-                .originFilename("anan.jpg")
                 .storeFilename("store.jpg")
                 .review(review)
                 .build();
@@ -47,7 +46,6 @@ public abstract class DummyEntity {
 
     protected ImageFile newShopImageFile(Shop shop) {
         return ImageFile.builder()
-                .originFilename("anan.jpg")
                 .storeFilename("store.jpg")
                 .shop(shop)
                 .build();

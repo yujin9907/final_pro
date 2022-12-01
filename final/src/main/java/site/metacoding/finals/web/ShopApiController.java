@@ -44,17 +44,20 @@ public class ShopApiController {
                 HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/shop/information", consumes = { MediaType.APPLICATION_JSON_VALUE,
-            MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<?> save(@RequestPart("file") List<MultipartFile> file,
-            @RequestPart("reqDto") ShopInfoSaveReqDto shopInfoSaveReqDto,
-            @AuthenticationPrincipal PrincipalUser principalUser) {
-        log.debug("디버그 : principalUser.getId " + principalUser.getUser().getId());
-        ShopInfoSaveRespDto shopInfoSaveRespDto = shopService.information(file, shopInfoSaveReqDto,
-                principalUser.getUser());
-        return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "가게 정보등록 완료", shopInfoSaveRespDto),
-                HttpStatus.CREATED);
-    }
+    // @PostMapping(value = "/shop/information", consumes = {
+    // MediaType.APPLICATION_JSON_VALUE,
+    // MediaType.MULTIPART_FORM_DATA_VALUE })
+    // public ResponseEntity<?> save(@RequestPart("file") List<MultipartFile> file,
+    // @RequestPart("reqDto") ShopInfoSaveReqDto shopInfoSaveReqDto,
+    // @AuthenticationPrincipal PrincipalUser principalUser) {
+    // log.debug("디버그 : principalUser.getId " + principalUser.getUser().getId());
+    // ShopInfoSaveRespDto shopInfoSaveRespDto = shopService.information(file,
+    // shopInfoSaveReqDto,
+    // principalUser.getUser());
+    // return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "가게 정보등록
+    // 완료", shopInfoSaveRespDto),
+    // HttpStatus.CREATED);
+    // }
 
     // customer입장에서 보는 가게 기능
     // 네임, 주소, 전화번호, 오픈클로즈, 사진

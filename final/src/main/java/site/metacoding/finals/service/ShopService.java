@@ -1,5 +1,6 @@
 package site.metacoding.finals.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,20 +52,31 @@ public class ShopService {
         return new ShopJoinRespDto(userPS);
     }
 
-    // @Transactional
-    // public ShopInfoSaveRespDto information(List<MultipartFile> multipartFiles,
-    // ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
 
-    // Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
+    @Transactional
+    public ShopInfoSaveRespDto information(List<MultipartFile> multipartFiles,
+            ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
 
-    // List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
-    // for (ImageFile img : images) {
-    // img.setShop(shopPS);
-    // imageFileRepository.save(img);
-    // }
+        // shop information save
+        Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
 
-    // return new ShopInfoSaveRespDto(shopPS, images);
-    // }
+        // feature save
+        List<Feature> featureList = new ArrayList<>();
+        for (String name : shopInfoSaveReqDto.getFeatureNameList()) {
+            Feature feature = featureRepository.save(shopInfoSaveReqDto.toFeatureEntity(name, shopPS));
+            featureList.add(feature);
+        }
+
+        // images save
+        List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
+        for (ImageFile img : images) {
+            img.setShop(shopPS);
+            imageFileRepository.save(img);
+        }
+
+        return new ShopInfoSaveRespDto(shopPS, featureList, images);
+    }
+
 
     public List<ShopListRespDto> List() {
         // em.clear();

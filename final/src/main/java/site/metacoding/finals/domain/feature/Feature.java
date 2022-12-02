@@ -19,8 +19,8 @@ import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.shop.Shop;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Builder
 @Table(name = "feature")
 @Entity

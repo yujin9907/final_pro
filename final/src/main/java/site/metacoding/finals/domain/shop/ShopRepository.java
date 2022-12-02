@@ -1,6 +1,7 @@
 package site.metacoding.finals.domain.shop;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -13,11 +14,15 @@ import site.metacoding.finals.repositoryDto.customer.ReservationRepositoryRespDt
 
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
+
         @Query("select s from Shop s")
         List<Shop> findAllList();
 
         @Query("select s from Shop s join fetch s.imageFile where s.id = ?1")
         Shop findByShopId(@Param("id") Long id);
+
+        Optional<Shop> findByUserId(Long userId);
+
 
         @Query("select s from Shop s where s.category = :category")
         List<Shop> findByCategory(@Param("category") String category);

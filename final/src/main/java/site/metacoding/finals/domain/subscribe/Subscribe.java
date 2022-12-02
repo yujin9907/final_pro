@@ -24,7 +24,6 @@ import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.shop.Shop;
 
 // isdeleted 옵션 구현해야됨
-@OnDelete(action = OnDeleteAction.CASCADE)
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -42,6 +41,4 @@ public class Subscribe extends AutoTime {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-    @Column(name = "is_deleted")
-    private Boolean isDeleted = Boolean.FALSE;
 }

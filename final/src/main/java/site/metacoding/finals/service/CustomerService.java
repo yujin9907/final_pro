@@ -23,6 +23,7 @@ import site.metacoding.finals.domain.review.Review;
 import site.metacoding.finals.domain.review.ReviewRepository;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
+import site.metacoding.finals.domain.subscribe.SubscribeRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.customer.CustomerReqDto;
@@ -46,6 +47,7 @@ public class CustomerService {
     private final ShopRepository shopRespository;
     private final ReservationRepository reservationRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final SubscribeRepository subscribeRepository;
 
     @Transactional
     public CustomerJoinRespDto join(CustomerJoinReqDto customerJoinReqDto) {
@@ -70,6 +72,7 @@ public class CustomerService {
         return new CustomerUpdateRespDto(customerPS);
     }
 
+    @Transactional
     public void delete(PrincipalUser principalUser) {
         log.debug("디버그 : " + principalUser.getUsername());
         log.debug("디버그 : " + principalUser.getUser().getId());
@@ -79,6 +82,20 @@ public class CustomerService {
 
         customerRepository.deleteById(customerPS.getId());
         userRepository.deleteById(principalUser.getUser().getId());
+
+        // 구독 정보는 바로 삭제
+        log.debug("여기ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ까지왔음");
+        if (subscribeRepository.findByCustomerId(customerPS.getId()) != null) {
+            log.debug("여기까진 왔음?");
+            subscribeRepository.deleteByCustomerId(customerPS.getId());
+        }
+        // 예약 정보는 소프트 딜리트
+        List<Reservation> reservationPS = reservationRepository.findByCustomerId(customerPS.getId());
+        if (reservationPS != null) {
+            reservationPS.stream().forEach(r -> reservationRepository.deleteById(r.getId()));
+        }
+
+        // 리뷰는 삭제하지 않음
 
     }
 

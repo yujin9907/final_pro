@@ -25,8 +25,8 @@ insert into imagefile(store_filename, shop_id, created_at) values('498e8a11-1048
 insert into customer(address, name, phone_number, user_id, is_deleted, created_at)
 values ('주소', '커스터머', '01099966462', 1, false, now());
 
-insert into review(score, content, shop_id, customer_id, is_deleted, created_at) values (5, 'test',1, 1, false, now());
-insert into review(score, content, shop_id, customer_id, is_deleted, created_at) values (4, 'test',1, 1, false, now());
+insert into review(score, content, shop_id, customer_id, created_at) values (5, 'test',1, 1, now());
+insert into review(score, content, shop_id, customer_id, created_at) values (4, 'test',1, 1, now());
 
 
 insert into shop_table(max_people, shop_id, is_active, created_at)
@@ -43,6 +43,6 @@ values ('20221126', '18', 1, 1, false, now());
 insert into reservation(reservation_date, reservation_time, customer_id, shop_table_id, is_deleted, created_at)
 values ('20221127', '12', 1, 2, false, now());
 
-insert into subscribe(customer_id, shop_id, is_deleted, created_at)
-values (1, 1, false, now());
+insert into subscribe(customer_id, shop_id, created_at)
+values (1, 1, now());
 

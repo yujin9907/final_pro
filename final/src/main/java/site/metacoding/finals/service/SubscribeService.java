@@ -33,7 +33,7 @@ public class SubscribeService {
                                 .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다"));
 
                 // 구독하기
-                Subscribe subscribe = subscribeRepository.save(new Subscribe(null, customerPS, shopPS, false));
+                Subscribe subscribe = subscribeRepository.save(new Subscribe(null, customerPS, shopPS));
 
                 return new SubscribeSaveRespDto(subscribe);
         }

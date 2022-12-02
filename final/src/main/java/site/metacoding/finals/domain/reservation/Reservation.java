@@ -28,7 +28,7 @@ import site.metacoding.finals.domain.shop_table.ShopTable;
 
 @SQLDelete(sql = "UPDATE reservation SET is_deleted = true where id = ?")
 @Where(clause = "is_deleted = false") // 디폴트로 동작하는 쿼리
-@OnDelete(action = OnDeleteAction.CASCADE)
+@OnDelete(action = OnDeleteAction.CASCADE) // 참조 클래스의 방식을 따라서 삭제
 @Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

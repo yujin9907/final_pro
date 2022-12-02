@@ -33,8 +33,8 @@ import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.shop.Shop;
 
 // isdeleted 옵션 구현해야됨
-@SQLDelete(sql = "UPDATE review SET is_deleted = true WHERE id = ?")
-@OnDelete(action = OnDeleteAction.CASCADE)
+// @SQLDelete(sql = "UPDATE review SET is_deleted = true WHERE id = ?")
+// @OnDelete(action = OnDeleteAction.CASCADE)
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -60,7 +60,7 @@ public class Review extends AutoTime {
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
     private List<ImageFile> imageFiles = new ArrayList<>();
 
-    @Column(name = "is_deleted")
-    private Boolean isDeleted = Boolean.FALSE;
+    // @Column(name = "is_deleted")
+    // private Boolean isDeleted = Boolean.FALSE;
 
 }

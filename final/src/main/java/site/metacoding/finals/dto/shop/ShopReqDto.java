@@ -56,6 +56,43 @@ public class ShopReqDto {
                     .build();
         }
 
+        public Feature toFeatureSaveEntity(String featureName, Shop shop) {
+            return Feature.builder()
+                    .name(featureName)
+                    .shop(shop)
+                    .build();
+        }
+    }
+
+    @Setter
+    @Getter
+    public static class ShopInfoUpdateReqDto {
+        private String shopName;
+        private String phoneNumber;
+        private String address;
+        private String category;
+        private String information;
+        private String openTime;
+        private String closeTime;
+        private int perPrice;
+        private int perHour;
+        private List<String> featureNameList;
+
+        public Shop toInfoUpdateEntity(Shop shop) {
+            return Shop.builder()
+                    .id(shop.getId())
+                    .shopName(shopName)
+                    .phoneNumber(phoneNumber)
+                    .category(category)
+                    .address(address)
+                    .information(information)
+                    .openTime(openTime)
+                    .closeTime(closeTime)
+                    .perPrice(perPrice)
+                    .perHour(perHour)
+                    .build();
+        }
+
         public Feature toFeatureEntity(String featureName, Shop shop) {
             return Feature.builder()
                     .name(featureName)

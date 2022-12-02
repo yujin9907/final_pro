@@ -21,6 +21,7 @@ import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.dto.ResponseDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
+import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoUpdateReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopCategoryListRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
@@ -51,7 +52,7 @@ public class ShopApiController {
             @RequestPart("reqDto") ShopInfoSaveReqDto shopInfoSaveReqDto,
             @AuthenticationPrincipal PrincipalUser principalUser) {
         log.debug("디버그 : principalUser.getId " + principalUser.getUser().getId());
-        ShopInfoSaveRespDto shopInfoSaveRespDto = shopService.information(file, shopInfoSaveReqDto,
+        ShopInfoSaveRespDto shopInfoSaveRespDto = shopService.saveInformation(file, shopInfoSaveReqDto,
                 principalUser.getUser());
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "가게 정보등록 완료", shopInfoSaveRespDto),
                 HttpStatus.CREATED);

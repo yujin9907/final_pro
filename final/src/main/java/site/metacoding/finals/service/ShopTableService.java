@@ -45,8 +45,6 @@ public class ShopTableService {
                 for (int i = 0; i < shopTableDto.getQty(); i++) {
                     shopTableRepository
                             .save(shopTableUpdateReqDto.toShopTableEntity(shopTableDto.getMaxPeople(), shopPS));
-                    log.debug("디버그 : shopTableUpdateReqDto 값" + shopTableUpdateReqDto
-                            .toShopTableEntity(shopTableDto.getMaxPeople(), shopPS).getMaxPeople());
                 }
             }
             log.debug("디버그 : save로직 실행 완료");

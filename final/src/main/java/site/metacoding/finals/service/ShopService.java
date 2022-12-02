@@ -2,6 +2,7 @@ package site.metacoding.finals.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -24,11 +25,13 @@ import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopFilterReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
+import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoUpdateReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopCategoryListRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopInfoSaveRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
+import site.metacoding.finals.dto.shop_table.ShopTableRespDto.ShopTableSaveRespDto;
 import site.metacoding.finals.handler.ImageFileHandler;
 
 @Slf4j
@@ -42,6 +45,7 @@ public class ShopService {
     private final ImageFileRepository imageFileRepository;
     private final ImageFileHandler imageFileHandler;
 
+    // 회지
     @Transactional
     public ShopJoinRespDto join(ShopJoinReqDto shopJoinReqDto) {
         String encPassword = bCryptPasswordEncoder.encode(shopJoinReqDto.getPassword());
@@ -54,7 +58,7 @@ public class ShopService {
     }
 
     @Transactional
-    public ShopInfoSaveRespDto information(List<MultipartFile> multipartFiles,
+    public ShopInfoSaveRespDto saveInformation(List<MultipartFile> multipartFiles,
             ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
 
         // shop information save
@@ -63,7 +67,7 @@ public class ShopService {
         // feature save
         List<Feature> featureList = new ArrayList<>();
         for (String name : shopInfoSaveReqDto.getFeatureNameList()) {
-            Feature feature = featureRepository.save(shopInfoSaveReqDto.toFeatureEntity(name, shopPS));
+            Feature feature = featureRepository.save(shopInfoSaveReqDto.toFeatureSaveEntity(name, shopPS));
             featureList.add(feature);
         }
 
@@ -77,6 +81,7 @@ public class ShopService {
         return new ShopInfoSaveRespDto(shopPS, featureList, images);
     }
 
+    // 유진
     public List<Shop> List() {
         return shopRepository.findAll();
     }
@@ -101,8 +106,7 @@ public class ShopService {
         // 날짜 + 인원 => 예약 가능 시간 조회
 
         // 가게 특징
-        Feature featurePS = featureRepository.findByShopId(shopId)
-                .orElseThrow(() -> new RuntimeException("잘못된 가게 요청"));
+        List<Feature> featurePS = featureRepository.findByShopId(shopId);
 
         return new ShopDetailRespDto(shopPS, featurePS);
     }

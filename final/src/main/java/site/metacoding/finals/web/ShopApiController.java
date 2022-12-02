@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +39,7 @@ public class ShopApiController {
                 HttpStatus.CREATED);
     }
 
+    // shop 한 개 만 만들도록 제한 / respDto LAZY 로딩 안되도록 좀 더 정확히 만들어줘야 함
     // @PostMapping(value = "/shop/information", consumes = {
     // MediaType.APPLICATION_JSON_VALUE,
     // MediaType.MULTIPART_FORM_DATA_VALUE })

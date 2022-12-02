@@ -94,7 +94,10 @@ public class ShopRepositoryTest extends DummyEntity {
 
     @Test
     public void 한건테스트() {
+        // mock 환경과 실제 환경은 다름 : mock 환경에서 미리 필요한 데이터가 있음()
+
         em.clear();
+
         // sout으로 테스트하면 안 됨. to string하기 때문에 get 실행
         // shopRepository.findById(1L); // ManyToOne -> shop 셀렉트
         // OneToOne -> shop 셀렉트 + Image 셀렉트 (OneToOne은 Lazy가 작동하지 않는다.)

@@ -5,42 +5,43 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import site.metacoding.finals.config.auth.PrincipalUser;
-import site.metacoding.finals.domain.feature.Feature;
-import site.metacoding.finals.domain.feature.FeatureRepository;
 import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.image_file.ImageFileRepository;
+import site.metacoding.finals.domain.option.Option;
+import site.metacoding.finals.domain.option.OptionRepository;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
-import site.metacoding.finals.dto.shop.ShopReqDto.ShopFilterReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
-import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoUpdateReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopCategoryListRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopInfoSaveRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
-import site.metacoding.finals.dto.shop_table.ShopTableRespDto.ShopTableSaveRespDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopListRespDto;
 import site.metacoding.finals.handler.ImageFileHandler;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ShopService {
+
+    @PersistenceContext
+    private EntityManager em;
+
     private final UserRepository userRepository;
     private final ShopRepository shopRepository;
-    private final FeatureRepository featureRepository;
+    private final OptionRepository featureRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ImageFileRepository imageFileRepository;
     private final ImageFileHandler imageFileHandler;
@@ -58,21 +59,20 @@ public class ShopService {
     }
 
     @Transactional
-    public ShopInfoSaveRespDto saveInformation(List<MultipartFile> multipartFiles,
-            ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
+    public ShopInfoSaveRespDto saveInformation(ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
 
-        // shop information save
+        // shop save
         Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
 
         // feature save
-        List<Feature> featureList = new ArrayList<>();
+        List<Option> featureList = new ArrayList<>();
         for (String name : shopInfoSaveReqDto.getFeatureNameList()) {
-            Feature feature = featureRepository.save(shopInfoSaveReqDto.toFeatureSaveEntity(name, shopPS));
+            Option feature = featureRepository.save(shopInfoSaveReqDto.toFeatureSaveEntity(name, shopPS));
             featureList.add(feature);
         }
 
         // images save
-        List<ImageFile> images = imageFileHandler.storeFile(multipartFiles);
+        List<ImageFile> images = imageFileHandler.storeFile(shopInfoSaveReqDto.getImages());
         for (ImageFile img : images) {
             img.setShop(shopPS);
             imageFileRepository.save(img);
@@ -81,22 +81,19 @@ public class ShopService {
         return new ShopInfoSaveRespDto(shopPS, featureList, images);
     }
 
-    // 유진
-    public List<Shop> List() {
-        return shopRepository.findAll();
+    public List<ShopListRespDto> List() {
+        // em.clear();
+
+        List<Shop> shopPS = shopRepository.findAllList();
+        return shopPS.stream().map((shop) -> new ShopListRespDto(shop)).collect(Collectors.toList());
     }
 
-    public List<ShopCategoryListRespDto> categoryList(String categoryName) {
+    public List<ShopListRespDto> categoryList(String categoryName) {
         List<Shop> shopList = shopRepository.findByCategory(categoryName);
 
         return shopList.stream()
-                .map((dto) -> new ShopCategoryListRespDto(dto)).collect(Collectors.toList());
+                .map((dto) -> new ShopListRespDto(dto)).collect(Collectors.toList());
 
-    }
-
-    public List<Shop> filterList(ShopFilterReqDto dto) {
-        // 보류
-        return null;
     }
 
     public ShopDetailRespDto detatil(Long shopId) {
@@ -106,7 +103,7 @@ public class ShopService {
         // 날짜 + 인원 => 예약 가능 시간 조회
 
         // 가게 특징
-        List<Feature> featurePS = featureRepository.findByShopId(shopId);
+        List<Option> featurePS = featureRepository.findByShopId(shopId);
 
         return new ShopDetailRespDto(shopPS, featurePS);
     }

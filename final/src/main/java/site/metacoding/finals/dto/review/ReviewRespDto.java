@@ -18,34 +18,44 @@ public class ReviewRespDto {
         private Long id;
         private int score;
         private String content;
-        private List<ImageFile> imageFile;
         private Customer customer;
-        private Shop shop;
+        private ShopDto shopDto;
 
-        public ReviewSaveRespDto(Review review, List<ImageFile> imageFile) {
+        public ReviewSaveRespDto(Review review, List<ImageFile> images) {
             this.id = review.getId();
             this.score = review.getScore();
             this.content = review.getContent();
             this.customer = review.getCustomer();
-            this.shop = review.getShop();
+            this.shopDto = new ShopDto(review.getShop());
         }
-    }
 
-    @Setter
-    @Getter
-    public static class ShopListRespDto {
-        List<ShopDto> shops;
-        List<ImageFileDto> images;
-
+        @Getter
         public class ShopDto {
             private String shopName;
-            private String information;
-            private String category;
             private String address;
-        }
+            private String category;
+            private String information;
+            private ImageFileDto imageFileDto;
 
-        public class ImageFileDto {
-            private String storeFilename;
+            public ShopDto(Shop shop) {
+                this.shopName = shop.getShopName();
+                this.address = shop.getAddress();
+                this.category = shop.getCategory();
+                this.information = shop.getInformation();
+                this.imageFileDto = new ImageFileDto(shop.getImageFile());
+            }
+
+            @Getter
+            public class ImageFileDto {
+                private long id;
+                private String storeFilename;
+
+                public ImageFileDto(ImageFile imageFile) {
+                    this.id = imageFile.getId();
+                    this.storeFilename = imageFile.getStoreFilename();
+                }
+
+            }
         }
     }
 }

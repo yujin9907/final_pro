@@ -1,8 +1,5 @@
-package site.metacoding.finals.domain.shop_table;
+package site.metacoding.finals.domain.option_manage;
 
-import java.sql.Timestamp;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,29 +15,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.metacoding.finals.domain.AutoTime;
+import site.metacoding.finals.domain.option.Option;
 import site.metacoding.finals.domain.shop.Shop;
 
-@Entity
-@Builder
 @Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "shop_table")
-public class ShopTable extends AutoTime {
+@Builder
+@Table(name = "option_manage")
+@Entity
+public class OptionManage extends AutoTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private int maxPeople;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private Shop shop;
-
-    @Column(nullable = false)
-    private Boolean isActive = Boolean.FALSE;
-
-    // ShopTable 삭제 메서드
-    public void deleteShopTable(Long id) {
-        isActive = false;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "option_id")
+    private Option option;
 }

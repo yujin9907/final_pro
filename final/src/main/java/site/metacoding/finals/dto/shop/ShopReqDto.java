@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.finals.config.enums.Role;
-import site.metacoding.finals.domain.feature.Feature;
+import site.metacoding.finals.domain.option.Option;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
 
@@ -40,6 +40,7 @@ public class ShopReqDto {
         private int perPrice;
         private int perHour;
         private List<String> featureNameList;
+        private List<String> images;
 
         public Shop toInfoSaveEntity(User user) {
             return Shop.builder()
@@ -56,45 +57,8 @@ public class ShopReqDto {
                     .build();
         }
 
-        public Feature toFeatureSaveEntity(String featureName, Shop shop) {
-            return Feature.builder()
-                    .name(featureName)
-                    .shop(shop)
-                    .build();
-        }
-    }
-
-    @Setter
-    @Getter
-    public static class ShopInfoUpdateReqDto {
-        private String shopName;
-        private String phoneNumber;
-        private String address;
-        private String category;
-        private String information;
-        private String openTime;
-        private String closeTime;
-        private int perPrice;
-        private int perHour;
-        private List<String> featureNameList;
-
-        public Shop toInfoUpdateEntity(Shop shop) {
-            return Shop.builder()
-                    .id(shop.getId())
-                    .shopName(shopName)
-                    .phoneNumber(phoneNumber)
-                    .category(category)
-                    .address(address)
-                    .information(information)
-                    .openTime(openTime)
-                    .closeTime(closeTime)
-                    .perPrice(perPrice)
-                    .perHour(perHour)
-                    .build();
-        }
-
-        public Feature toFeatureEntity(String featureName, Shop shop) {
-            return Feature.builder()
+        public Option toFeatureSaveEntity(String featureName, Shop shop) {
+            return Option.builder()
                     .name(featureName)
                     .shop(shop)
                     .build();

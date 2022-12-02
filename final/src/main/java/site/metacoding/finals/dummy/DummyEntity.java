@@ -1,11 +1,13 @@
 package site.metacoding.finals.dummy;
 
-import java.net.ProtocolException;
-
 import site.metacoding.finals.config.enums.Role;
+import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.image_file.ImageFile;
+import site.metacoding.finals.domain.reservation.Reservation;
 import site.metacoding.finals.domain.review.Review;
 import site.metacoding.finals.domain.shop.Shop;
+import site.metacoding.finals.domain.shop_table.ShopTable;
+import site.metacoding.finals.domain.subscribe.Subscribe;
 import site.metacoding.finals.domain.user.User;
 
 public abstract class DummyEntity {
@@ -37,7 +39,6 @@ public abstract class DummyEntity {
 
     protected ImageFile newReviewImageFile(Review review) {
         return ImageFile.builder()
-                .originFilename("anan.jpg")
                 .storeFilename("store.jpg")
                 .review(review)
                 .build();
@@ -45,8 +46,49 @@ public abstract class DummyEntity {
 
     protected ImageFile newShopImageFile(Shop shop) {
         return ImageFile.builder()
-                .originFilename("anan.jpg")
                 .storeFilename("store.jpg")
+                .shop(shop)
+                .build();
+    }
+
+    protected Customer newCustomer(User user) {
+        return Customer.builder()
+                .name("test")
+                .phoneNumber("01011112222")
+                .address("주소1")
+                .user(user)
+                .build();
+    }
+
+    protected Review newReview(Customer customer, Shop shop) {
+        return Review.builder()
+                .score(5)
+                .content("test content")
+                .customer(customer)
+                .shop(shop)
+                .build();
+    }
+
+    protected Reservation newReservation(Customer customer, ShopTable shopTable) {
+        return Reservation.builder()
+                .reservationDate("20221129")
+                .reservationTime("12")
+                .customer(customer)
+                .shopTable(shopTable)
+                .build();
+    }
+
+    protected ShopTable newShopTable(Shop shop) {
+        return ShopTable.builder()
+                .maxPeople(4)
+                .shop(shop)
+                .isActive(true)
+                .build();
+    }
+
+    protected Subscribe newSubscribe(Customer customer, Shop shop) {
+        return Subscribe.builder()
+                .customer(customer)
                 .shop(shop)
                 .build();
     }

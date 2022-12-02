@@ -1,6 +1,9 @@
 package site.metacoding.finals.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,7 @@ import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerMyPageReserva
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerMyPageReviewRespDto;
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerMyPageSubscribeRespDto;
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerUpdateRespDto;
+import site.metacoding.finals.repositoryDto.customer.ReservationRepositoryRespDto;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -63,26 +67,27 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public CustomerMyPageReservationRespDto myPageReservation(Long id) {
-        List<Shop> shopList = shopRespository.findResevationByCustomerId(id);
-        List<Reservation> reservationList = reservationRepository.findByCustomerId(id);
-
-        log.debug("디버그 : " + shopList.size());
-        log.debug("디버그 : " + reservationList.size());
-
-        return new CustomerMyPageReservationRespDto(shopList, reservationList);
+    public List<ReservationRepositoryRespDto> myPageReservation(Long id) {
+        List<ReservationRepositoryRespDto> reservationList = shopRespository.findResevationByCustomerId(id);
+        return reservationList;
     }
 
     @Transactional(readOnly = true)
-    public CustomerMyPageSubscribeRespDto myPageSubscribe(Long id) {
+    public List<CustomerMyPageSubscribeRespDto> myPageSubscribe(Long id) {
+
         List<Shop> shopList = shopRespository.findSubscribeByCustomerId(id);
-        return new CustomerMyPageSubscribeRespDto(shopList);
+
+        log.debug("디버그 : " + shopList.get(0).getShopName());
+        log.debug("디버그 : " + shopList.get(0).getImageFile().getStoreFilename());
+
+        List<CustomerMyPageSubscribeRespDto> respDto = new ArrayList<>();
+        shopList.forEach((s) -> respDto.add(new CustomerMyPageSubscribeRespDto(s)));
+        return respDto;
     }
 
     @Transactional(readOnly = true)
-    public CustomerMyPageReviewRespDto myPageReview(Long id) {
+    public List<CustomerMyPageReviewRespDto> myPageReview(Long id) {
         List<Review> reviewList = reviewRepository.findByCustomerId(id);
-        return new CustomerMyPageReviewRespDto(reviewList);
-
+        return reviewList.stream().map((r) -> new CustomerMyPageReviewRespDto(r)).collect(Collectors.toList());
     }
 }

@@ -1,8 +1,5 @@
 package site.metacoding.finals.domain.shop;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,6 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.image_file.ImageFile;
+import site.metacoding.finals.domain.option.Option;
 import site.metacoding.finals.domain.user.User;
 
 @Getter
@@ -57,9 +56,17 @@ public class Shop extends AutoTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    // @JsonIgnore
+    @JsonIgnore
     private User user;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Option feature;
+
+    @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
+    private ImageFile imageFile = new ImageFile(null, null, null, null, null);
+    // null 방지 어케?
+
     @Column
-    private boolean isopen;
+    private boolean isOpened = Boolean.FALSE;
+
 }

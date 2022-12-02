@@ -1,27 +1,35 @@
 package site.metacoding.finals.handler;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
+import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.image_file.ImageFile;
+import site.metacoding.finals.domain.review.Review;
 
+@Slf4j
 @Component
 public class ImageFileHandler {
 
-    @Value("${filedir}")
-    private String fileDir;
+    @Value("${filedir}") // static 붙이면 못 읽음
+    private static String fileDir = "C://temp/image/";
 
-    // 파일 확장자
-    protected String getExtension(String originalFilename) {
-        int idx = originalFilename.lastIndexOf(".");
-        return originalFilename.substring(idx);
+    // 파일 디코딩
+    protected byte[] decoder(String base64) {
+        Base64.Decoder decoder = Base64.getDecoder();
+        return decoder.decode(base64.getBytes());
     }
 
     // 파일 이름
@@ -30,41 +38,69 @@ public class ImageFileHandler {
         return uuid;
     }
 
-    // 실제 로직
-    public List<ImageFile> storeFile(List<MultipartFile> multipartFiles) {
-        if (multipartFiles.isEmpty()) {
-            return null;
-        }
+    // 폴더 생성
+    protected void getFolder(String dir) {
         File folder = new File(fileDir);
         if (!folder.exists())
-            folder.mkdirs();
+            folder.mkdir();
+    }
 
-        System.err.println("디버그 : 서비스 진입");
-        System.out.println("디버그 : " + fileDir);
+    // 실제 로직
+    public List<ImageFile> storeFile(List<String> files) {
 
-        String originalFilename = "";
-        String storeFilename = "";
+        log.debug("이미지 핸들러 진입");
+
+        List<byte[]> fileBytes = files.stream().map((f) -> decoder(f)).collect(Collectors.toList());
+
+        getFolder(fileDir);
+
         List<ImageFile> images = new ArrayList<>();
-        for (MultipartFile multipartFile : multipartFiles) {
-            originalFilename = multipartFile.getOriginalFilename();
-            storeFilename = getUUID() + getExtension(originalFilename);
+        String fileName = getUUID() + ".png";
+
+        fileBytes.forEach(fileByte -> {
 
             try {
-                multipartFile.transferTo(new File(fileDir, storeFilename));
+                FileOutputStream fileOutputStream = new FileOutputStream(fileDir + fileName);
+                fileOutputStream.write(fileByte);
+                fileOutputStream.close();
             } catch (IOException e) {
-                new RuntimeException("파일 저장 에러");
+                e.printStackTrace();
             }
 
             images.add(ImageFile.builder()
-                    .originFilename(originalFilename)
-                    .storeFilename(storeFilename)
+                    .storeFilename(fileName)
                     .build());
-        }
+        });
 
-        // File image = new File(fileDir, storeFilename);
-        // Files.copy(multipartFile.getInputStream(), image.toPath());
-
+        log.debug("이미지 저장 완료");
         return images;
+    }
+
+    // 로컬 이미지 인코딩
+    public static String encodingFile(String storeName) {
+        String storedFile = fileDir + storeName;
+        byte[] encodedBytes = null;
+        try {
+            FileInputStream fis = new FileInputStream(storedFile);
+            ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
+
+            int len = 0;
+            byte[] buf = new byte[1024];
+            while ((len = fis.read(buf)) != -1) {
+                byteOutStream.write(buf, 0, len);
+            }
+
+            byte[] fileArray = byteOutStream.toByteArray();
+            Encoder encoder = Base64.getEncoder();
+            encodedBytes = encoder.encode(fileArray);
+
+            fis.close();
+            byteOutStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new String(encodedBytes);
+
     }
 
 }

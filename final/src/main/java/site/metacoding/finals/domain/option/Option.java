@@ -1,4 +1,4 @@
-package site.metacoding.finals.domain.feature;
+package site.metacoding.finals.domain.option;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,13 +24,12 @@ import site.metacoding.finals.domain.shop.Shop;
 @Builder
 @Table(name = "feature")
 @Entity
-public class Feature extends AutoTime {
+public class Option extends AutoTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, length = 10)
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_id")
-    private Shop shop;
+    @Column(nullable = false, length = 100)
+    private String img;
 }

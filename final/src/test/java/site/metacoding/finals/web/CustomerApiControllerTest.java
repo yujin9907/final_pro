@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
+import site.metacoding.finals.domain.customer.CustomerRepository;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerJoinReqDto;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
 import site.metacoding.finals.dummy.DummyEntity;
@@ -79,6 +80,8 @@ public class CustomerApiControllerTest extends DummyEntity {
     // em.flush();
     // em.clear();
     // }
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Test
     public void 커스터머회원가입() throws Exception {
@@ -114,6 +117,8 @@ public class CustomerApiControllerTest extends DummyEntity {
         dto.setAddress("업데이트주소");
         dto.setPhoneNumber("01011112222");
         String data = om.writeValueAsString(dto);
+
+        customerRepository.findById(id);
 
         //
         ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.put("/customer/" + id)

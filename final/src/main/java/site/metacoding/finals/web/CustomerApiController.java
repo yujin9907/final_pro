@@ -17,7 +17,6 @@ import site.metacoding.finals.dto.ResponseDto;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerJoinReqDto;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerJoinRespDto;
-import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerMyPageReservationRespDto;
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerMyPageReviewRespDto;
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerMyPageSubscribeRespDto;
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerUpdateRespDto;
@@ -28,6 +27,8 @@ import site.metacoding.finals.service.CustomerService;
 @RequiredArgsConstructor
 @RestController
 public class CustomerApiController {
+
+    // 벨리데이션 체크
 
     private final CustomerService customerService;
 
@@ -41,10 +42,7 @@ public class CustomerApiController {
     @PutMapping("/customer/{id}")
     public ResponseEntity<?> updateCustomerApi(@PathVariable Long id,
             @RequestBody CustomerUpdateReqDto customerUpdateReqDto) {
-        // 벨리데이션 체크 나중에
-
         CustomerUpdateRespDto dto = customerService.update(id, customerUpdateReqDto);
-
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.ACCEPTED, "회원정보수정 완료", dto), HttpStatus.ACCEPTED);
     }
 

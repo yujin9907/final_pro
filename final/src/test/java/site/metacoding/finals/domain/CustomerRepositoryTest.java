@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -65,14 +66,9 @@ public class CustomerRepositoryTest extends DummyEntity {
 
     }
 
-    // @Test
-    // public void findByResrvationIdTest() {
+    @Test
+    public void 테스트() {
 
-    // Customer customer = customerRepository.findByReservationId(1L)
-    // .orElseThrow(() -> new RuntimeException());
-
-    // customer.getReservation();
-
-    // }
+    }
 
 }

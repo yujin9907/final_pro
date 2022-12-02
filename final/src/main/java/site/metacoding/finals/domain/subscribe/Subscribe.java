@@ -1,6 +1,7 @@
 package site.metacoding.finals.domain.subscribe;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import lombok.AccessLevel;
@@ -21,6 +24,8 @@ import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.shop.Shop;
 
+// isdeleted 옵션 구현해야됨
+@OnDelete(action = OnDeleteAction.CASCADE)
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -37,4 +42,7 @@ public class Subscribe extends AutoTime {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "shop_id")
     private Shop shop;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = Boolean.FALSE;
 }

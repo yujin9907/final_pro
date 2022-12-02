@@ -20,34 +20,34 @@ import site.metacoding.finals.dto.subscribe.SubscribeRespDto.SubscribeSaveRespDt
 @Service
 public class SubscribeService {
 
-    private final ShopRepository shopRepository;
-    private final SubscribeRepository subscribeRepository;
-    private final CustomerRepository customerRepository;
+        private final ShopRepository shopRepository;
+        private final SubscribeRepository subscribeRepository;
+        private final CustomerRepository customerRepository;
 
-    @Transactional
-    public SubscribeSaveRespDto save(Long ShopId, PrincipalUser principalUser) {
-        // 사용자 검증
-        Shop shopPS = shopRepository.findById(ShopId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 가게입니다"));
-        Customer customerPS = customerRepository.findById(principalUser.getUser().getId())
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다"));
+        @Transactional
+        public SubscribeSaveRespDto save(Long ShopId, PrincipalUser principalUser) {
+                // 사용자 검증
+                Shop shopPS = shopRepository.findById(ShopId)
+                                .orElseThrow(() -> new RuntimeException("존재하지 않는 가게입니다"));
+                Customer customerPS = customerRepository.findById(principalUser.getUser().getId())
+                                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다"));
 
-        // 구독하기
-        Subscribe subscribe = subscribeRepository.save(new Subscribe(null, customerPS, shopPS));
+                // 구독하기
+                Subscribe subscribe = subscribeRepository.save(new Subscribe(null, customerPS, shopPS, false));
 
-        return new SubscribeSaveRespDto(subscribe);
-    }
+                return new SubscribeSaveRespDto(subscribe);
+        }
 
-    @Transactional
-    public void delete(Long subscribeId, PrincipalUser principalUser) {
-        // 사용자 검증
-        Subscribe subscribePS = subscribeRepository.findById(subscribeId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 구독 내역입니다"));
-        customerRepository.findById(principalUser.getUser().getId())
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다"));
+        @Transactional
+        public void delete(Long subscribeId, PrincipalUser principalUser) {
+                // 사용자 검증
+                Subscribe subscribePS = subscribeRepository.findById(subscribeId)
+                                .orElseThrow(() -> new RuntimeException("존재하지 않는 구독 내역입니다"));
+                customerRepository.findById(principalUser.getUser().getId())
+                                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다"));
 
-        // 구독취소하기
-        subscribeRepository.delete(subscribePS);
+                // 구독취소하기
+                subscribeRepository.delete(subscribePS);
 
-    }
+        }
 }

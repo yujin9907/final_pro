@@ -1,8 +1,5 @@
 package site.metacoding.finals.domain.customer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,9 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,10 +23,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import site.metacoding.finals.domain.AutoTime;
-import site.metacoding.finals.domain.reservation.Reservation;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
 
+@SQLDelete(sql = "UPDATE customer SET is_deleted = true where id = ?")
+@Where(clause = "is_deleted = false") // 디폴트로 동작하는 쿼리
 @EnableJpaAuditing
 @Builder
 @AllArgsConstructor
@@ -45,6 +45,8 @@ public class Customer extends AutoTime {
     private String phoneNumber;
     @Column(length = 30)
     private String address;
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = Boolean.FALSE;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore

@@ -1,5 +1,7 @@
 package site.metacoding.finals.dto.customer;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +31,7 @@ public class CustomerReqDto {
                     .phoneNumber(this.phoneNumber)
                     .address(this.address)
                     .user(user)
+                    .isDeleted(Boolean.FALSE)
                     .build();
         }
 

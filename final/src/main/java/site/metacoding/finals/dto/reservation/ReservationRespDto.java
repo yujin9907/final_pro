@@ -13,7 +13,7 @@ public class ReservationRespDto {
     @AllArgsConstructor
     @Getter
     @Setter
-    public static class ReservationDateRespDto {
+    public static class ReservationSelectRespDto {
         private List<Integer> date;
         private List<Integer> table;
 

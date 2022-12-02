@@ -8,8 +8,51 @@ import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
+import site.metacoding.finals.handler.ImageFileHandler;
 
 public class ShopRespDto {
+
+    @Setter
+    @Getter
+    public static class ShopListRespDto {
+        private String shopName;
+        private String address;
+        private String category;
+        private String information;
+        private String openTime;
+        private String closeTime;
+        private ImageFileDto imageFileDto;
+
+        public ShopListRespDto(Shop shop) {
+            this.shopName = shop.getShopName();
+            this.address = shop.getAddress();
+            this.category = shop.getCategory();
+            this.information = shop.getInformation();
+            this.openTime = shop.getOpenTime();
+            this.closeTime = shop.getCloseTime();
+            this.imageFileDto = new ImageFileDto(shop.getImageFile());
+        }
+
+        @Getter
+        public class ImageFileDto {
+            private long id;
+            private String image;
+
+            public ImageFileDto(ImageFile imageFile) {
+                this.id = imageFile.getId();
+                this.image = ImageFileHandler.encodingFile(imageFile.getStoreFilename());
+            }
+
+        }
+
+    }
+
+    @Setter
+    @Getter
+    public static class ShopReservaitonListRespDto {
+        private Shop shop;
+        private ImageFile imageFile;
+    }
 
     @Setter
     @Getter
@@ -69,20 +112,4 @@ public class ShopRespDto {
 
     }
 
-    @Setter
-    @Getter
-    public static class ShopCategoryListRespDto {
-        private String shopName;
-        private String address;
-        private String openTime;
-        private String closeTime;
-
-        public ShopCategoryListRespDto(Shop shop) {
-            this.shopName = shop.getShopName();
-            this.address = shop.getAddress();
-            this.openTime = shop.getOpenTime();
-            this.closeTime = shop.getCloseTime();
-        }
-
-    }
 }

@@ -37,9 +37,10 @@ public class Reservation extends AutoTime {
     private String reservationDate;
     // @Converter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    // @JoinColumn(name = "customer_id")
     @JsonIgnore
     private Customer customer;
     @ManyToOne
+    @JoinColumn(name = "shop_table_id")
     private ShopTable shopTable;
 }

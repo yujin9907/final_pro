@@ -21,8 +21,8 @@ import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationSaveReqDto;
 import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationSelectReqDto;
-import site.metacoding.finals.dto.reservation.ReservationRespDto.ReservationDateRespDto;
 import site.metacoding.finals.dto.reservation.ReservationRespDto.ReservationSaveRespDto;
+import site.metacoding.finals.dto.reservation.ReservationRespDto.ReservationSelectRespDto;
 
 @Slf4j
 @Transactional(readOnly = true)
@@ -36,14 +36,15 @@ public class ReservationService {
     private final ShopTableRepository shopTableRepository;
     private final UserRepository userRepository;
 
-    public ReservationDateRespDto dateList(ReservationSelectReqDto dto) {
+    public ReservationSelectRespDto dateList(ReservationSelectReqDto dto) {
         // 날짜 다 있어야 됨?
         return null;
     }
 
-    public ReservationDateRespDto personList(ReservationSelectReqDto dto) {
-        List<Integer> tableList = shopTableRepository.findDistinctByShopId(dto.getShopId());
-        return new ReservationDateRespDto(null, tableList);
+    public ReservationSelectRespDto personList(ReservationSelectReqDto dto) {
+        List<Integer> tableList = shopTableRepository.findDistinctByShopId(dto.getShopId())
+                .orElseThrow(() -> new RuntimeException("가게 테이블 없음"));
+        return new ReservationSelectRespDto(null, tableList);
     }
 
     public List<Integer> timeList(ReservationSelectReqDto dto) {

@@ -16,8 +16,8 @@ import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.dto.ResponseDto;
 import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationSaveReqDto;
 import site.metacoding.finals.dto.reservation.ReservationReqDto.ReservationSelectReqDto;
-import site.metacoding.finals.dto.reservation.ReservationRespDto.ReservationDateRespDto;
 import site.metacoding.finals.dto.reservation.ReservationRespDto.ReservationSaveRespDto;
+import site.metacoding.finals.dto.reservation.ReservationRespDto.ReservationSelectRespDto;
 import site.metacoding.finals.service.ReservationService;
 
 @RestController
@@ -38,7 +38,7 @@ public class ReservationApiController {
 
     @PostMapping("/reservation/person")
     public ResponseEntity<?> reservationPerson(@RequestBody ReservationSelectReqDto dto) {
-        ReservationDateRespDto respDto = reservationService.personList(dto);
+        ReservationSelectRespDto respDto = reservationService.personList(dto);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "예약 가능 인원수 조회", respDto), HttpStatus.OK);
     }
 

@@ -1,5 +1,7 @@
 package site.metacoding.finals.web;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerMyPageReserva
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerMyPageReviewRespDto;
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerMyPageSubscribeRespDto;
 import site.metacoding.finals.dto.customer.CustomerRespDto.CustomerUpdateRespDto;
+import site.metacoding.finals.repositoryDto.customer.ReservationRepositoryRespDto;
 import site.metacoding.finals.service.CustomerService;
 
 @Slf4j
@@ -47,20 +50,19 @@ public class CustomerApiController {
 
     @GetMapping("/customer/mypage/reservation/{id}")
     public ResponseEntity<?> CustomerMypageReservationApi(@PathVariable Long id) {
-        CustomerMyPageReservationRespDto dto = customerService.myPageReservation(id);
-        log.debug("디버그 : " + dto.getShop());
+        List<ReservationRepositoryRespDto> dto = customerService.myPageReservation(id);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "마이페이지 예약 목록", dto), HttpStatus.OK);
     }
 
     @GetMapping("/customer/mypage/subscribe/{id}")
     public ResponseEntity<?> CustomerMypageSubscribeApi(@PathVariable Long id) {
-        CustomerMyPageSubscribeRespDto dto = customerService.myPageSubscribe(id);
+        List<CustomerMyPageSubscribeRespDto> dto = customerService.myPageSubscribe(id);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "마이페이지 구독 목록", dto), HttpStatus.OK);
     }
 
     @GetMapping("/customer/mypage/review/{id}")
     public ResponseEntity<?> CustomerMypageReviewApi(@PathVariable Long id) {
-        CustomerMyPageReviewRespDto dto = customerService.myPageReview(id);
+        List<CustomerMyPageReviewRespDto> dto = customerService.myPageReview(id);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "마이페이지 리뷰 목록", dto), HttpStatus.OK);
     }
 

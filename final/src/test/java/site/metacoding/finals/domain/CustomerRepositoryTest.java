@@ -32,7 +32,7 @@ import site.metacoding.finals.dummy.DummyEntity;
 @Slf4j
 @DataJpaTest
 @ActiveProfiles("test")
-public class ReservationRepositoryTest extends DummyEntity {
+public class CustomerRepositoryTest extends DummyEntity {
 
     @Autowired
     private EntityManager em;
@@ -73,29 +73,14 @@ public class ReservationRepositoryTest extends DummyEntity {
 
     }
 
-    @Test
-    public void 예약커스터머아이디조회() {
-        Long CustomerId = 1L;
+    // @Test
+    // public void findByResrvationIdTest() {
 
-        List<Reservation> reservation = reservationRepository.findByCustomerId(CustomerId);
+    // Customer customer = customerRepository.findByReservationId(1L)
+    // .orElseThrow(() -> new RuntimeException());
 
-        log.debug("디버그 : " + reservation.get(0).getCustomer());
+    // customer.getReservation();
 
-        // then
-        assertEquals(reservation.get(0).getId(), 1);
-    }
-
-    @Test
-    public void 인원수날짜에따른테이블목록테스트() {
-        int maxPeople = 4;
-        String date = "20221129";
-
-        List<Reservation> reservation = reservationRepository.findByDataMaxPeople(maxPeople, date);
-
-        log.debug("디버그 : " + reservation.size());
-
-        // then
-        assertEquals(reservation.get(0).getId(), 1);
-    }
+    // }
 
 }

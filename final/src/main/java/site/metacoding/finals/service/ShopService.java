@@ -4,37 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.feature.FeatureRepository;
-import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.image_file.ImageFileRepository;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
-import site.metacoding.finals.dto.shop.ShopReqDto.ShopFilterReqDto;
-import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopCategoryListRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopInfoSaveRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
+import site.metacoding.finals.dto.shop.ShopRespDto.ShopListRespDto;
 import site.metacoding.finals.handler.ImageFileHandler;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ShopService {
+
+    @PersistenceContext
+    private EntityManager em;
+
     private final UserRepository userRepository;
     private final ShopRepository shopRepository;
     private final FeatureRepository featureRepository;
@@ -52,6 +51,7 @@ public class ShopService {
         // userPS값을 바로 return하면 Entity에 영향이 가나?
         return new ShopJoinRespDto(userPS);
     }
+
 
     @Transactional
     public ShopInfoSaveRespDto information(List<MultipartFile> multipartFiles,
@@ -77,21 +77,20 @@ public class ShopService {
         return new ShopInfoSaveRespDto(shopPS, featureList, images);
     }
 
-    public List<Shop> List() {
-        return shopRepository.findAll();
+
+    public List<ShopListRespDto> List() {
+        // em.clear();
+
+        List<Shop> shopPS = shopRepository.findAllList();
+        return shopPS.stream().map((shop) -> new ShopListRespDto(shop)).collect(Collectors.toList());
     }
 
-    public List<ShopCategoryListRespDto> categoryList(String categoryName) {
+    public List<ShopListRespDto> categoryList(String categoryName) {
         List<Shop> shopList = shopRepository.findByCategory(categoryName);
 
         return shopList.stream()
-                .map((dto) -> new ShopCategoryListRespDto(dto)).collect(Collectors.toList());
+                .map((dto) -> new ShopListRespDto(dto)).collect(Collectors.toList());
 
-    }
-
-    public List<Shop> filterList(ShopFilterReqDto dto) {
-        // 보류
-        return null;
     }
 
     public ShopDetailRespDto detatil(Long shopId) {

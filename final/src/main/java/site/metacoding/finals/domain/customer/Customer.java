@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -27,7 +26,7 @@ import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
 
 @SQLDelete(sql = "UPDATE customer SET is_deleted = true WHERE id = ?")
-// @Where(clause = "is_deleted = false") // 디폴트로 동작하는 쿼리
+@Where(clause = "is_deleted = false") // 디폴트로 동작하는 쿼리
 @EnableJpaAuditing
 @Builder
 @AllArgsConstructor

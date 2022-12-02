@@ -1,9 +1,12 @@
 package site.metacoding.finals.service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
+import javax.print.attribute.standard.PrinterInfo;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.customer.CustomerRepository;
 import site.metacoding.finals.domain.reservation.Reservation;
@@ -64,6 +68,14 @@ public class CustomerService {
         customerRepository.save(customerPS);
 
         return new CustomerUpdateRespDto(customerPS);
+    }
+
+    public void delete(PrincipalUser principalUser) {
+        Customer customerPS = customerRepository.findByUserId(principalUser.getUser().getId())
+                .orElseThrow(() -> new RuntimeException("회원 정보 없음"));
+
+        customerRepository.deleteById(customerPS.getId());
+
     }
 
     @Transactional(readOnly = true)

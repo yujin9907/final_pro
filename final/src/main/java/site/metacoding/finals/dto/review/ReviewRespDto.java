@@ -58,4 +58,49 @@ public class ReviewRespDto {
             }
         }
     }
+
+    @Setter
+    @Getter
+    public static class ReivewAllListRespDto {
+        private Long id;
+        private int score;
+        private String content;
+        private String customer;
+        private ShopDto shopDto;
+
+        public ReivewAllListRespDto(Review review) {
+            this.id = review.getId();
+            this.score = review.getScore();
+            this.content = review.getContent();
+            this.customer = review.getCustomer().getName();
+            this.shopDto = new ShopDto(review.getShop());
+        }
+
+        @Getter
+        public class ShopDto {
+            private String shopName;
+            private String category;
+            private String information;
+            private ImageFileDto imageFileDto;
+
+            public ShopDto(Shop shop) {
+                this.shopName = shop.getShopName();
+                this.category = shop.getCategory();
+                this.information = shop.getInformation();
+                this.imageFileDto = new ImageFileDto(shop.getImageFile());
+            }
+
+            @Getter
+            public class ImageFileDto {
+                private long id;
+                private String storeFilename;
+
+                public ImageFileDto(ImageFile imageFile) {
+                    this.id = imageFile.getId();
+                    this.storeFilename = imageFile.getStoreFilename();
+                }
+
+            }
+        }
+    }
 }

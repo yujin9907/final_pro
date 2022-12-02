@@ -1,8 +1,11 @@
 package site.metacoding.finals.web;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.finals.config.auth.PrincipalUser;
 import site.metacoding.finals.dto.ResponseDto;
 import site.metacoding.finals.dto.review.ReviewReqDto.TestReviewReqDto;
+import site.metacoding.finals.dto.review.ReviewRespDto.ReivewAllListRespDto;
 import site.metacoding.finals.dto.review.ReviewRespDto.ReviewSaveRespDto;
 import site.metacoding.finals.handler.ImageFileHandler;
 import site.metacoding.finals.service.ReviewService;
@@ -44,6 +48,12 @@ public class ReviewApiController {
                                 principalUser);
                 return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "베이스64 리뷰 저장 테스트", respDto),
                                 HttpStatus.CREATED);
+        }
+
+        @GetMapping("/review")
+        public ResponseEntity<?> listAllReview() {
+                List<ReivewAllListRespDto> respDto = reviewService.listAllReview();
+                return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "리뷰 전체보기", respDto), HttpStatus.OK);
         }
 
 }

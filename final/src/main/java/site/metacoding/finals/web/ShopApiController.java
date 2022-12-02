@@ -63,7 +63,6 @@ public class ShopApiController {
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "전체 가게 리스트 조회", shopList), HttpStatus.OK);
     }
 
-    // 리스폰스 dto 방식 얘만 다름
     @GetMapping("/shop/list/{categoryName}")
     public ResponseEntity<?> shopCategoryList(@PathVariable String categoryName) {
         List<ShopListRespDto> shopList = shopService.categoryList(categoryName);

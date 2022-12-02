@@ -41,11 +41,11 @@ public class Review extends AutoTime {
     @Column(nullable = false)
     private int score;
     private String content;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST) // 이거하면 저장 로직 때 shop, customer를 따로 추가 안해도 됨?
     @JoinColumn(name = "customer_id")
     @JsonIgnore
     private Customer customer;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "shop_id")
     @JsonIgnore
     private Shop shop;

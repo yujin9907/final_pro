@@ -1,6 +1,7 @@
 package site.metacoding.finals.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +21,12 @@ import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.dto.review.ReviewReqDto;
 import site.metacoding.finals.dto.review.ReviewReqDto.ReviewSaveReqDto;
 import site.metacoding.finals.dto.review.ReviewReqDto.TestReviewReqDto;
+import site.metacoding.finals.dto.review.ReviewRespDto.ReivewAllListRespDto;
 import site.metacoding.finals.dto.review.ReviewRespDto.ReviewSaveRespDto;
 import site.metacoding.finals.handler.ImageFileHandler;
 
 @Slf4j
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class ReviewService {
@@ -74,5 +77,11 @@ public class ReviewService {
 
                 return new ReviewSaveRespDto(review, images);
 
+        }
+
+        public List<ReivewAllListRespDto> listAllReview() {
+                List<Review> review = reviewRepository.findAll();
+
+                return review.stream().map((r) -> new ReivewAllListRespDto(r)).collect(Collectors.toList());
         }
 }

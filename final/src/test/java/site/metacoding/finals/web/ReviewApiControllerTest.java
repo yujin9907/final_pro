@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -102,5 +103,22 @@ public class ReviewApiControllerTest {
                 // then
                 resultActions.andExpect(MockMvcResultMatchers.status().isCreated());
 
+        }
+
+        @Test
+        public void 전체리뷰리스트보기테스트() throws Exception {
+                //
+                Long id = 1L;
+
+                //
+                ResultActions resultActions = mvc.perform(
+                                MockMvcRequestBuilders.get("/review")
+                                                .accept("application/json; charset=utf-8"));
+
+                String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+                log.debug(responseBody);
+
+                //
+                resultActions.andExpect(MockMvcResultMatchers.status().isOk());
         }
 }

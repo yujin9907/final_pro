@@ -28,8 +28,8 @@ public class Option extends AutoTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, length = 10)
-    private String name;
+    @Column(nullable = false, length = 10, unique = true)
+    private String optionName;
     @Column(nullable = false, length = 100)
     private String img;
 }

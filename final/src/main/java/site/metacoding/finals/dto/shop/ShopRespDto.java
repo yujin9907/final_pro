@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.option.Option;
+import site.metacoding.finals.domain.option_manage.OptionManage;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.handler.ImageFileHandler;
@@ -35,6 +36,7 @@ public class ShopRespDto {
         }
     }
 
+    // 가게 정보 저장
     @Setter
     @Getter
     public static class ShopInfoSaveRespDto {
@@ -48,11 +50,11 @@ public class ShopRespDto {
         private String closeTime;
         private int perPrice;
         private int perHour;
-        private List<FeatureDto> featureList;
+        private List<optionManageDto> optionManageList;
         private List<ImageFileDto> imageFiles;
         private UserDto user;
 
-        public ShopInfoSaveRespDto(Shop shop, List<Option> featureList, List<ImageFile> images) {
+        public ShopInfoSaveRespDto(Shop shop, List<OptionManage> optionManageList, List<ImageFile> images) {
             this.id = shop.getId();
             this.shopName = shop.getShopName();
             this.phoneNumber = shop.getPhoneNumber();
@@ -63,7 +65,7 @@ public class ShopRespDto {
             this.closeTime = shop.getCloseTime();
             this.perPrice = shop.getPerPrice();
             this.perHour = shop.getPerHour();
-            this.featureList = featureList.stream().map((feature) -> new FeatureDto(feature))
+            this.optionManageList = optionManageList.stream().map((om) -> new optionManageDto(om))
                     .collect(Collectors.toList());
             this.imageFiles = images.stream().map((image) -> new ImageFileDto(image)).collect(Collectors.toList());
             this.user = new UserDto(shop.getUser());
@@ -81,13 +83,15 @@ public class ShopRespDto {
         }
 
         @Getter
-        public class FeatureDto {
-            private long id;
-            private String name;
+        public class optionManageDto {
+            private Long id;
+            private Long shopId;
+            private Long optionId;
 
-            public FeatureDto(Option feature) {
-                this.id = feature.getId();
-                this.name = feature.getName();
+            public optionManageDto(OptionManage optionManage) {
+                this.id = optionManage.getId();
+                this.shopId = optionManage.getShop().getId();
+                this.optionId = optionManage.getOption().getId();
             }
         }
 

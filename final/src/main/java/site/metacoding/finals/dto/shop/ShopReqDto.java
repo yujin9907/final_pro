@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.finals.config.enums.Role;
 import site.metacoding.finals.domain.option.Option;
+import site.metacoding.finals.domain.option_manage.OptionManage;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.user.User;
 
@@ -39,7 +40,7 @@ public class ShopReqDto {
         private String closeTime;
         private int perPrice;
         private int perHour;
-        private List<String> featureNameList;
+        private List<Integer> optionList;
         private List<String> images;
 
         public Shop toInfoSaveEntity(User user) {
@@ -57,9 +58,10 @@ public class ShopReqDto {
                     .build();
         }
 
-        public Option toFeatureSaveEntity(String featureName, Shop shop) {
-            return Option.builder()
-                    .name(featureName)
+        public OptionManage toOptionManageEntity(Shop shop, Option option) {
+            return OptionManage.builder()
+                    .shop(shop)
+                    .option(option)
                     .build();
         }
     }

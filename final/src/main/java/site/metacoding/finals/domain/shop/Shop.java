@@ -62,6 +62,6 @@ public class Shop extends AutoTime {
     // null 방지 어케?
 
     @Column
-    private boolean isopen;
+    private boolean isOpened = Boolean.FALSE;
 
 }

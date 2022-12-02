@@ -37,7 +37,7 @@ public class ShopTable extends AutoTime {
     private Shop shop;
 
     @Column(nullable = false)
-    private Boolean isActive;
+    private Boolean isActive = Boolean.FALSE;
 
     // ShopTable 삭제 메서드
     public void deleteShopTable(Long id) {

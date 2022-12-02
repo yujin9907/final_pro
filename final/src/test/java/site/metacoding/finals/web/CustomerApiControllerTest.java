@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import javax.persistence.EntityManager;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,20 +19,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import site.metacoding.finals.domain.customer.Customer;
-import site.metacoding.finals.domain.customer.CustomerRepository;
-import site.metacoding.finals.domain.image_file.ImageFile;
-import site.metacoding.finals.domain.image_file.ImageFileRepository;
-import site.metacoding.finals.domain.reservation.Reservation;
-import site.metacoding.finals.domain.reservation.ReservationRepository;
-import site.metacoding.finals.domain.shop.Shop;
-import site.metacoding.finals.domain.shop.ShopRepository;
-import site.metacoding.finals.domain.shop_table.ShopTable;
-import site.metacoding.finals.domain.shop_table.ShopTableRepository;
-import site.metacoding.finals.domain.subscribe.Subscribe;
-import site.metacoding.finals.domain.subscribe.SubscribeRepository;
-import site.metacoding.finals.domain.user.User;
-import site.metacoding.finals.domain.user.UserRepository;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerJoinReqDto;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
 import site.metacoding.finals.dummy.DummyEntity;

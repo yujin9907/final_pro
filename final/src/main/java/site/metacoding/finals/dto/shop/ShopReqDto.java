@@ -59,7 +59,7 @@ public class ShopReqDto {
         public Feature toFeatureEntity(String featureName, Shop shop) {
             return Feature.builder()
                     .name(featureName)
-                    .shop(shop)
+                    // .shop(shop)
                     .build();
         }
     }

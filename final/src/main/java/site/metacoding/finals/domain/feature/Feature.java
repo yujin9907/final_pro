@@ -28,6 +28,9 @@ public class Feature extends AutoTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // private String name;
+    // private String img;
     @Column(nullable = false, length = 10)
     private String name;
     @ManyToOne(fetch = FetchType.LAZY)

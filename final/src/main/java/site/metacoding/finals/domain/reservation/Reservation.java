@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,7 +26,8 @@ import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.customer.Customer;
 import site.metacoding.finals.domain.shop_table.ShopTable;
 
-// isdeleted 옵션 구현해야됨
+@SQLDelete(sql = "UPDATE reservation SET is_deleted = true where id = ?")
+@Where(clause = "is_deleted = false") // 디폴트로 동작하는 쿼리
 @OnDelete(action = OnDeleteAction.CASCADE)
 @Builder
 @Getter

@@ -26,8 +26,8 @@ import site.metacoding.finals.domain.AutoTime;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.dto.customer.CustomerReqDto.CustomerUpdateReqDto;
 
-@SQLDelete(sql = "UPDATE customer SET is_deleted = true where id = ?")
-@Where(clause = "is_deleted = false") // 디폴트로 동작하는 쿼리
+@SQLDelete(sql = "UPDATE customer SET is_deleted = true WHERE id = ?")
+// @Where(clause = "is_deleted = false") // 디폴트로 동작하는 쿼리
 @EnableJpaAuditing
 @Builder
 @AllArgsConstructor

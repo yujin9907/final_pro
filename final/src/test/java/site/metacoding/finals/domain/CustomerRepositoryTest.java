@@ -1,5 +1,7 @@
 package site.metacoding.finals.domain;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.AfterEach;
@@ -67,7 +69,28 @@ public class CustomerRepositoryTest extends DummyEntity {
     }
 
     @Test
-    public void 테스트() {
+    public void 유저삭제_softdelete적용테스트() {
+        Optional<Customer> customerPS = customerRepository.findById(1L);
+
+        em.clear();
+
+        System.out.println(customerPS.get().getId());
+
+        customerRepository.delete(customerPS.get());
+
+        em.clear();
+
+        customerRepository.findById(customerPS.get().getId());
+    }
+
+    @Test
+    public void 유저삭제_softdelete적용테스트2() {
+        // em.clear();
+
+        customerRepository.deleteById(1l);
+        em.flush();
+
+        customerRepository.findById(1l).get().getIsDeleted();
 
     }
 

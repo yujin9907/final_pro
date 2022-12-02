@@ -60,7 +60,6 @@ public class ShopReqDto {
         public Option toFeatureSaveEntity(String featureName, Shop shop) {
             return Option.builder()
                     .name(featureName)
-                    .shop(shop)
                     .build();
         }
     }

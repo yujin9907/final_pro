@@ -59,9 +59,6 @@ public class Shop extends AutoTime {
     @JsonIgnore
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Option feature;
-
     @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
     private ImageFile imageFile = new ImageFile(null, null, null, null, null);
     // null 방지 어케?

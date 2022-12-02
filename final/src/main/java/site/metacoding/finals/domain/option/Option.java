@@ -22,7 +22,7 @@ import site.metacoding.finals.domain.shop.Shop;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-@Table(name = "feature")
+@Table(name = "option")
 @Entity
 public class Option extends AutoTime {
     @Id

@@ -58,28 +58,31 @@ public class ShopService {
         return new ShopJoinRespDto(userPS);
     }
 
-    @Transactional
-    public ShopInfoSaveRespDto saveInformation(ShopInfoSaveReqDto shopInfoSaveReqDto, User user) {
+    // @Transactional
+    // public ShopInfoSaveRespDto saveInformation(ShopInfoSaveReqDto
+    // shopInfoSaveReqDto, User user) {
 
-        // shop save
-        Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
+    // // shop save
+    // Shop shopPS = shopRepository.save(shopInfoSaveReqDto.toInfoSaveEntity(user));
 
-        // feature save
-        List<Option> featureList = new ArrayList<>();
-        for (String name : shopInfoSaveReqDto.getFeatureNameList()) {
-            Option feature = featureRepository.save(shopInfoSaveReqDto.toFeatureSaveEntity(name, shopPS));
-            featureList.add(feature);
-        }
+    // // feature save
+    // List<Option> featureList = new ArrayList<>();
+    // for (String name : shopInfoSaveReqDto.getFeatureNameList()) {
+    // Option feature =
+    // featureRepository.save(shopInfoSaveReqDto.toFeatureSaveEntity(name, shopPS));
+    // featureList.add(feature);
+    // }
 
-        // images save
-        List<ImageFile> images = imageFileHandler.storeFile(shopInfoSaveReqDto.getImages());
-        for (ImageFile img : images) {
-            img.setShop(shopPS);
-            imageFileRepository.save(img);
-        }
+    // // images save
+    // List<ImageFile> images =
+    // imageFileHandler.storeFile(shopInfoSaveReqDto.getImages());
+    // for (ImageFile img : images) {
+    // img.setShop(shopPS);
+    // imageFileRepository.save(img);
+    // }
 
-        return new ShopInfoSaveRespDto(shopPS, featureList, images);
-    }
+    // return new ShopInfoSaveRespDto(shopPS, featureList, images);
+    // }
 
     public List<ShopListRespDto> List() {
         // em.clear();
@@ -96,15 +99,15 @@ public class ShopService {
 
     }
 
-    public ShopDetailRespDto detatil(Long shopId) {
-        // 가게 정보
-        Shop shopPS = shopRepository.findById(shopId)
-                .orElseThrow(() -> new RuntimeException("잘못된 가게 요청"));
-        // 날짜 + 인원 => 예약 가능 시간 조회
+    // public ShopDetailRespDto detatil(Long shopId) {
+    // // 가게 정보
+    // Shop shopPS = shopRepository.findById(shopId)
+    // .orElseThrow(() -> new RuntimeException("잘못된 가게 요청"));
+    // // 날짜 + 인원 => 예약 가능 시간 조회
 
-        // 가게 특징
-        List<Option> featurePS = featureRepository.findByShopId(shopId);
+    // // 가게 특징
+    // List<Option> featurePS = featureRepository.findByShopId(shopId);
 
-        return new ShopDetailRespDto(shopPS, featurePS);
-    }
+    // return new ShopDetailRespDto(shopPS, featurePS);
+    // }
 }

@@ -58,14 +58,17 @@ public class ShopApiController {
     // }
 
     // shop 한 개 만 만들도록 제한 / respDto LAZY 로딩 안되도록 좀 더 정확히 만들어줘야 함
-    @PostMapping("/shop/information")
-    public ResponseEntity<?> saveInformation(@RequestBody ShopInfoSaveReqDto shopInfoSaveReqDto,
-            @AuthenticationPrincipal PrincipalUser principalUser) {
-        ShopInfoSaveRespDto shopInfoSaveRespDto = shopService.saveInformation(shopInfoSaveReqDto,
-                principalUser.getUser());
-        return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "가게 정보등록 완료", shopInfoSaveRespDto),
-                HttpStatus.CREATED);
-    }
+    // @PostMapping("/shop/information")
+    // public ResponseEntity<?> saveInformation(@RequestBody ShopInfoSaveReqDto
+    // shopInfoSaveReqDto,
+    // @AuthenticationPrincipal PrincipalUser principalUser) {
+    // ShopInfoSaveRespDto shopInfoSaveRespDto =
+    // shopService.saveInformation(shopInfoSaveReqDto,
+    // principalUser.getUser());
+    // return new ResponseEntity<>(new ResponseDto<>(HttpStatus.CREATED, "가게 정보등록
+    // 완료", shopInfoSaveRespDto),
+    // HttpStatus.CREATED);
+    // }
 
     // customer입장에서 보는 가게 기능
     // 네임, 주소, 전화번호, 오픈클로즈, 사진
@@ -82,9 +85,10 @@ public class ShopApiController {
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "카테고리별 가게 리스트 조회", shopList), HttpStatus.OK);
     }
 
-    @GetMapping("/shop/detail/{id}")
-    public ResponseEntity<?> shopDetail(@PathVariable Long id) {
-        ShopDetailRespDto dto = shopService.detatil(id);
-        return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "가게 상세보기 조회", dto), HttpStatus.OK);
-    }
+    // @GetMapping("/shop/detail/{id}")
+    // public ResponseEntity<?> shopDetail(@PathVariable Long id) {
+    // ShopDetailRespDto dto = shopService.detatil(id);
+    // return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "가게 상세보기 조회",
+    // dto), HttpStatus.OK);
+    // }
 }

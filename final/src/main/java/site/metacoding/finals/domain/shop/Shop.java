@@ -59,4 +59,7 @@ public class Shop extends AutoTime {
     @JoinColumn(name = "user_id")
     // @JsonIgnore
     private User user;
+
+    @Column
+    private boolean isopen;
 }

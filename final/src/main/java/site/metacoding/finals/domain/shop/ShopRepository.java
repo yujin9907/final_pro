@@ -1,12 +1,15 @@
 package site.metacoding.finals.domain.shop;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ShopRepository extends JpaRepository<Shop, Long> {
+
+        Optional<Shop> findByUserId(Long userId);
 
         @Query("select s from Shop s where s.category = :category")
         List<Shop> findByCategory(@Param("category") String category);

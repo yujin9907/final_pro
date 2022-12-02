@@ -71,10 +71,14 @@ public class CustomerService {
     }
 
     public void delete(PrincipalUser principalUser) {
+        log.debug("디버그 : " + principalUser.getUsername());
+        log.debug("디버그 : " + principalUser.getUser().getId());
+
         Customer customerPS = customerRepository.findByUserId(principalUser.getUser().getId())
                 .orElseThrow(() -> new RuntimeException("회원 정보 없음"));
 
         customerRepository.deleteById(customerPS.getId());
+        userRepository.deleteById(principalUser.getUser().getId());
 
     }
 

@@ -49,7 +49,7 @@ public class CustomerApiController {
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.ACCEPTED, "회원정보수정 완료", dto), HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/customer")
+    @DeleteMapping("/auth/user/customer")
     public ResponseEntity<?> deleteCustomerApi(@AuthenticationPrincipal PrincipalUser principalUser) {
         customerService.delete(principalUser);
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.ACCEPTED, "회원 삭제", null), HttpStatus.ACCEPTED);

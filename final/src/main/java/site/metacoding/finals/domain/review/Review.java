@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.SQLDelete;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,6 +33,7 @@ import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.shop.Shop;
 
 // isdeleted 옵션 구현해야됨
+@SQLDelete(sql = "UPDATE review SET is_deleted = true WHERE id = ?")
 @OnDelete(action = OnDeleteAction.CASCADE)
 @Getter
 @AllArgsConstructor

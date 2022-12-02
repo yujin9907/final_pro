@@ -1,5 +1,6 @@
 package site.metacoding.finals.domain;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -27,7 +28,7 @@ import site.metacoding.finals.dummy.DummyEntity;
 @Slf4j
 @DataJpaTest
 @ActiveProfiles("test")
-public class CustomerRepositoryTest extends DummyEntity {
+public class UserRepositoryTest extends DummyEntity {
 
     @Autowired
     private EntityManager em;
@@ -45,6 +46,8 @@ public class CustomerRepositoryTest extends DummyEntity {
 
     @BeforeEach
     public void setUp() {
+        User user2 = newUserIgnore();
+        userRepository.save(user2);
         User user = newUser("ssar");
         userRepository.save(user);
         Customer customer = newCustomer(user);
@@ -69,31 +72,14 @@ public class CustomerRepositoryTest extends DummyEntity {
     }
 
     @Test
-    public void 유저삭제_softdelete적용테스트() {
-        Optional<Customer> customerPS = customerRepository.findById(1L);
+    public void user_softdelete_ignore적용테스트() {
+        List<User> user = userRepository.findByIgnoreAll();
 
-        em.clear();
+        log.debug("디버그 : " + user.size());
 
-        System.out.println(customerPS.get().getId());
+        List<User> usernone = userRepository.findAll();
 
-        customerRepository.delete(customerPS.get());
-
-        em.clear();
-
-        customerRepository.findById(customerPS.get().getId());
-    }
-
-    @Test
-    public void 유저삭제_softdelete적용테스트2() {
-        em.clear();
-        customerRepository.findById(1L);
-
-        customerRepository.deleteById(1l);
-        em.flush();
-
-        // 이게 null 나오는 게 맞음. @where 적용으로 인해
-        // customerRepository.findById(1l).get().getIsDeleted();
-
+        log.debug("디버그 : " + usernone.size());
     }
 
 }

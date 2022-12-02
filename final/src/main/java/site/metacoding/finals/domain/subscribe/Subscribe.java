@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

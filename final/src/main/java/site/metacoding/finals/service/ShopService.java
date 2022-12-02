@@ -1,6 +1,5 @@
 package site.metacoding.finals.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,22 +9,18 @@ import javax.transaction.Transactional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.finals.domain.feature.Feature;
 import site.metacoding.finals.domain.feature.FeatureRepository;
-import site.metacoding.finals.domain.image_file.ImageFile;
 import site.metacoding.finals.domain.image_file.ImageFileRepository;
 import site.metacoding.finals.domain.shop.Shop;
 import site.metacoding.finals.domain.shop.ShopRepository;
 import site.metacoding.finals.domain.user.User;
 import site.metacoding.finals.domain.user.UserRepository;
-import site.metacoding.finals.dto.shop.ShopReqDto.ShopInfoSaveReqDto;
 import site.metacoding.finals.dto.shop.ShopReqDto.ShopJoinReqDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopDetailRespDto;
-import site.metacoding.finals.dto.shop.ShopRespDto.ShopInfoSaveRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopJoinRespDto;
 import site.metacoding.finals.dto.shop.ShopRespDto.ShopListRespDto;
 import site.metacoding.finals.handler.ImageFileHandler;

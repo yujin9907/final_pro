@@ -15,11 +15,21 @@ public abstract class DummyEntity {
     // 함부로 사용할 수 없도록 protected 설정(상속시에만 사용할 수 있고 new 안됨)
     // abstract 붙이면 new도 안되므로 더 안전
 
+    protected User newUserIgnore() {
+        return User.builder()
+                .username("ignore")
+                .password("123")
+                .role(Role.USER)
+                .isDeleted(true)
+                .build();
+    }
+
     protected User newUser(String username) {
         return User.builder()
                 .username(username)
                 .password("123")
                 .role(Role.USER)
+                .isDeleted(false)
                 .build();
     }
 

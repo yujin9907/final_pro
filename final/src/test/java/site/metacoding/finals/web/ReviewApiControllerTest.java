@@ -92,7 +92,7 @@ public class ReviewApiControllerTest {
                 String body = om.writeValueAsString(reqDtodata);
 
                 // when
-                ResultActions resultActions = mvc.perform(post("/test/review")
+                ResultActions resultActions = mvc.perform(post("/auth/user/test/review")
                                 .content(body)
                                 .contentType("application/json; charset=utf-8")
                                 .accept("application/json; charset=utf-8"));

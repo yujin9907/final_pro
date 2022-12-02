@@ -12,8 +12,8 @@ truncate table subscribe;
 truncate table users;
 SET REFERENTIAL_INTEGRITY TRUE;
 
-insert into users(username, password, role, created_at) values ('ssar', '$2a$10$sPyqasyfpVYeHDVrtRcXKelXutSQobLuWzf32BXmQvnLTMbddkIwy', 'USER', now());
-insert into users(username, password, role, created_at) values ('cos', '$2a$10$sPyqasyfpVYeHDVrtRcXKelXutSQobLuWzf32BXmQvnLTMbddkIwy', 'SHOP', now());
+insert into users(username, password, role, is_deleted,  created_at) values ('ssar', '$2a$10$sPyqasyfpVYeHDVrtRcXKelXutSQobLuWzf32BXmQvnLTMbddkIwy', 'USER', false, now());
+insert into users(username, password, role, is_deleted,  created_at) values ('cos', '$2a$10$sPyqasyfpVYeHDVrtRcXKelXutSQobLuWzf32BXmQvnLTMbddkIwy', 'SHOP', false, now());
 
 
 insert into shop(category, address, close_time, information, open_time, per_hour, per_price, phone_number, shop_name, user_id, is_opened, created_at)

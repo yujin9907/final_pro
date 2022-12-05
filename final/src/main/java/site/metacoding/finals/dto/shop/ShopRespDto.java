@@ -154,12 +154,12 @@ public class ShopRespDto {
     @Setter
     public static class ShopDetailRespDto {
         private Shop shop;
-        private List<Option> feature;
+        private List<Long> option;
 
         // 예약 가능 시간 정보
-        public ShopDetailRespDto(Shop shop, List<Option> feature) {
+        public ShopDetailRespDto(Shop shop, List<Long> optionList) {
             this.shop = shop;
-            this.feature = feature;
+            this.option = optionList;
         }
 
     }

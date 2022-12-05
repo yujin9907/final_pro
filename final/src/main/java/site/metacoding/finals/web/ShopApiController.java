@@ -66,10 +66,10 @@ public class ShopApiController {
         return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "카테고리별 가게 리스트 조회", shopList), HttpStatus.OK);
     }
 
-    // @GetMapping("/shop/detail/{id}")
-    // public ResponseEntity<?> shopDetail(@PathVariable Long id) {
-    // ShopDetailRespDto dto = shopService.detatil(id);
-    // return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "가게 상세보기 조회",
-    // dto), HttpStatus.OK);
-    // }
+    @GetMapping("/shop/detail/{id}")
+    public ResponseEntity<?> shopDetail(@PathVariable Long id) {
+        ShopDetailRespDto dto = shopService.detatil(id);
+        return new ResponseEntity<>(new ResponseDto<>(HttpStatus.OK, "가게 상세보기 조회",
+                dto), HttpStatus.OK);
+    }
 }

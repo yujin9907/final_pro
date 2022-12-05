@@ -101,6 +101,7 @@ public class ShopService {
 
     }
 
+    @Transactional
     public ShopDetailRespDto detatil(Long shopId) {
         // 가게 정보
         Shop shopPS = shopRepository.findById(shopId)
@@ -108,13 +109,12 @@ public class ShopService {
         // 날짜 + 인원 => 예약 가능 시간 조회
 
         // 가게 특징
-        // List<OptionManage> optionMangeList =
-        // optionManageRepository.findByShopId(shopId);
-        // for (OptionManage optionManage : optionMangeList) {
-        // List<Option> optionPS =
-        // optionRepository.findById(optionManage.getOption().getId());
+        List<Long> optionList = optionManageRepository.findByShopIdToOptionId(shopId);
+        // List<Integer> optionPS = new ArrayList<>();
+        // for (Option option : optionList) {
+        // optionPS.add(option.getId().intValue());
         // }
 
-        // return new ShopDetailRespDto(shopPS, optionPS);
+        return new ShopDetailRespDto(shopPS, optionList);
     }
 }
